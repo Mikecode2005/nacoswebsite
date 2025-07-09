@@ -1,12 +1,18 @@
-import { Menu, Shield } from "lucide-react";
+import { Menu, Shield, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  
   const navItems = [
-    { label: "BLOG", href: "#blog" },
-    { label: "PAST QUESTIONS", href: "#past-questions" },
-    { label: "QUIZZES", href: "#quizzes" },
+    { label: "BLOG", href: "/blog" },
+    { label: "PAST QUESTIONS", href: "/past-questions" },
+    { label: "QUIZZES", href: "/quizzes" },
+    { label: "DASHBOARD", href: "/dashboard" },
   ];
 
   return (
@@ -25,17 +31,48 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-primary-foreground font-medium hover:text-hero-accent transition-colors"
+          <div className="hidden md:flex items-center space-x-8">
+            <nav className="flex items-center space-x-6">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-primary-foreground font-medium hover:text-hero-accent transition-colors text-sm"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+            
+            {/* Auth Section */}
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
+                  <User className="h-4 w-4 text-primary-foreground" />
+                  <span className="text-sm text-primary-foreground">{user.email}</span>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={signOut}
+                  className="text-primary-foreground hover:text-hero-accent hover:bg-primary-foreground/10"
+                >
+                  <LogOut className="h-4 w-4 mr-1" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate("/auth")}
+                className="text-primary-foreground hover:text-hero-accent hover:bg-primary-foreground/10"
               >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+                <User className="h-4 w-4 mr-1" />
+                Sign In
+              </Button>
+            )}
+          </div>
 
           {/* Mobile Menu */}
           <Sheet>
@@ -59,6 +96,34 @@ const Header = () => {
                     {item.label}
                   </a>
                 ))}
+                
+                {/* Mobile Auth */}
+                <div className="pt-6 border-t border-primary-foreground/20">
+                  {user ? (
+                    <div className="space-y-4">
+                      <div className="text-primary-foreground text-sm">
+                        Signed in as: {user.email}
+                      </div>
+                      <Button
+                        variant="ghost"
+                        onClick={signOut}
+                        className="w-full text-primary-foreground hover:text-hero-accent hover:bg-primary-foreground/10"
+                      >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate("/auth")}
+                      className="w-full text-primary-foreground hover:text-hero-accent hover:bg-primary-foreground/10"
+                    >
+                      <User className="h-4 w-4 mr-2" />
+                      Sign In
+                    </Button>
+                  )}
+                </div>
               </nav>
             </SheetContent>
           </Sheet>
