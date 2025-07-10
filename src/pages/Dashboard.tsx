@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DashboardSections from "@/components/dashboard/DashboardSections";
+import QuizScoreboard from "@/components/QuizScoreboard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Settings, BookOpen, Trophy, Users, GraduationCap } from "lucide-react";
 
@@ -136,6 +137,11 @@ const Dashboard = () => {
 
         {/* Dashboard Sections */}
         <DashboardSections />
+        
+        {/* Quiz Scoreboard */}
+        <section>
+          <QuizScoreboard />
+        </section>
       </main>
 
       <Footer />

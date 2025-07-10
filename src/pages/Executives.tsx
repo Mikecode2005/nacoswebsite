@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
@@ -70,11 +70,11 @@ const Executives = () => {
     },
     {
       id: '2',
-      name: 'Sarah Okafor',
-      position: 'Vice President 🌟',
-      bio: 'Passionate about fostering collaboration and growth within the tech community. Specializes in cybersecurity and data science.',
-      email: 'vp@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/sarah-okafor',
+      name: 'Ogunmola Michael',
+      position: 'Executive Chairman 🌟',
+      bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
+      email: 'chairman@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/ogunmola-michael',
       image_url: '',
       order_index: 2,
       created_at: '2024-01-01'
@@ -147,16 +147,20 @@ const Executives = () => {
           {displayExecutives.map((executive) => (
             <Card key={executive.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
               <CardHeader className="text-center">
-                <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  {executive.position.includes('President') && <Crown className="h-12 w-12 text-primary" />}
-                  {executive.position.includes('Vice') && <Star className="h-12 w-12 text-accent" />}
-                  {!executive.position.includes('President') && !executive.position.includes('Vice') && (
-                    <Users className="h-12 w-12 text-primary" />
-                  )}
-                </div>
-                <CardTitle className="text-xl text-primary mb-2">
-                  {executive.name}
-                </CardTitle>
+                <Link to={`/executives/${executive.id}`} className="block">
+                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    {executive.position.includes('President') && <Crown className="h-12 w-12 text-primary" />}
+                    {executive.position.includes('Chairman') && <Star className="h-12 w-12 text-accent" />}
+                    {!executive.position.includes('President') && !executive.position.includes('Chairman') && (
+                      <Users className="h-12 w-12 text-primary" />
+                    )}
+                  </div>
+                </Link>
+                <Link to={`/executives/${executive.id}`}>
+                  <CardTitle className="text-xl text-primary mb-2 hover:text-primary/80 transition-colors cursor-pointer">
+                    {executive.name}
+                  </CardTitle>
+                </Link>
                 <div className="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm font-medium">
                   {executive.position}
                 </div>
