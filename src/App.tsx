@@ -15,6 +15,9 @@ import Sports from "./pages/Sports";
 import Executives from "./pages/Executives";
 import ExecutiveProfile from "./pages/ExecutiveProfile";
 import Lecturers from "./pages/Lecturers";
+import HallOfFame from "./pages/HallOfFame";
+import Tutors from "./pages/Tutors";
+import TechGiants from "./pages/TechGiants";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +41,9 @@ const App = () => (
             <Route path="/executives" element={<Executives />} />
             <Route path="/executives/:id" element={<ExecutiveProfile />} />
             <Route path="/lecturers" element={<Lecturers />} />
+            <Route path="/hall-of-fame" element={<HallOfFame />} />
+            <Route path="/tutors" element={<Tutors />} />
+            <Route path="/tech-giants" element={<TechGiants />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
