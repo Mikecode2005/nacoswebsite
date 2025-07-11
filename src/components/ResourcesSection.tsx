@@ -34,7 +34,7 @@ const ResourcesSection = () => {
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold text-primary mb-8">Learning Resources</h2>
+            <h2 className="text-4xl font-bold text-primary mb-8">Student Excellence Hub</h2>
             <div className="grid sm:grid-cols-2 gap-4">
               <Link to="/hall-of-fame">
                 <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-primary/5 border-primary/20">
