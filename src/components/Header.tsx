@@ -9,6 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   
   const navItems = [
+    { label: "HOME", href: "/" },
     { label: "BLOG", href: "/blog" },
     { label: "PAST QUESTIONS", href: "/past-questions" },
     { label: "QUIZZES", href: "/quizzes" },
@@ -20,13 +21,16 @@ const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <div 
+            className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/")}
+          >
             <div className="p-2 bg-primary-foreground/10 rounded-lg border border-primary-foreground/20">
               <Shield className="h-6 w-6 text-primary-foreground" />
             </div>
-            <div className="text-primary-foreground">
+            <div className="text-primary-foreground font-orbitron">
               <div className="font-bold text-lg">NACOS</div>
-              <div className="text-xs opacity-80">JABU CHAPTER</div>
+              <div className="text-xs opacity-80 font-exo">JABU CHAPTER</div>
             </div>
           </div>
 
@@ -37,7 +41,7 @@ const Header = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-primary-foreground font-medium hover:text-hero-accent transition-colors text-sm"
+                  className="text-primary-foreground font-medium hover:text-hero-accent transition-colors text-sm font-rajdhani tracking-wide"
                 >
                   {item.label}
                 </a>

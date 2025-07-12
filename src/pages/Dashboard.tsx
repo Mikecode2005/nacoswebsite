@@ -1,27 +1,68 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import DashboardSections from "@/components/dashboard/DashboardSections";
+import StatsCards from "@/components/dashboard/StatsCards";
+import ActivityChart from "@/components/dashboard/ActivityChart";
+import NavigationCards from "@/components/dashboard/NavigationCards";
 import QuizScoreboard from "@/components/QuizScoreboard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Settings, BookOpen, Trophy, Users, GraduationCap } from "lucide-react";
+import { User, Sparkles, TrendingUp } from "lucide-react";
 
 const Dashboard = () => {
   const { user, userRole, loading } = useAuth();
   const navigate = useNavigate();
+  
+  const [dashboardStats, setDashboardStats] = useState({
+    totalUsers: 0,
+    totalBlogs: 0,
+    totalQuizzes: 0,
+    userBlogCount: 5, // Mock data for demo
+    userQuizAttempts: 12,
+    weeklyActivity: 78,
+    achievementRate: 85,
+    studyStreak: 14,
+  });
+  const [loadingStats, setLoadingStats] = useState(true);
 
   useEffect(() => {
     if (!loading && !user) {
       navigate("/auth");
+    } else if (user) {
+      fetchDashboardData();
     }
   }, [user, loading, navigate]);
 
+  const fetchDashboardData = async () => {
+    try {
+      const [usersRes, blogsRes, quizzesRes] = await Promise.all([
+        supabase.from("profiles").select("id", { count: 'exact' }),
+        supabase.from("blog_posts").select("id", { count: 'exact' }),
+        supabase.from("quizzes").select("id", { count: 'exact' })
+      ]);
+
+      setDashboardStats(prev => ({
+        ...prev,
+        totalUsers: usersRes.count || 0,
+        totalBlogs: blogsRes.count || 0,
+        totalQuizzes: quizzesRes.count || 0,
+      }));
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setLoadingStats(false);
+    }
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-primary/5 to-accent/10">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-lg font-exo text-muted-foreground">Loading your dashboard...</p>
+        </div>
       </div>
     );
   }
@@ -31,117 +72,68 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
+        {/* Enhanced Welcome Section */}
         <div className="mb-8">
-          <Card className="bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center text-2xl text-primary">
-                <User className="h-6 w-6 mr-2" />
-                Welcome to NACOS Dashboard! 🚀
+          <Card className="bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 border-primary/20 relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full transform translate-x-16 -translate-y-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 rounded-full transform -translate-x-12 translate-y-12"></div>
+            
+            <CardHeader className="relative z-10">
+              <CardTitle className="flex items-center text-3xl text-primary font-orbitron">
+                <Sparkles className="h-8 w-8 mr-3 text-hero-accent" />
+                Welcome to NACOS Dashboard!
               </CardTitle>
-              <p className="text-muted-foreground">
-                Hello <span className="font-semibold text-primary">{user.email}</span>! 
-                You're logged in as a <span className="font-semibold text-accent">{userRole}</span>. 
-                Explore all the amazing features below! ✨
+              <p className="text-muted-foreground font-exo text-lg">
+                Hello <span className="font-semibold text-primary font-rajdhani">{user.email}</span>! 
+                You're logged in as a <span className="font-semibold text-accent font-rajdhani">{userRole}</span>. 
+                Ready to explore the future of computer science? 🚀
               </p>
             </CardHeader>
-            <CardContent>
+            <CardContent className="relative z-10">
+              <div className="flex items-center text-sm text-muted-foreground font-exo">
+                <TrendingUp className="h-4 w-4 mr-2 text-hero-accent" />
+                <span>Your learning journey continues here</span>
+              </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Quick Actions Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <Card 
-            className="cursor-pointer hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5 hover:bg-primary/10"
-            onClick={() => navigate("/blog")}
-          >
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-primary/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <BookOpen className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="font-bold text-lg text-primary mb-2">Tech Blog 📝</h3>
-              <p className="text-muted-foreground text-sm">Share your tech knowledge and insights</p>
-            </CardContent>
-          </Card>
+        {/* Enhanced Stats Cards */}
+        <StatsCards stats={dashboardStats} loading={loadingStats} />
 
-          <Card 
-            className="cursor-pointer hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5 hover:bg-primary/10"
-            onClick={() => navigate("/past-questions")}
-          >
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-accent/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <Settings className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="font-bold text-lg text-primary mb-2">Past Questions 📚</h3>
-              <p className="text-muted-foreground text-sm">Access previous exam materials</p>
-            </CardContent>
-          </Card>
+        {/* Navigation Cards */}
+        <NavigationCards userRole={userRole} />
 
-          <Card 
-            className="cursor-pointer hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5 hover:bg-primary/10"
-            onClick={() => navigate("/quizzes")}
-          >
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-secondary/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <Trophy className="h-8 w-8 text-secondary" />
-              </div>
-              <h3 className="font-bold text-lg text-primary mb-2">Quizzes 🧠</h3>
-              <p className="text-muted-foreground text-sm">Test your programming skills</p>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="cursor-pointer hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5 hover:bg-primary/10"
-            onClick={() => navigate("/sports")}
-          >
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-accent/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <Trophy className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="font-bold text-lg text-primary mb-2">Sports Hub ⚽</h3>
-              <p className="text-muted-foreground text-sm">Join sports activities and events</p>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="cursor-pointer hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5 hover:bg-primary/10"
-            onClick={() => navigate("/executives")}
-          >
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-primary/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <Users className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="font-bold text-lg text-primary mb-2">Executives 👥</h3>
-              <p className="text-muted-foreground text-sm">Meet our leadership team</p>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="cursor-pointer hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5 hover:bg-primary/10"
-            onClick={() => navigate("/lecturers")}
-          >
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-secondary/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <GraduationCap className="h-8 w-8 text-secondary" />
-              </div>
-              <h3 className="font-bold text-lg text-primary mb-2">Lecturers 🎓</h3>
-              <p className="text-muted-foreground text-sm">Connect with our academic staff</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Dashboard Sections */}
-        <DashboardSections />
+        {/* Activity Charts */}
+        <ActivityChart />
         
         {/* Quiz Scoreboard */}
-        <section>
+        <section className="mb-8">
           <QuizScoreboard />
         </section>
+
+        {/* Achievement Badge */}
+        <Card className="bg-gradient-to-r from-hero-accent/10 to-primary/10 border-hero-accent/20 text-center">
+          <CardContent className="p-8">
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 bg-hero-accent/20 rounded-full flex items-center justify-center">
+                <Sparkles className="h-8 w-8 text-hero-accent" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-hero-accent mb-2 font-rajdhani">
+              Keep up the great work! 🎯
+            </h3>
+            <p className="text-muted-foreground font-exo">
+              You're making excellent progress in your computer science journey. 
+              Continue exploring and learning! 💫
+            </p>
+          </CardContent>
+        </Card>
       </main>
 
       <Footer />

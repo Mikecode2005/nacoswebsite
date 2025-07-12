@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -152,66 +154,103 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-primary mb-4">
-            {userRole === 'superadmin' ? 'Super Admin' : 'Admin'} Dashboard 🛡️
+    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10">
+      <Header />
+      <div className="max-w-7xl mx-auto p-6 space-y-8">
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-bold text-primary mb-4 font-orbitron">
+            {userRole === 'superadmin' ? 'Super Admin' : 'Admin'} Command Center 🛡️
           </h1>
-          <p className="text-muted-foreground">
-            Manage the NACOS platform with powerful admin tools
+          <p className="text-muted-foreground font-exo text-lg">
+            Advanced platform management and analytics dashboard
           </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mt-4 rounded-full"></div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-6 text-center">
-              <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-primary">
+        {/* Enhanced Stats Grid with Circular Progress */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/10 to-primary/5 hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-full transform translate-x-8 -translate-y-8"></div>
+              <Users className="h-12 w-12 text-primary mx-auto mb-4 relative z-10" />
+              <h3 className="text-3xl font-bold text-primary font-orbitron">
                 {loadingStats ? "..." : stats.totalUsers}
               </h3>
-              <p className="text-muted-foreground">Total Users 👥</p>
+              <p className="text-muted-foreground font-exo">Total Users 👥</p>
+              <div className="mt-3 w-full bg-primary/20 rounded-full h-2">
+                <div 
+                  className="bg-primary h-2 rounded-full transition-all duration-1000" 
+                  style={{ width: `${Math.min((stats.totalUsers / 100) * 100, 100)}%` }}
+                ></div>
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="border-accent/20 bg-accent/5">
-            <CardContent className="p-6 text-center">
-              <FileText className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-accent">
+          <Card className="border-accent/20 bg-gradient-to-br from-accent/10 to-accent/5 hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-accent/10 rounded-full transform translate-x-8 -translate-y-8"></div>
+              <FileText className="h-12 w-12 text-accent mx-auto mb-4 relative z-10" />
+              <h3 className="text-3xl font-bold text-accent font-orbitron">
                 {loadingStats ? "..." : stats.totalBlogs}
               </h3>
-              <p className="text-muted-foreground">Blog Posts 📝</p>
+              <p className="text-muted-foreground font-exo">Blog Posts 📝</p>
+              <div className="mt-3 w-full bg-accent/20 rounded-full h-2">
+                <div 
+                  className="bg-accent h-2 rounded-full transition-all duration-1000" 
+                  style={{ width: `${Math.min((stats.totalBlogs / 50) * 100, 100)}%` }}
+                ></div>
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="border-secondary/20 bg-secondary/5">
-            <CardContent className="p-6 text-center">
-              <Trophy className="h-12 w-12 text-secondary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-secondary">
+          <Card className="border-secondary/20 bg-gradient-to-br from-secondary/10 to-secondary/5 hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-secondary/10 rounded-full transform translate-x-8 -translate-y-8"></div>
+              <Trophy className="h-12 w-12 text-secondary mx-auto mb-4 relative z-10" />
+              <h3 className="text-3xl font-bold text-secondary font-orbitron">
                 {loadingStats ? "..." : stats.totalQuizzes}
               </h3>
-              <p className="text-muted-foreground">Quizzes 🧠</p>
+              <p className="text-muted-foreground font-exo">Quizzes 🧠</p>
+              <div className="mt-3 w-full bg-secondary/20 rounded-full h-2">
+                <div 
+                  className="bg-secondary h-2 rounded-full transition-all duration-1000" 
+                  style={{ width: `${Math.min((stats.totalQuizzes / 30) * 100, 100)}%` }}
+                ></div>
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-6 text-center">
-              <BookOpen className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-primary">
+          <Card className="border-hero-accent/20 bg-gradient-to-br from-hero-accent/10 to-hero-accent/5 hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-hero-accent/10 rounded-full transform translate-x-8 -translate-y-8"></div>
+              <BookOpen className="h-12 w-12 text-hero-accent mx-auto mb-4 relative z-10" />
+              <h3 className="text-3xl font-bold text-hero-accent font-orbitron">
                 {loadingStats ? "..." : stats.totalMaterials}
               </h3>
-              <p className="text-muted-foreground">Materials 📚</p>
+              <p className="text-muted-foreground font-exo">Materials 📚</p>
+              <div className="mt-3 w-full bg-hero-accent/20 rounded-full h-2">
+                <div 
+                  className="bg-hero-accent h-2 rounded-full transition-all duration-1000" 
+                  style={{ width: `${Math.min((stats.totalMaterials / 20) * 100, 100)}%` }}
+                ></div>
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="border-accent/20 bg-accent/5">
-            <CardContent className="p-6 text-center">
-              <GraduationCap className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-accent">
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/10 to-accent/10 hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-full transform translate-x-8 -translate-y-8"></div>
+              <GraduationCap className="h-12 w-12 text-primary mx-auto mb-4 relative z-10" />
+              <h3 className="text-3xl font-bold text-primary font-orbitron">
                 {loadingStats ? "..." : stats.totalAttempts}
               </h3>
-              <p className="text-muted-foreground">Quiz Attempts 📊</p>
+              <p className="text-muted-foreground font-exo">Quiz Attempts 📊</p>
+              <div className="mt-3 w-full bg-primary/20 rounded-full h-2">
+                <div 
+                  className="bg-primary h-2 rounded-full transition-all duration-1000" 
+                  style={{ width: `${Math.min((stats.totalAttempts / 200) * 100, 100)}%` }}
+                ></div>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -286,6 +325,7 @@ const AdminDashboard = () => {
           </Card>
         )}
       </div>
+      <Footer />
     </div>
   );
 };
