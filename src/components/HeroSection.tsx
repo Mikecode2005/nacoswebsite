@@ -14,12 +14,21 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-primary-foreground">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-orbitron font-bold leading-tight mb-6">
               WELCOME TO <span className="text-hero-accent">NACOS</span>
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl mb-8 opacity-90 max-w-lg">
+            <p className="text-lg sm:text-xl lg:text-2xl mb-8 opacity-90 max-w-lg font-exo">
               NIGERIAN ASSOCIATION OF COMPUTER SCIENCE STUDENTS
             </p>
+            
+            {/* Circular Picture Frame */}
+            <div className="mt-8 mb-8">
+              <div className="w-32 h-32 mx-auto lg:mx-0 rounded-full border-4 border-hero-accent bg-hero-accent/10 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-hero-accent/20 to-hero-accent/40 flex items-center justify-center">
+                  <span className="text-hero-accent font-rajdhani font-bold text-lg">LOGO</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right Illustration */}
