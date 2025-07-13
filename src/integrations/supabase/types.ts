@@ -44,6 +44,45 @@ export type Database = {
         }
         Relationships: []
       }
+      events: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          event_date: string
+          id: string
+          image_url: string | null
+          location: string | null
+          registration_link: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          event_date: string
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          registration_link?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          event_date?: string
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          registration_link?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       executives: {
         Row: {
           bio: string | null
@@ -104,6 +143,42 @@ export type Database = {
           id?: string
           image_url?: string
           title?: string
+        }
+        Relationships: []
+      }
+      learning_resources: {
+        Row: {
+          created_at: string
+          description: string | null
+          file_url: string | null
+          id: string
+          resource_type: string
+          subject: string | null
+          title: string
+          updated_at: string
+          uploaded_by: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          resource_type?: string
+          subject?: string | null
+          title: string
+          updated_at?: string
+          uploaded_by: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          resource_type?: string
+          subject?: string | null
+          title?: string
+          updated_at?: string
+          uploaded_by?: string
         }
         Relationships: []
       }

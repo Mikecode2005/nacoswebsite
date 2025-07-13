@@ -1,12 +1,26 @@
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const BlogSection = () => {
   return (
-    <section id="blog" className="py-16 bg-section-bg">
+    <section id="blog" className="py-16 bg-gradient-to-br from-muted/20 to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-primary mb-12">Blog</h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-bold font-orbitron mb-4 bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
+            Latest Blog Posts
+          </h2>
+          <p className="text-muted-foreground font-exo text-lg max-w-2xl mx-auto">
+            Stay updated with the latest insights, tutorials, and tech trends from our community
+          </p>
+        </motion.div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card className="group hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5">
@@ -114,6 +128,23 @@ const BlogSection = () => {
             </CardContent>
           </Card>
         </div>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-12"
+        >
+          <Button 
+            asChild 
+            className="bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 font-rajdhani font-semibold"
+          >
+            <Link to="/blog">
+              View All Blog Posts
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

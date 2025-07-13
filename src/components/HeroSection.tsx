@@ -1,4 +1,5 @@
 import { Monitor } from "lucide-react";
+import TypewriterText from "./TypewriterText";
 
 const HeroSection = () => {
   return (
@@ -14,9 +15,11 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-primary-foreground">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-orbitron font-bold leading-tight mb-6">
-              WELCOME TO <span className="text-hero-accent">NACOS</span>
-            </h1>
+            <TypewriterText 
+              text="WELCOME TO NACOS"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-orbitron font-bold leading-tight mb-6 text-hero-accent"
+              speed={120}
+            />
             <p className="text-lg sm:text-xl lg:text-2xl mb-8 opacity-90 max-w-lg font-exo">
               NIGERIAN ASSOCIATION OF COMPUTER SCIENCE STUDENTS
             </p>
