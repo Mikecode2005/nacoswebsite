@@ -44,6 +44,42 @@ export type Database = {
         }
         Relationships: []
       }
+      complaints: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          reported_executive_id: string | null
+          status: string
+          subject: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          reported_executive_id?: string | null
+          status?: string
+          subject: string
+          type?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          reported_executive_id?: string | null
+          status?: string
+          subject?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
@@ -143,6 +179,57 @@ export type Database = {
           id?: string
           image_url?: string
           title?: string
+        }
+        Relationships: []
+      }
+      hall_of_fame: {
+        Row: {
+          achievement: string
+          bio: string | null
+          category: string
+          created_at: string
+          department: string | null
+          gpa: string | null
+          id: string
+          image_url: string | null
+          name: string
+          project: string | null
+          rank_position: number
+          specialization: string | null
+          updated_at: string
+          year: string
+        }
+        Insert: {
+          achievement: string
+          bio?: string | null
+          category?: string
+          created_at?: string
+          department?: string | null
+          gpa?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          project?: string | null
+          rank_position?: number
+          specialization?: string | null
+          updated_at?: string
+          year: string
+        }
+        Update: {
+          achievement?: string
+          bio?: string | null
+          category?: string
+          created_at?: string
+          department?: string | null
+          gpa?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          project?: string | null
+          rank_position?: number
+          specialization?: string | null
+          updated_at?: string
+          year?: string
         }
         Relationships: []
       }
@@ -338,6 +425,45 @@ export type Database = {
           location?: string | null
           name?: string
           schedule?: string | null
+        }
+        Relationships: []
+      }
+      tech_giants: {
+        Row: {
+          achievements: string | null
+          bio: string | null
+          company: string
+          created_at: string
+          id: string
+          image_url: string | null
+          name: string
+          position: string
+          updated_at: string
+          years_experience: number | null
+        }
+        Insert: {
+          achievements?: string | null
+          bio?: string | null
+          company: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name: string
+          position: string
+          updated_at?: string
+          years_experience?: number | null
+        }
+        Update: {
+          achievements?: string | null
+          bio?: string | null
+          company?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name?: string
+          position?: string
+          updated_at?: string
+          years_experience?: number | null
         }
         Relationships: []
       }

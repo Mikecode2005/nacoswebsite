@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Building2 } from "lucide-react";
+import { ArrowRight, Building2, Award, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TechGiant {
   id: string;
   name: string;
   position: string;
+  company: string;
   bio?: string;
   image_url?: string;
+  achievements?: string;
+  years_experience?: number;
 }
 
 const TechGiantsSection = () => {
@@ -18,35 +22,23 @@ const TechGiantsSection = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // For now, using sample data since we don't have a tech_giants table yet
-    const sampleData = [
-      {
-        id: "1",
-        name: "Mark Zuckerberg",
-        position: "CEO, Meta",
-        bio: "Co-founder and CEO of Meta (formerly Facebook), leading the next evolution of social technology.",
-        image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
-      },
-      {
-        id: "2", 
-        name: "Sundar Pichai",
-        position: "CEO, Google",
-        bio: "CEO of Alphabet Inc. and Google, driving innovation in AI and cloud computing.",
-        image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
-      },
-      {
-        id: "3",
-        name: "Satya Nadella", 
-        position: "CEO, Microsoft",
-        bio: "Leading Microsoft's transformation to cloud-first, mobile-first technologies.",
-        image_url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face"
+    const fetchTechGiants = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('tech_giants')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        setTechGiants(data || []);
+      } catch (error) {
+        console.error('Error fetching tech giants:', error);
+      } finally {
+        setLoading(false);
       }
-    ];
-    
-    setTimeout(() => {
-      setTechGiants(sampleData);
-      setLoading(false);
-    }, 500);
+    };
+
+    fetchTechGiants();
   }, []);
 
   if (loading) {
@@ -83,8 +75,8 @@ const TechGiantsSection = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <Card className="h-full bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-xl transition-all duration-300 group overflow-hidden">
-                <CardHeader className="text-center">
-                  <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
+                <CardHeader className="text-center pb-2">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
                     {giant.image_url ? (
                       <img 
                         src={giant.image_url} 
@@ -93,19 +85,41 @@ const TechGiantsSection = () => {
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-primary/20 to-blue-400/20 flex items-center justify-center">
-                        <Building2 className="h-10 w-10 text-primary" />
+                        <Building2 className="h-12 w-12 text-primary" />
                       </div>
                     )}
                   </div>
-                  <CardTitle className="font-orbitron text-xl group-hover:text-primary transition-colors duration-300">
+                  <CardTitle className="font-orbitron text-xl group-hover:text-primary transition-colors duration-300 mb-2">
                     {giant.name}
                   </CardTitle>
-                  <p className="text-primary font-rajdhani font-semibold">{giant.position}</p>
+                  <p className="text-primary font-rajdhani font-semibold text-lg">{giant.position}</p>
+                  <p className="text-accent font-rajdhani font-medium">{giant.company}</p>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground font-exo text-sm leading-relaxed text-center">
-                    {giant.bio}
-                  </p>
+                <CardContent className="space-y-4">
+                  <div className="text-center">
+                    <p className="text-muted-foreground font-exo text-sm leading-relaxed">
+                      {giant.bio}
+                    </p>
+                  </div>
+                  
+                  {giant.achievements && (
+                    <div className="bg-primary/5 rounded-lg p-4 space-y-2">
+                      <div className="flex items-center justify-center mb-2">
+                        <Award className="h-4 w-4 text-primary mr-2" />
+                        <span className="font-rajdhani font-semibold text-primary">Key Achievements</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground text-center leading-relaxed">
+                        {giant.achievements}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {giant.years_experience && (
+                    <div className="flex items-center justify-center text-sm text-muted-foreground">
+                      <Users className="h-4 w-4 mr-2 text-accent" />
+                      <span className="font-rajdhani">{giant.years_experience}+ years of experience</span>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>

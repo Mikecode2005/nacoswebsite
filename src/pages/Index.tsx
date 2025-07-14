@@ -11,12 +11,12 @@ import { motion } from "framer-motion";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/10">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-background via-background to-muted/10">
       <Header />
       <HeroSection />
       
       {/* Upcoming Events Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-background to-muted/20">
+      <section className="py-16 px-4 bg-gradient-to-br from-background to-muted/20 w-full">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -31,12 +31,14 @@ const Index = () => {
               Don't miss out on our exciting events and competitions
             </p>
           </motion.div>
-          <EventsCarousel />
+          <div className="w-full overflow-hidden">
+            <EventsCarousel />
+          </div>
         </div>
       </section>
 
       {/* Gallery Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-muted/20 to-background">
+      <section className="py-16 px-4 bg-gradient-to-br from-muted/20 to-background w-full">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -51,7 +53,9 @@ const Index = () => {
               Moments from our activities and achievements
             </p>
           </motion.div>
-          <GalleryCarousel />
+          <div className="w-full overflow-hidden">
+            <GalleryCarousel />
+          </div>
         </div>
       </section>
 

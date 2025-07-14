@@ -109,6 +109,30 @@ const Dashboard = () => {
         {/* Navigation Cards */}
         <NavigationCards userRole={userRole} />
 
+        {/* Personal Stats Section */}
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <Card className="bg-gradient-to-r from-primary/10 to-blue-400/10 border-primary/20">
+            <CardContent className="p-6 text-center">
+              <h3 className="text-2xl font-bold text-primary mb-2 font-orbitron">{dashboardStats.userBlogCount}</h3>
+              <p className="text-muted-foreground font-exo">Blog Posts Created</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-r from-accent/10 to-purple-400/10 border-accent/20">
+            <CardContent className="p-6 text-center">
+              <h3 className="text-2xl font-bold text-accent mb-2 font-orbitron">{dashboardStats.userQuizAttempts}</h3>
+              <p className="text-muted-foreground font-exo">Quiz Attempts</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-r from-secondary/10 to-green-400/10 border-secondary/20">
+            <CardContent className="p-6 text-center">
+              <h3 className="text-2xl font-bold text-secondary mb-2 font-orbitron">{dashboardStats.studyStreak}</h3>
+              <p className="text-muted-foreground font-exo">Day Study Streak</p>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Activity Charts */}
         <ActivityChart />
         
