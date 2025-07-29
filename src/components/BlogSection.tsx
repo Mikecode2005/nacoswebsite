@@ -34,7 +34,7 @@ const BlogSection = () => {
                 </div>
               </div>
               <CardTitle className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                Crafting Modern Website Templates
+                Advanced React Patterns & Best Practices
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -49,7 +49,7 @@ const BlogSection = () => {
                 </div>
               </div>
               <p className="text-muted-foreground mb-4">
-                Learn how to create modern, responsive website templates using the latest web technologies and design principles.
+                Explore advanced React patterns, hooks, and performance optimization techniques for building scalable applications.
               </p>
               <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                 Read More
@@ -69,7 +69,7 @@ const BlogSection = () => {
                 </div>
               </div>
               <CardTitle className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                Introduction to Data Structures
+                Machine Learning with Python
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -84,7 +84,7 @@ const BlogSection = () => {
                 </div>
               </div>
               <p className="text-muted-foreground mb-4">
-                A comprehensive guide to understanding fundamental data structures and their applications in computer science.
+                Dive into machine learning algorithms and implement them using Python libraries like scikit-learn and TensorFlow.
               </p>
               <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                 Read More
@@ -104,7 +104,7 @@ const BlogSection = () => {
                 </div>
               </div>
               <CardTitle className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                Machine Learning Basics
+                Cybersecurity Fundamentals
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -119,7 +119,7 @@ const BlogSection = () => {
                 </div>
               </div>
               <p className="text-muted-foreground mb-4">
-                Get started with machine learning concepts and discover how AI is transforming the technology landscape.
+                Learn essential cybersecurity concepts, threat detection, and how to protect systems from cyber attacks.
               </p>
               <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                 Read More

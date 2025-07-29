@@ -124,7 +124,7 @@ const Quizzes = () => {
         </div>
 
         {/* Create Quiz Button (Admin Only) */}
-        {user && userRole === 'admin' && !isCreating && (
+        {user && (userRole === 'admin' || userRole === 'lecturer') && !isCreating && (
           <div className="text-center mb-12">
             <Button
               onClick={() => setIsCreating(true)}
@@ -138,7 +138,7 @@ const Quizzes = () => {
         )}
 
         {/* Create Quiz Form (Admin Only) */}
-        {isCreating && userRole === 'admin' && (
+        {isCreating && (userRole === 'admin' || userRole === 'lecturer') && (
           <Card className="mb-12 border-secondary/20 bg-secondary/5">
             <CardHeader>
               <CardTitle className="flex items-center text-secondary">

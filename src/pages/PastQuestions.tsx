@@ -123,7 +123,7 @@ const PastQuestions = () => {
         </div>
 
         {/* Upload Button (Admin Only) */}
-        {user && userRole === 'admin' && !isUploading && (
+        {user && (userRole === 'admin' || userRole === 'lecturer') && !isUploading && (
           <div className="text-center mb-12">
             <Button
               onClick={() => setIsUploading(true)}
@@ -137,7 +137,7 @@ const PastQuestions = () => {
         )}
 
         {/* Upload Form (Admin Only) */}
-        {isUploading && userRole === 'admin' && (
+        {isUploading && (userRole === 'admin' || userRole === 'lecturer') && (
           <Card className="mb-12 border-accent/20 bg-accent/5">
             <CardHeader>
               <CardTitle className="flex items-center text-accent">

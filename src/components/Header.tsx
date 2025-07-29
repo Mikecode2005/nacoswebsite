@@ -13,7 +13,7 @@ const Header = () => {
     { label: "BLOG", href: "/blog" },
     { label: "PAST QUESTIONS", href: "/past-questions" },
     { label: "QUIZZES", href: "/quizzes" },
-    { label: "DASHBOARD", href: "/dashboard" },
+    { label: "DASHBOARD", href: userRole === 'lecturer' ? "/lecturer" : "/dashboard" },
   ];
 
   return (

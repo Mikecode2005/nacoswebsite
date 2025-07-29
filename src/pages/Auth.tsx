@@ -45,7 +45,21 @@ const Auth = () => {
         description: "You've successfully signed in.",
       });
 
-      navigate("/");
+      // Redirect based on user role
+      const { data: roleData } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", (await supabase.auth.getUser()).data.user?.id)
+        .single();
+      
+      const role = roleData?.role;
+      if (role === 'lecturer') {
+        navigate("/lecturer");
+      } else if (role === 'admin' || role === 'superadmin') {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error: any) {
       toast({
         title: "Sign In Failed 😞",

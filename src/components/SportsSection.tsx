@@ -78,13 +78,20 @@ const SportsSection = () => {
                 <CardHeader>
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-green-400/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {sport.image_url ? (
-                      <img 
+                      <motion.img 
                         src={sport.image_url} 
                         alt={sport.name}
                         className="w-full h-full object-cover rounded-full"
+                        whileHover={{ scale: 1.1, rotateY: 15 }}
+                        style={{ transformStyle: "preserve-3d" }}
                       />
                     ) : (
-                      <Trophy className="h-8 w-8 text-primary" />
+                      <motion.div
+                        animate={{ rotateY: [0, 360] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Trophy className="h-8 w-8 text-primary" />
+                      </motion.div>
                     )}
                   </div>
                   <CardTitle className="font-orbitron text-xl text-center group-hover:text-primary transition-colors duration-300">

@@ -100,9 +100,23 @@ const NavigationCards = ({ userRole }: NavigationCardsProps) => {
     }
   ];
 
-  const allCards = userRole === 'admin' || userRole === 'superadmin' 
-    ? [...baseCards, ...adminCards] 
-    : baseCards;
+  const lecturerCards = [
+    {
+      title: "Lecturer Dashboard",
+      description: "Manage materials & quizzes",
+      icon: GraduationCap,
+      route: "/lecturer",
+      color: "secondary",
+      gradient: "from-secondary/10 to-secondary/20"
+    }
+  ];
+  let allCards = baseCards;
+  
+  if (userRole === 'admin' || userRole === 'superadmin') {
+    allCards = [...baseCards, ...adminCards];
+  } else if (userRole === 'lecturer') {
+    allCards = [...baseCards, ...lecturerCards];
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

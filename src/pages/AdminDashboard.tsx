@@ -282,7 +282,7 @@ const AdminDashboard = () => {
                     <SelectContent>
                       <SelectItem value="student">Student</SelectItem>
                       <SelectItem value="lecturer">Lecturer</SelectItem>
-                      <SelectItem value="admin">Admin</SelectItem>
+                      {userRole === 'superadmin' && <SelectItem value="admin">Admin</SelectItem>}
                     </SelectContent>
                   </Select>
                   <Button onClick={assignRole} className="bg-primary hover:bg-primary/90">

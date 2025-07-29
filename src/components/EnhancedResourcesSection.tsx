@@ -93,7 +93,7 @@ const EnhancedResourcesSection = () => {
                         <Button
                           asChild
                           size="sm"
-                          className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 font-rajdhani"
+                          className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 font-rajdhani group-hover:scale-105 transition-transform duration-300"
                         >
                           <a href={resource.file_url} target="_blank" rel="noopener noreferrer">
                             <Download className="h-4 w-4 mr-2" />
