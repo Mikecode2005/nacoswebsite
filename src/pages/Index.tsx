@@ -8,10 +8,17 @@ import SportsSection from "@/components/SportsSection";
 import EnhancedResourcesSection from "@/components/EnhancedResourcesSection";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import { Suspense } from "react";
+import Scene3D from "@/components/3D/Scene3D";
 
 const Index = () => {
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-background via-background to-muted/10">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-background via-background to-muted/10 relative">
+      {/* 3D Background Scene */}
+      <Suspense fallback={null}>
+        <Scene3D />
+      </Suspense>
+      
       <Header />
       <HeroSection />
       
