@@ -72,21 +72,15 @@ const TechGiantsSection = () => {
   );
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-background to-muted/20 relative overflow-hidden">
-      {/* 3D Background Elements */}
-      <FloatingIcon Icon={Code} delay={0} className="top-20 left-10" />
-      <FloatingIcon Icon={Database} delay={1} className="top-40 right-20" />
-      <FloatingIcon Icon={Cpu} delay={2} className="bottom-32 left-1/4" />
-      <FloatingIcon Icon={Building2} delay={3} className="bottom-20 right-1/3" />
-
-      <div className="max-w-7xl mx-auto relative z-10">
+    <section className="py-16 px-4 bg-gradient-to-br from-background to-primary/5">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold font-orbitron mb-4 bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold font-orbitron mb-4 text-primary">
             Tech Giants & Industry Leaders
           </h2>
           <p className="text-muted-foreground font-exo text-lg max-w-2xl mx-auto">
@@ -102,27 +96,12 @@ const TechGiantsSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <motion.div
-                whileHover={{ 
-                  scale: 1.05,
-                  rotateY: 5,
-                  rotateX: 5,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
-                }}
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <Card className="h-full bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-xl transition-all duration-300 group overflow-hidden relative">
-                  {/* 3D Depth Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-primary/5 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Card className="h-full bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 hover:shadow-xl transition-all duration-300 group overflow-hidden">
                   
-                  <CardHeader className="text-center pb-2 relative z-10">
-                    <motion.div 
-                      className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300 relative"
-                      whileHover={{ rotateY: 15 }}
-                      style={{ transformStyle: "preserve-3d" }}
-                    >
+                  <CardHeader className="text-center pb-2">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
                       {giant.image_url ? (
-                        <img 
+                        <img
                           src={giant.image_url} 
                           alt={giant.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
@@ -132,9 +111,7 @@ const TechGiantsSection = () => {
                           <Building2 className="h-12 w-12 text-primary" />
                         </div>
                       )}
-                      {/* 3D Glow Effect */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </motion.div>
+                    </div>
                     
                     <CardTitle className="font-orbitron text-xl group-hover:text-primary transition-colors duration-300 mb-2">
                       {giant.name}
@@ -143,7 +120,7 @@ const TechGiantsSection = () => {
                     <p className="text-accent font-rajdhani font-medium">{giant.company}</p>
                   </CardHeader>
                   
-                  <CardContent className="space-y-4 relative z-10">
+                  <CardContent className="space-y-4">
                     <div className="text-center">
                       <p className="text-muted-foreground font-exo text-sm leading-relaxed">
                         {giant.bio}
@@ -151,10 +128,7 @@ const TechGiantsSection = () => {
                     </div>
                     
                     {giant.achievements && (
-                      <motion.div 
-                        className="bg-primary/5 rounded-lg p-4 space-y-2"
-                        whileHover={{ scale: 1.02 }}
-                      >
+                      <div className="bg-primary/10 rounded-lg p-4 space-y-2">
                         <div className="flex items-center justify-center mb-2">
                           <Award className="h-4 w-4 text-primary mr-2" />
                           <span className="font-rajdhani font-semibold text-primary">Key Achievements</span>
@@ -162,7 +136,7 @@ const TechGiantsSection = () => {
                         <p className="text-xs text-muted-foreground text-center leading-relaxed">
                           {giant.achievements}
                         </p>
-                      </motion.div>
+                      </div>
                     )}
                     
                     {giant.years_experience && (
@@ -173,7 +147,6 @@ const TechGiantsSection = () => {
                     )}
                   </CardContent>
                 </Card>
-              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -184,20 +157,15 @@ const TechGiantsSection = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Button 
+            asChild 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            <Button 
-              asChild 
-              className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 font-rajdhani font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Link to="/tech-giants">
-                Explore All Tech Giants
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </motion.div>
+            <Link to="/tech-giants">
+              Explore All Tech Giants
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>

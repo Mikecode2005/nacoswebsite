@@ -41,7 +41,7 @@ const EnhancedResourcesSection = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-gradient-to-br from-background to-muted/20">
+    <section className="py-16 bg-gradient-to-br from-background to-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Learning Resources Section */}
         <motion.div
@@ -50,7 +50,7 @@ const EnhancedResourcesSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className="text-4xl font-bold font-orbitron text-center mb-12 bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold font-orbitron text-center mb-12 text-primary">
             Learning Resources
           </h2>
           
@@ -67,7 +67,7 @@ const EnhancedResourcesSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="h-full bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-xl transition-all duration-300 group">
+                  <Card className="h-full bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 hover:shadow-xl transition-all duration-300 group">
                     <CardHeader className="text-center">
                       <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-blue-400/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         <FileText className="h-8 w-8 text-primary" />
@@ -93,7 +93,7 @@ const EnhancedResourcesSection = () => {
                         <Button
                           asChild
                           size="sm"
-                          className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 font-rajdhani group-hover:scale-105 transition-transform duration-300"
+                          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani"
                         >
                           <a href={resource.file_url} target="_blank" rel="noopener noreferrer">
                             <Download className="h-4 w-4 mr-2" />
@@ -106,7 +106,7 @@ const EnhancedResourcesSection = () => {
                 </motion.div>
               )) : (
                 <div className="col-span-full">
-                  <Card className="bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+                  <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
                     <CardContent className="flex items-center justify-center h-32">
                       <p className="text-muted-foreground font-exo">No learning resources available yet.</p>
                     </CardContent>
@@ -128,7 +128,7 @@ const EnhancedResourcesSection = () => {
             <h3 className="text-2xl font-bold font-orbitron text-primary mb-6">Academic Resources</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <Link to="/past-questions">
-                <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-blue-400/20 rounded-lg mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Laptop className="h-8 w-8 text-primary" />
@@ -140,12 +140,12 @@ const EnhancedResourcesSection = () => {
               </Link>
 
               <Link to="/quizzes">
-                <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-accent/5 to-accent/10 border border-accent/20">
                   <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-green-400/20 rounded-lg mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <HelpCircle className="h-8 w-8 text-primary" />
+                    <div className="w-16 h-16 bg-gradient-to-br from-accent/20 to-green-400/20 rounded-lg mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <HelpCircle className="h-8 w-8 text-accent" />
                     </div>
-                    <h4 className="font-orbitron font-bold text-lg text-primary mb-2">Quizzes</h4>
+                    <h4 className="font-orbitron font-bold text-lg text-accent mb-2">Quizzes</h4>
                     <p className="text-muted-foreground text-sm font-exo">Test your knowledge</p>
                   </CardContent>
                 </Card>
@@ -162,24 +162,24 @@ const EnhancedResourcesSection = () => {
             <h3 className="text-2xl font-bold font-orbitron text-primary mb-6">Student Excellence Hub</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <Link to="/hall-of-fame">
-                <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200">
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Crown className="h-8 w-8 text-white" />
                     </div>
-                    <h4 className="font-orbitron font-bold text-lg text-primary">Hall of Fame</h4>
+                    <h4 className="font-orbitron font-bold text-lg text-yellow-700">Hall of Fame</h4>
                     <p className="text-muted-foreground text-sm font-exo">Outstanding achievers</p>
                   </CardContent>
                 </Card>
               </Link>
 
               <Link to="/tutors">
-                <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-secondary/5 to-secondary/10 border border-secondary/20">
                   <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <GraduationCap className="h-8 w-8 text-white" />
+                    <div className="w-16 h-16 bg-gradient-to-br from-secondary/20 to-purple-500/20 rounded-lg mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <GraduationCap className="h-8 w-8 text-secondary" />
                     </div>
-                    <h4 className="font-orbitron font-bold text-lg text-primary">Tutors</h4>
+                    <h4 className="font-orbitron font-bold text-lg text-secondary">Tutors</h4>
                     <p className="text-muted-foreground text-sm font-exo">Academic support</p>
                   </CardContent>
                 </Card>
@@ -196,7 +196,7 @@ const EnhancedResourcesSection = () => {
           className="grid md:grid-cols-3 gap-6"
         >
           <Link to="/tech-giants">
-            <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+            <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-blue-400/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -212,14 +212,14 @@ const EnhancedResourcesSection = () => {
           </Link>
 
           <Link to="/sports">
-            <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+            <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-accent/5 to-accent/10 border border-accent/20">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-blue-400/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Trophy className="h-6 w-6 text-green-500" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-green-400/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Trophy className="h-6 w-6 text-accent" />
                   </div>
                   <div>
-                    <h4 className="font-orbitron font-semibold text-primary">Sports</h4>
+                    <h4 className="font-orbitron font-semibold text-accent">Sports</h4>
                     <p className="text-sm text-muted-foreground font-exo">Athletic activities</p>
                   </div>
                 </div>
@@ -228,14 +228,14 @@ const EnhancedResourcesSection = () => {
           </Link>
 
           <Link to="/lecturers">
-            <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+            <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-secondary/5 to-secondary/10 border border-secondary/20">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-blue-400/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <BookOpen className="h-6 w-6 text-purple-500" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-secondary/20 to-blue-400/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <BookOpen className="h-6 w-6 text-secondary" />
                   </div>
                   <div>
-                    <h4 className="font-orbitron font-semibold text-primary">Lecturers</h4>
+                    <h4 className="font-orbitron font-semibold text-secondary">Lecturers</h4>
                     <p className="text-sm text-muted-foreground font-exo">Faculty members</p>
                   </div>
                 </div>

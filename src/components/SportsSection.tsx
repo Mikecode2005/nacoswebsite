@@ -50,7 +50,7 @@ const SportsSection = () => {
   }
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-muted/20 to-background">
+    <section className="py-16 px-4 bg-gradient-to-br from-primary/5 to-background">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ const SportsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold font-orbitron mb-4 bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold font-orbitron mb-4 text-primary">
             Sports & Activities
           </h2>
           <p className="text-muted-foreground font-exo text-lg max-w-2xl mx-auto">
@@ -74,24 +74,17 @@ const SportsSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Card className="h-full bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-xl transition-all duration-300 group overflow-hidden">
+              <Card className="h-full bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 hover:shadow-xl transition-all duration-300 group overflow-hidden">
                 <CardHeader>
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-green-400/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {sport.image_url ? (
-                      <motion.img 
+                      <img
                         src={sport.image_url} 
                         alt={sport.name}
                         className="w-full h-full object-cover rounded-full"
-                        whileHover={{ scale: 1.1, rotateY: 15 }}
-                        style={{ transformStyle: "preserve-3d" }}
                       />
                     ) : (
-                      <motion.div
-                        animate={{ rotateY: [0, 360] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                      >
-                        <Trophy className="h-8 w-8 text-primary" />
-                      </motion.div>
+                      <Trophy className="h-8 w-8 text-primary" />
                     )}
                   </div>
                   <CardTitle className="font-orbitron text-xl text-center group-hover:text-primary transition-colors duration-300">
@@ -121,7 +114,7 @@ const SportsSection = () => {
             </motion.div>
           )) : (
             <div className="col-span-full">
-              <Card className="bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+              <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
                 <CardContent className="flex items-center justify-center h-64">
                   <p className="text-muted-foreground font-exo">No sports activities available at the moment.</p>
                 </CardContent>
@@ -138,7 +131,7 @@ const SportsSection = () => {
         >
           <Button 
             asChild 
-            className="bg-gradient-to-r from-primary to-green-500 hover:from-primary/90 hover:to-green-500/90 font-rajdhani font-semibold"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <Link to="/sports">
               Explore All Sports

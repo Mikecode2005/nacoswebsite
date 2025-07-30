@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const BlogSection = () => {
   return (
-    <section id="blog" className="py-16 bg-gradient-to-br from-muted/20 to-background">
+    <section id="blog" className="py-16 bg-gradient-to-br from-primary/5 to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,7 +14,7 @@ const BlogSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold font-orbitron mb-4 bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold font-orbitron mb-4 text-primary">
             Latest Blog Posts
           </h2>
           <p className="text-muted-foreground font-exo text-lg max-w-2xl mx-auto">
@@ -23,13 +23,15 @@ const BlogSection = () => {
         </motion.div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Card className="group hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5">
+          <Card className="group hover:shadow-xl transition-all duration-300 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
             <CardHeader>
-              <div className="aspect-video bg-primary/10 rounded-lg mb-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+              <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg mb-4 relative overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-12 bg-primary/30 rounded mx-auto mb-2"></div>
-                    <div className="text-xs text-primary/60">Website Template</div>
+                    <div className="w-16 h-12 bg-primary/40 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                      <FileText className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="text-xs text-primary/70 font-exo">React Tutorial</div>
                   </div>
                 </div>
               </div>
@@ -58,13 +60,15 @@ const BlogSection = () => {
             </CardContent>
           </Card>
 
-          <Card className="group hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5">
+          <Card className="group hover:shadow-xl transition-all duration-300 border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10">
             <CardHeader>
-              <div className="aspect-video bg-primary/10 rounded-lg mb-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center">
+              <div className="aspect-video bg-gradient-to-br from-accent/10 to-secondary/10 rounded-lg mb-4 relative overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-12 h-16 bg-accent/30 rounded mx-auto mb-2"></div>
-                    <div className="text-xs text-primary/60">Programming</div>
+                    <div className="w-12 h-16 bg-accent/40 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                      <Code className="h-8 w-8 text-accent" />
+                    </div>
+                    <div className="text-xs text-accent/70 font-exo">ML Guide</div>
                   </div>
                 </div>
               </div>
@@ -93,13 +97,15 @@ const BlogSection = () => {
             </CardContent>
           </Card>
 
-          <Card className="group hover:shadow-lg transition-all duration-300 border-primary/20 bg-primary/5 md:col-span-2 lg:col-span-1">
+          <Card className="group hover:shadow-xl transition-all duration-300 border-secondary/20 bg-gradient-to-br from-secondary/5 to-secondary/10 md:col-span-2 lg:col-span-1">
             <CardHeader>
-              <div className="aspect-video bg-primary/10 rounded-lg mb-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+              <div className="aspect-video bg-gradient-to-br from-secondary/10 to-hero-accent/10 rounded-lg mb-4 relative overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-14 h-14 bg-secondary/30 rounded-full mx-auto mb-2"></div>
-                    <div className="text-xs text-primary/60">Algorithm</div>
+                    <div className="w-14 h-14 bg-secondary/40 rounded-full mx-auto mb-2 flex items-center justify-center">
+                      <Shield className="h-8 w-8 text-secondary" />
+                    </div>
+                    <div className="text-xs text-secondary/70 font-exo">Security</div>
                   </div>
                 </div>
               </div>
@@ -137,7 +143,7 @@ const BlogSection = () => {
         >
           <Button 
             asChild 
-            className="bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 font-rajdhani font-semibold"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <Link to="/blog">
               View All Blog Posts
