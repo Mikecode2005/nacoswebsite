@@ -5,11 +5,20 @@ interface TypewriterTextProps {
   text: string;
   className?: string;
   speed?: number;
+  showCursor?: boolean;
+  onComplete?: () => void;
 }
 
-const TypewriterText = ({ text, className = "", speed = 100 }: TypewriterTextProps) => {
+const TypewriterText = ({ 
+  text, 
+  className = "", 
+  speed = 100, 
+  showCursor = true,
+  onComplete 
+}: TypewriterTextProps) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     if (currentIndex < text.length) {
@@ -19,22 +28,25 @@ const TypewriterText = ({ text, className = "", speed = 100 }: TypewriterTextPro
       }, speed);
 
       return () => clearTimeout(timeout);
+    } else if (!isComplete) {
+      setIsComplete(true);
+      onComplete?.();
     }
-  }, [currentIndex, text, speed]);
+  }, [currentIndex, text, speed, isComplete, onComplete]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
       className={className}
     >
       {displayText}
-      {currentIndex < text.length && (
+      {showCursor && !isComplete && (
         <motion.span
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-          className="inline-block w-0.5 h-6 bg-primary ml-1"
+          className="inline-block w-0.5 h-6 bg-current ml-1"
         />
       )}
     </motion.div>

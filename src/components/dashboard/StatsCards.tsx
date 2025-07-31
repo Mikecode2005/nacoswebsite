@@ -8,9 +8,12 @@ import {
   TrendingUp, 
   Clock,
   Award,
-  Target
+  Target,
+  Activity,
+  Brain
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface StatsData {
   totalUsers: number;
@@ -62,7 +65,14 @@ const StatsCards = ({ stats, loading }: StatsCardsProps) => {
     }
   }, [stats, loading]);
 
-  const CircularProgress = ({ percentage, size = 120, strokeWidth = 8, color = "text-primary" }) => {
+  const CircularProgress = ({ 
+    percentage, 
+    size = 80, 
+    strokeWidth = 6, 
+    color = "text-primary",
+    bgColor = "text-muted-foreground/20",
+    showPercentage = true 
+  }) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = radius * 2 * Math.PI;
     const strokeDasharray = `${circumference} ${circumference}`;
@@ -78,9 +88,9 @@ const StatsCards = ({ stats, loading }: StatsCardsProps) => {
             stroke="currentColor"
             strokeWidth={strokeWidth}
             fill="transparent"
-            className="text-muted-foreground/20"
+            className={bgColor}
           />
-          <circle
+          <motion.circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
@@ -91,164 +101,256 @@ const StatsCards = ({ stats, loading }: StatsCardsProps) => {
             strokeDashoffset={strokeDashoffset}
             className={`${color} transition-all duration-1000 ease-out`}
             strokeLinecap="round"
+            initial={{ strokeDashoffset: circumference }}
+            animate={{ strokeDashoffset }}
+            transition={{ duration: 2, delay: 0.5 }}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`text-2xl font-bold ${color}`}>
-            {percentage}%
-          </span>
-        </div>
+        {showPercentage && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.span 
+              className={`text-lg font-bold font-orbitron ${color}`}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1 }}
+            >
+              {percentage}%
+            </motion.span>
+          </div>
+        )}
       </div>
     );
   };
 
+  const StatCard = ({ 
+    title, 
+    value, 
+    subtitle, 
+    icon: Icon, 
+    color, 
+    gradient, 
+    progress, 
+    delay = 0 
+  }: {
+    title: string;
+    value: number | string;
+    subtitle: string;
+    icon: any;
+    color: string;
+    gradient: string;
+    progress?: number;
+    delay?: number;
+  }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, delay }}
+      whileHover={{ 
+        scale: 1.02,
+        rotateY: 5,
+        z: 20
+      }}
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      <Card className={`border-${color}/20 bg-gradient-to-br ${gradient} hover:shadow-xl transition-all duration-300 relative overflow-hidden`}>
+        {/* Background decoration */}
+        <div className={`absolute top-0 right-0 w-20 h-20 bg-${color}/10 rounded-full transform translate-x-10 -translate-y-10`}></div>
+        <div className={`absolute bottom-0 left-0 w-16 h-16 bg-${color}/5 rounded-full transform -translate-x-8 translate-y-8`}></div>
+        
+        <CardHeader className="pb-3 relative z-10">
+          <CardTitle className={`flex items-center text-lg font-rajdhani text-${color}`}>
+            <motion.div
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Icon className={`h-5 w-5 mr-2 text-${color}`} />
+            </motion.div>
+            {title}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="relative z-10">
+          <div className="flex items-center justify-between">
+            <div>
+              <motion.div 
+                className={`text-3xl font-orbitron font-bold text-${color}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: delay + 0.3 }}
+              >
+                {loading ? "..." : value}
+              </motion.div>
+              <p className="text-sm text-muted-foreground font-exo">{subtitle}</p>
+            </div>
+            {progress !== undefined && (
+              <CircularProgress 
+                percentage={progress} 
+                size={60} 
+                strokeWidth={4}
+                color={`text-${color}`}
+              />
+            )}
+          </div>
+          {progress !== undefined && (
+            <div className="mt-4">
+              <Progress 
+                value={progress} 
+                className={`h-2 bg-${color}/20`}
+              />
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      {/* Personal Blog Count */}
-      <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 hover:shadow-lg transition-all duration-300">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center text-lg font-rajdhani">
-            <FileText className="h-5 w-5 mr-2 text-primary" />
-            My Blog Posts
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-3xl font-orbitron font-bold text-primary">
-                {loading ? "..." : animatedValues.userBlogCount}
-              </div>
-              <p className="text-sm text-muted-foreground font-exo">Published articles</p>
-            </div>
-            <CircularProgress 
-              percentage={Math.min((animatedValues.userBlogCount / 10) * 100, 100)} 
-              size={60} 
-              strokeWidth={6}
-              color="text-primary"
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <StatCard
+        title="My Blog Posts"
+        value={animatedValues.userBlogCount}
+        subtitle="Published articles"
+        icon={FileText}
+        color="primary"
+        gradient="from-primary/5 to-primary/10"
+        progress={Math.min((animatedValues.userBlogCount / 10) * 100, 100)}
+        delay={0}
+      />
 
-      {/* Quiz Performance */}
-      <Card className="border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10 hover:shadow-lg transition-all duration-300">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center text-lg font-rajdhani">
-            <Trophy className="h-5 w-5 mr-2 text-accent" />
-            Quiz Score
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-3xl font-orbitron font-bold text-accent">
-                {loading ? "..." : animatedValues.achievementRate}%
-              </div>
-              <p className="text-sm text-muted-foreground font-exo">Average score</p>
-            </div>
-            <CircularProgress 
-              percentage={animatedValues.achievementRate} 
-              size={60} 
-              strokeWidth={6}
-              color="text-accent"
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <StatCard
+        title="Quiz Score"
+        value={`${animatedValues.achievementRate}%`}
+        subtitle="Average performance"
+        icon={Brain}
+        color="accent"
+        gradient="from-accent/5 to-accent/10"
+        progress={animatedValues.achievementRate}
+        delay={0.1}
+      />
 
-      {/* Study Streak */}
-      <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-secondary/10 hover:shadow-lg transition-all duration-300">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center text-lg font-rajdhani">
-            <Target className="h-5 w-5 mr-2 text-secondary" />
-            Study Streak
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-3xl font-orbitron font-bold text-secondary">
-                {loading ? "..." : animatedValues.studyStreak}
-              </div>
-              <p className="text-sm text-muted-foreground font-exo">Days active</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Award className="h-8 w-8 text-secondary mb-1" />
-              <span className="text-xs text-secondary font-medium">
-                {animatedValues.studyStreak > 7 ? "Great!" : "Keep going!"}
-              </span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <StatCard
+        title="Study Streak"
+        value={animatedValues.studyStreak}
+        subtitle="Days active"
+        icon={Target}
+        color="secondary"
+        gradient="from-secondary/5 to-secondary/10"
+        progress={Math.min((animatedValues.studyStreak / 30) * 100, 100)}
+        delay={0.2}
+      />
 
-      {/* Weekly Activity */}
-      <Card className="border-hero-accent/20 bg-gradient-to-br from-hero-accent/5 to-hero-accent/10 hover:shadow-lg transition-all duration-300">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center text-lg font-rajdhani">
-            <TrendingUp className="h-5 w-5 mr-2 text-hero-accent" />
-            Weekly Activity
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-2xl font-orbitron font-bold text-hero-accent">
-                {loading ? "..." : animatedValues.weeklyActivity}%
-              </span>
-              <Clock className="h-5 w-5 text-hero-accent" />
-            </div>
-            <Progress 
-              value={animatedValues.weeklyActivity} 
-              className="h-2 bg-hero-accent/20"
-            />
-            <p className="text-sm text-muted-foreground font-exo">This week's engagement</p>
-          </div>
-        </CardContent>
-      </Card>
+      <StatCard
+        title="Weekly Activity"
+        value={`${animatedValues.weeklyActivity}%`}
+        subtitle="This week's engagement"
+        icon={Activity}
+        color="hero-accent"
+        gradient="from-hero-accent/5 to-hero-accent/10"
+        progress={animatedValues.weeklyActivity}
+        delay={0.3}
+      />
 
       {/* Platform Stats Overview */}
-      <Card className="md:col-span-2 lg:col-span-4 border-primary/20 bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5">
-        <CardHeader>
-          <CardTitle className="flex items-center text-xl font-rajdhani">
-            <Users className="h-6 w-6 mr-2 text-primary" />
-            NACOS Platform Overview
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-3">
-                <Users className="h-8 w-8 text-primary mr-2" />
-                <span className="text-3xl font-orbitron font-bold text-primary">
-                  {loading ? "..." : animatedValues.totalUsers}
-                </span>
-              </div>
-              <p className="text-muted-foreground font-exo">Active Students</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-3">
-                <FileText className="h-8 w-8 text-accent mr-2" />
-                <span className="text-3xl font-orbitron font-bold text-accent">
-                  {loading ? "..." : animatedValues.totalBlogs}
-                </span>
-              </div>
-              <p className="text-muted-foreground font-exo">Blog Articles</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-3">
-                <Trophy className="h-8 w-8 text-secondary mr-2" />
-                <span className="text-3xl font-orbitron font-bold text-secondary">
-                  {loading ? "..." : animatedValues.totalQuizzes}
-                </span>
-              </div>
-              <p className="text-muted-foreground font-exo">Available Quizzes</p>
-            </div>
+      <motion.div 
+        className="md:col-span-2 lg:col-span-4"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+      >
+        <Card className="border-primary/20 bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5 relative overflow-hidden">
+          {/* Enhanced background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-4 right-4 w-32 h-32 border border-primary/30 rounded-full"></div>
+            <div className="absolute bottom-4 left-4 w-24 h-24 border border-accent/30 rounded-lg rotate-45"></div>
           </div>
-        </CardContent>
-      </Card>
+          
+          <CardHeader className="relative z-10">
+            <CardTitle className="flex items-center text-xl font-rajdhani">
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                <Users className="h-6 w-6 mr-2 text-primary" />
+              </motion.div>
+              NACOS Platform Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <motion.div 
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center justify-center mb-4">
+                  <CircularProgress 
+                    percentage={Math.min((animatedValues.totalUsers / 1000) * 100, 100)}
+                    size={100}
+                    color="text-primary"
+                    showPercentage={false}
+                  />
+                </div>
+                <motion.span 
+                  className="text-3xl font-orbitron font-bold text-primary block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                >
+                  {loading ? "..." : animatedValues.totalUsers}
+                </motion.span>
+                <p className="text-muted-foreground font-exo">Active Students</p>
+              </motion.div>
+              
+              <motion.div 
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center justify-center mb-4">
+                  <CircularProgress 
+                    percentage={Math.min((animatedValues.totalBlogs / 100) * 100, 100)}
+                    size={100}
+                    color="text-accent"
+                    showPercentage={false}
+                  />
+                </div>
+                <motion.span 
+                  className="text-3xl font-orbitron font-bold text-accent block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                >
+                  {loading ? "..." : animatedValues.totalBlogs}
+                </motion.span>
+                <p className="text-muted-foreground font-exo">Blog Articles</p>
+              </motion.div>
+              
+              <motion.div 
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center justify-center mb-4">
+                  <CircularProgress 
+                    percentage={Math.min((animatedValues.totalQuizzes / 50) * 100, 100)}
+                    size={100}
+                    color="text-secondary"
+                    showPercentage={false}
+                  />
+                </div>
+                <motion.span 
+                  className="text-3xl font-orbitron font-bold text-secondary block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1.4 }}
+                >
+                  {loading ? "..." : animatedValues.totalQuizzes}
+                </motion.span>
+                <p className="text-muted-foreground font-exo">Available Quizzes</p>
+              </motion.div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
     </div>
   );
 };
