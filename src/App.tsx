@@ -20,6 +20,7 @@ import HallOfFame from "./pages/HallOfFame";
 import Tutors from "./pages/Tutors";
 import TechGiants from "./pages/TechGiants";
 import Complaints from "./pages/Complaints";
+import Gallery from "./pages/Gallery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/tutors" element={<Tutors />} />
             <Route path="/tech-giants" element={<TechGiants />} />
             <Route path="/complaints" element={<Complaints />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

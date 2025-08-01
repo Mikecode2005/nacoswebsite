@@ -203,7 +203,6 @@ const HeroSection = () => {
                     rotateY: 15,
                     z: 50
                   }}
-                  transition={{ duration: 0.3 }}
                   style={{ transformStyle: "preserve-3d" }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

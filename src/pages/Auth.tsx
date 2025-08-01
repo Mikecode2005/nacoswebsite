@@ -52,7 +52,7 @@ const Auth = () => {
         .eq("user_id", (await supabase.auth.getUser()).data.user?.id)
         .single();
       
-      const role = roleData?.role;
+      const role = roleData?.role as 'admin' | 'student' | 'superadmin' | 'lecturer' | null;
       if (role === 'lecturer') {
         navigate("/lecturer");
       } else if (role === 'admin' || role === 'superadmin') {

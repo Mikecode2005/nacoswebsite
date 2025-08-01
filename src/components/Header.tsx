@@ -11,6 +11,7 @@ const Header = () => {
   const navItems = [
     { label: "HOME", href: "/" },
     { label: "BLOG", href: "/blog" },
+    { label: "GALLERY", href: "/gallery" },
     { label: "PAST QUESTIONS", href: "/past-questions" },
     { label: "QUIZZES", href: "/quizzes" },
     { label: "DASHBOARD", href: userRole === 'lecturer' ? "/lecturer" : "/dashboard" },
@@ -38,13 +39,13 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-8">
             <nav className="flex items-center space-x-6">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.label}
-                  href={item.href}
+                  onClick={() => navigate(item.href)}
                   className="text-primary-foreground font-medium hover:text-hero-accent transition-colors text-sm font-rajdhani tracking-wide"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
             </nav>
             
@@ -92,13 +93,13 @@ const Header = () => {
             <SheetContent className="bg-primary border-primary-foreground/20">
               <nav className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => (
-                  <a
+                  <button
                     key={item.label}
-                    href={item.href}
-                    className="text-primary-foreground font-medium text-lg hover:text-hero-accent transition-colors"
+                    onClick={() => navigate(item.href)}
+                    className="text-primary-foreground font-medium text-lg hover:text-hero-accent transition-colors text-left"
                   >
                     {item.label}
-                  </a>
+                  </button>
                 ))}
                 
                 {/* Mobile Auth */}

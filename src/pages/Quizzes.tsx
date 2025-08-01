@@ -65,7 +65,10 @@ const Quizzes = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setQuizzes(data || []);
+      setQuizzes((data || []).map(quiz => ({
+        ...quiz,
+        questions: Array.isArray(quiz.questions) ? quiz.questions as unknown as Question[] : []
+      })));
     } catch (error) {
       console.error("Error fetching quizzes:", error);
     }
@@ -137,7 +140,7 @@ const Quizzes = () => {
         .insert({
           title,
           description,
-          questions: questions,
+          questions: questions as any,
           created_by: user?.id,
         });
 
