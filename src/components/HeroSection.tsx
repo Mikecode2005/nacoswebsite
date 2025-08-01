@@ -207,7 +207,7 @@ const HeroSection = () => {
                   style={{ transformStyle: "preserve-3d" }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  delay={1.6 + index * 0.1}
+                  transition={{ delay: 1.6 + index * 0.1 }}
                 >
                   <div className={`w-16 h-16 bg-gradient-to-br ${color} rounded-xl flex items-center justify-center mb-2 group-hover:shadow-2xl transition-all duration-300 border border-white/20`}>
                     <Icon className="h-8 w-8 text-white drop-shadow-lg" />

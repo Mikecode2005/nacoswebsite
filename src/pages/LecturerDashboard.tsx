@@ -19,7 +19,7 @@ interface Material {
   description: string;
   file_url: string;
   subject: string;
-  material_type: string;
+  resource_type: string;
   created_at: string;
 }
 
@@ -27,7 +27,7 @@ interface Quiz {
   id: string;
   title: string;
   description: string;
-  questions: any[];
+  questions: Question[];
   created_at: string;
 }
 
@@ -94,7 +94,10 @@ const LecturerDashboard = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setQuizzes(data || []);
+      setQuizzes((data || []).map(quiz => ({
+        ...quiz,
+        questions: Array.isArray(quiz.questions) ? quiz.questions : []
+      })));
     } catch (error) {
       console.error("Error fetching quizzes:", error);
     }
@@ -403,8 +406,8 @@ const LecturerDashboard = () => {
                               <span className="text-xs bg-secondary/20 text-secondary px-2 py-1 rounded">
                                 {material.subject}
                               </span>
-                              <span className="text-xs bg-accent/20 text-accent px-2 py-1 rounded">
-                                {material.material_type}
+                               <span className="text-xs bg-accent/20 text-accent px-2 py-1 rounded">
+                                {material.resource_type}
                               </span>
                             </div>
                           </div>
