@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Brain, Plus, Play, Trophy, Clock, X, Check, Edit } from "lucide-react";
 import { motion } from "framer-motion";
+import QuizTaker from "@/components/QuizTaker";
+import QuizScoreboard from "@/components/QuizScoreboard";
 
 interface Quiz {
   id: string;
@@ -46,6 +48,8 @@ const Quizzes = () => {
     type: 'multiple-choice'
   });
   const [submitting, setSubmitting] = useState(false);
+  const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
+  const [view, setView] = useState<'list' | 'take' | 'scoreboard'>('list');
 
   useEffect(() => {
     if (!loading && !user) {
@@ -167,10 +171,73 @@ const Quizzes = () => {
     }
   };
 
+  const handleTakeQuiz = (quiz: Quiz) => {
+    setSelectedQuiz(quiz);
+    setView('take');
+  };
+
+  const handleQuizComplete = () => {
+    setView('scoreboard');
+    fetchQuizzes(); // Refresh quizzes to show updated attempts
+  };
+
+  const handleBackToQuizzes = () => {
+    setView('list');
+    setSelectedQuiz(null);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  // Handle different views
+  if (view === 'take' && selectedQuiz) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background to-primary/5">
+        <Header />
+        <main className="container mx-auto px-4 py-24">
+          <QuizTaker 
+            quiz={selectedQuiz} 
+            onComplete={handleQuizComplete}
+            onBack={handleBackToQuizzes}
+          />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (view === 'scoreboard') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background to-primary/5">
+        <Header />
+        <main className="container mx-auto px-4 py-24">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl font-bold text-primary mb-4 font-orbitron">
+              Quiz Leaderboard 🏆
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-exo">
+              See how you rank against other students!
+            </p>
+            <Button
+              onClick={handleBackToQuizzes}
+              className="mt-6 bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani"
+            >
+              ← Back to Quizzes
+            </Button>
+          </motion.div>
+          <QuizScoreboard />
+        </main>
+        <Footer />
       </div>
     );
   }
@@ -205,11 +272,31 @@ const Quizzes = () => {
           >
             <Button
               onClick={() => setIsCreating(true)}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 mr-4"
               size="lg"
             >
               <Plus className="h-5 w-5 mr-2" />
               Create New Quiz ✨
+            </Button>
+          </motion.div>
+        )}
+
+        {/* View Scoreboard Button */}
+        {user && (
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <Button
+              onClick={() => setView('scoreboard')}
+              variant="outline"
+              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground font-rajdhani text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              size="lg"
+            >
+              <Trophy className="h-5 w-5 mr-2" />
+              View Leaderboard 🏆
             </Button>
           </motion.div>
         )}
@@ -485,12 +572,7 @@ const Quizzes = () => {
                     </p>
                     <Button
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani group-hover:scale-105 transition-transform duration-300"
-                      onClick={() => {
-                        toast({
-                          title: "Quiz Feature Coming Soon! 🚧",
-                          description: "Interactive quiz taking will be available in the next update!",
-                        });
-                      }}
+                      onClick={() => handleTakeQuiz(quiz)}
                     >
                       <Play className="h-4 w-4 mr-2" />
                       Start Quiz 🎯

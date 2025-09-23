@@ -36,104 +36,103 @@ const QuizScoreboard = () => {
 
   const fetchScoreboardData = async () => {
     try {
-      // For now, we'll use sample data since the tables might not be fully set up
-      const sampleAttempts: QuizAttempt[] = [
-        {
-          id: '1',
-          quiz_id: '1',
-          user_id: '1',
-          score: 18,
-          total_questions: 20,
-          completed_at: '2024-01-10T14:30:00Z',
-          time_taken: 480,
-          user_name: 'John Doe',
-          quiz_title: 'Data Structures Quiz'
-        },
-        {
-          id: '2',
-          quiz_id: '2',
-          user_id: '2',
-          score: 16,
-          total_questions: 20,
-          completed_at: '2024-01-10T13:45:00Z',
-          time_taken: 420,
-          user_name: 'Jane Smith',
-          quiz_title: 'Algorithms Quiz'
-        },
-        {
-          id: '3',
-          quiz_id: '1',
-          user_id: '3',
-          score: 19,
-          total_questions: 20,
-          completed_at: '2024-01-10T12:15:00Z',
-          time_taken: 360,
-          user_name: 'Michael Chen',
-          quiz_title: 'Data Structures Quiz'
-        },
-        {
-          id: '4',
-          quiz_id: '3',
-          user_id: '4',
-          score: 15,
-          total_questions: 20,
-          completed_at: '2024-01-10T11:30:00Z',
-          time_taken: 540,
-          user_name: 'Sarah Johnson',
-          quiz_title: 'Database Design Quiz'
-        },
-        {
-          id: '5',
-          quiz_id: '2',
-          user_id: '1',
-          score: 17,
-          total_questions: 20,
-          completed_at: '2024-01-10T10:20:00Z',
-          time_taken: 390,
-          user_name: 'John Doe',
-          quiz_title: 'Algorithms Quiz'
-        }
-      ];
+      setLoading(true);
+      
+      // Fetch recent quiz attempts
+      const { data: attemptsData, error: attemptsError } = await supabase
+        .from("quiz_attempts")
+        .select(`
+          id,
+          quiz_id,
+          user_id,
+          score,
+          total_questions,
+          completed_at,
+          time_taken,
+          quizzes(title)
+        `)
+        .order("completed_at", { ascending: false })
+        .limit(20);
 
-      const sampleLeaderboard: LeaderboardEntry[] = [
-        {
-          user_id: '3',
-          user_name: 'Michael Chen',
-          total_score: 19,
-          attempts_count: 1,
-          average_score: 95,
-          best_score: 95
-        },
-        {
-          user_id: '1',
-          user_name: 'John Doe',
-          total_score: 35,
-          attempts_count: 2,
-          average_score: 87.5,
-          best_score: 90
-        },
-        {
-          user_id: '2',
-          user_name: 'Jane Smith',
-          total_score: 16,
-          attempts_count: 1,
-          average_score: 80,
-          best_score: 80
-        },
-        {
-          user_id: '4',
-          user_name: 'Sarah Johnson',
-          total_score: 15,
-          attempts_count: 1,
-          average_score: 75,
-          best_score: 75
-        }
-      ];
+      if (attemptsError) throw attemptsError;
 
-      setRecentAttempts(sampleAttempts);
-      setLeaderboard(sampleLeaderboard);
+      // Get unique user IDs
+      const userIds = [...new Set(attemptsData?.map(attempt => attempt.user_id) || [])];
+      
+      // Fetch user profiles
+      const { data: profilesData, error: profilesError } = await supabase
+        .from("profiles")
+        .select("user_id, display_name")
+        .in("user_id", userIds);
+
+      if (profilesError) throw profilesError;
+
+      // Create a map of user profiles
+      const profilesMap = new Map(
+        (profilesData || []).map(profile => [profile.user_id, profile.display_name])
+      );
+
+      // Transform attempts data
+      const transformedAttempts: QuizAttempt[] = (attemptsData || []).map(attempt => ({
+        id: attempt.id,
+        quiz_id: attempt.quiz_id,
+        user_id: attempt.user_id,
+        score: attempt.score,
+        total_questions: attempt.total_questions,
+        completed_at: attempt.completed_at,
+        time_taken: attempt.time_taken,
+        user_name: profilesMap.get(attempt.user_id) || 'Anonymous User',
+        quiz_title: (attempt.quizzes as any)?.title || 'Unknown Quiz'
+      })).slice(0, 10);
+
+      // Calculate leaderboard from attempts
+      const userStats = new Map<string, {
+        user_id: string;
+        user_name: string;
+        total_score: number;
+        attempts_count: number;
+        scores: number[];
+      }>();
+
+      transformedAttempts.forEach(attempt => {
+        const key = attempt.user_id;
+        if (!userStats.has(key)) {
+          userStats.set(key, {
+            user_id: attempt.user_id,
+            user_name: attempt.user_name,
+            total_score: 0,
+            attempts_count: 0,
+            scores: []
+          });
+        }
+
+        const stats = userStats.get(key)!;
+        const percentage = Math.round((attempt.score / attempt.total_questions) * 100);
+        stats.total_score += attempt.score;
+        stats.attempts_count += 1;
+        stats.scores.push(percentage);
+      });
+
+      // Convert to leaderboard format and sort by average score
+      const leaderboardData: LeaderboardEntry[] = Array.from(userStats.values())
+        .map(stats => ({
+          user_id: stats.user_id,
+          user_name: stats.user_name,
+          total_score: stats.total_score,
+          attempts_count: stats.attempts_count,
+          average_score: stats.scores.reduce((a, b) => a + b, 0) / stats.scores.length,
+          best_score: Math.max(...stats.scores)
+        }))
+        .sort((a, b) => b.average_score - a.average_score)
+        .slice(0, 10);
+
+      setRecentAttempts(transformedAttempts);
+      setLeaderboard(leaderboardData);
     } catch (error) {
       console.error("Error fetching scoreboard data:", error);
+      // Fallback to empty arrays if there's an error
+      setRecentAttempts([]);
+      setLeaderboard([]);
     } finally {
       setLoading(false);
     }
