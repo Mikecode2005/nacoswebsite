@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { BookOpen, Plus, Calendar, User, Edit3 } from "lucide-react";
+import { BookOpen, Plus, Calendar, User, Edit3, Settings } from "lucide-react";
+import ProfileEdit from "@/components/ProfileEdit";
 
 interface BlogPost {
   id: string;
@@ -18,6 +19,9 @@ interface BlogPost {
   author_id: string;
   status: string;
   created_at: string;
+  profiles?: {
+    display_name: string | null;
+  } | null;
 }
 
 const Blog = () => {
@@ -29,6 +33,8 @@ const Blog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [expandedPosts, setExpandedPosts] = useState<Set<string>>(new Set());
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -42,17 +48,44 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      const { data, error } = await supabase
+      // First get all blog posts
+      const { data: postsData, error: postsError } = await supabase
         .from("blog_posts")
         .select("*")
         .eq("status", "published")
         .order("created_at", { ascending: false });
 
-      if (error) throw error;
-      setPosts(data || []);
+      if (postsError) throw postsError;
+
+      // Then get all profiles for the authors
+      const authorIds = postsData?.map(post => post.author_id) || [];
+      const { data: profilesData, error: profilesError } = await supabase
+        .from("profiles")
+        .select("user_id, display_name")
+        .in("user_id", authorIds);
+
+      if (profilesError) throw profilesError;
+
+      // Combine the data
+      const postsWithProfiles = postsData?.map(post => ({
+        ...post,
+        profiles: profilesData?.find(profile => profile.user_id === post.author_id) || null
+      })) || [];
+
+      setPosts(postsWithProfiles);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
+  };
+
+  const toggleExpandPost = (postId: string) => {
+    const newExpanded = new Set(expandedPosts);
+    if (newExpanded.has(postId)) {
+      newExpanded.delete(postId);
+    } else {
+      newExpanded.add(postId);
+    }
+    setExpandedPosts(newExpanded);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -114,17 +147,35 @@ const Blog = () => {
           </p>
         </div>
 
-        {/* Write Post Button */}
-        {user && !isWriting && (
-          <div className="text-center mb-12">
-            <Button
-              onClick={() => setIsWriting(true)}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              size="lg"
-            >
-              <Plus className="h-5 w-5 mr-2" />
-              Write a New Post ✨
-            </Button>
+        {/* Action Buttons */}
+        {user && !isWriting && !isEditingProfile && (
+          <div className="text-center mb-12 space-y-4">
+            <div className="flex justify-center gap-4">
+              <Button
+                onClick={() => setIsWriting(true)}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                size="lg"
+              >
+                <Plus className="h-5 w-5 mr-2" />
+                Write a New Post ✨
+              </Button>
+              <Button
+                onClick={() => setIsEditingProfile(true)}
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                size="lg"
+              >
+                <Settings className="h-5 w-5 mr-2" />
+                Update Profile 👤
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Profile Edit Form */}
+        {isEditingProfile && (
+          <div className="mb-12">
+            <ProfileEdit onClose={() => setIsEditingProfile(false)} />
           </div>
         )}
 
@@ -200,7 +251,7 @@ const Blog = () => {
                   <div className="flex items-center text-sm text-muted-foreground space-x-4">
                     <div className="flex items-center">
                       <User className="h-4 w-4 mr-1" />
-                      Anonymous User
+                      {post.profiles?.display_name || "Anonymous User"}
                     </div>
                     <div className="flex items-center">
                       <Calendar className="h-4 w-4 mr-1" />
@@ -210,9 +261,19 @@ const Blog = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground whitespace-pre-wrap">
-                    {post.content.substring(0, 300)}
-                    {post.content.length > 300 && "..."}
+                    {expandedPosts.has(post.id) || post.content.length <= 300
+                      ? post.content
+                      : `${post.content.substring(0, 300)}...`}
                   </p>
+                  {post.content.length > 300 && (
+                    <Button
+                      variant="link"
+                      className="text-primary hover:text-primary/80 p-0 h-auto mt-2"
+                      onClick={() => toggleExpandPost(post.id)}
+                    >
+                      {expandedPosts.has(post.id) ? "Show Less" : "Read More"}
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             ))

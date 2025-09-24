@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Mail, Linkedin, Crown, Star } from "lucide-react";
+import { Users, Mail, Linkedin, Crown, Star, GraduationCap, Code, Database } from "lucide-react";
 
 interface Executive {
   id: string;
@@ -122,6 +122,39 @@ const Executives = () => {
       image_url: '',
       order_index: 6,
       created_at: '2024-01-01'
+    },
+    {
+      id: '7',
+      name: 'Dr. Adebayo Kolawole',
+      position: 'Head of Department (HOD) 🎓',
+      bio: 'Leading the Computer Science department with academic excellence and industry experience. PhD in Computer Science with specialization in AI and Machine Learning.',
+      email: 'hod@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/dr-adebayo-kolawole',
+      image_url: '',
+      order_index: 7,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '8',
+      name: 'Sarah Okonkwo',
+      position: 'Subdepartment Coordinator - Software Engineering 💻',
+      bio: 'Coordinating software engineering programs and industry partnerships. Expert in full-stack development and project management methodologies.',
+      email: 'software@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/sarah-okonkwo',
+      image_url: '',
+      order_index: 8,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '9',
+      name: 'James Adedayo',
+      position: 'Subdepartment Coordinator - Data Science 📊',
+      bio: 'Leading data science initiatives and research projects. Specialist in machine learning, data analytics, and business intelligence.',
+      email: 'datascience@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/james-adedayo',
+      image_url: '',
+      order_index: 9,
+      created_at: '2024-01-01'
     }
   ];
 
@@ -151,7 +184,14 @@ const Executives = () => {
                   <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer">
                     {executive.position.includes('President') && <Crown className="h-12 w-12 text-primary" />}
                     {executive.position.includes('Chairman') && <Star className="h-12 w-12 text-accent" />}
-                    {!executive.position.includes('President') && !executive.position.includes('Chairman') && (
+                    {executive.position.includes('HOD') && <GraduationCap className="h-12 w-12 text-secondary" />}
+                    {executive.position.includes('Software Engineering') && <Code className="h-12 w-12 text-blue-500" />}
+                    {executive.position.includes('Data Science') && <Database className="h-12 w-12 text-green-500" />}
+                    {!executive.position.includes('President') && 
+                     !executive.position.includes('Chairman') && 
+                     !executive.position.includes('HOD') && 
+                     !executive.position.includes('Software Engineering') && 
+                     !executive.position.includes('Data Science') && (
                       <Users className="h-12 w-12 text-primary" />
                     )}
                   </div>
