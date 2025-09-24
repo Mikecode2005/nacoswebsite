@@ -15,6 +15,9 @@ import Quizzes from "./pages/Quizzes";
 import Sports from "./pages/Sports";
 import Executives from "./pages/Executives";
 import ExecutiveProfile from "./pages/ExecutiveProfile";
+import PresidentPage from "./pages/PresidentPage";
+import ExecutiveChairmanPage from "./pages/ExecutiveChairmanPage";
+import HODPage from "./pages/HODPage";
 import Lecturers from "./pages/Lecturers";
 import HallOfFame from "./pages/HallOfFame";
 import Tutors from "./pages/Tutors";
@@ -44,6 +47,9 @@ const App = () => (
             <Route path="/sports" element={<Sports />} />
             <Route path="/executives" element={<Executives />} />
             <Route path="/executives/:id" element={<ExecutiveProfile />} />
+            <Route path="/president" element={<PresidentPage />} />
+            <Route path="/executive-chairman" element={<ExecutiveChairmanPage />} />
+            <Route path="/hod" element={<HODPage />} />
             <Route path="/lecturers" element={<Lecturers />} />
             <Route path="/hall-of-fame" element={<HallOfFame />} />
             <Route path="/tutors" element={<Tutors />} />
