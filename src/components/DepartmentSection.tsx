@@ -1,4 +1,4 @@
-import { Database, Shield, BarChart3, Code, ArrowRight, Users, Award, TrendingUp } from "lucide-react";
+import { Database, Shield, ChartBar as BarChart3, Code, ArrowRight, Users, Award, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
