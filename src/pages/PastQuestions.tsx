@@ -352,11 +352,26 @@ const PastQuestions = () => {
         {/* Past Questions by Level */}
         <Tabs defaultValue="all" className="w-full">
           <TabsList className="grid w-full grid-cols-5 mb-8">
-            <TabsTrigger value="all">All Questions</TabsTrigger>
-            <TabsTrigger value="100">100 Level</TabsTrigger>
-            <TabsTrigger value="200">200 Level</TabsTrigger>
-            <TabsTrigger value="300">300 Level</TabsTrigger>
-            <TabsTrigger value="400">400 Level</TabsTrigger>
+            <TabsTrigger value="all">
+              <span className="sm:hidden">All</span>
+              <span className="hidden sm:inline">All Questions</span>
+            </TabsTrigger>
+            <TabsTrigger value="100">
+              <span className="sm:hidden">100</span>
+              <span className="hidden sm:inline">100 Level</span>
+            </TabsTrigger>
+            <TabsTrigger value="200">
+              <span className="sm:hidden">200</span>
+              <span className="hidden sm:inline">200 Level</span>
+            </TabsTrigger>
+            <TabsTrigger value="300">
+              <span className="sm:hidden">300</span>
+              <span className="hidden sm:inline">300 Level</span>
+            </TabsTrigger>
+            <TabsTrigger value="400">
+              <span className="sm:hidden">400</span>
+              <span className="hidden sm:inline">400 Level</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="space-y-6">
