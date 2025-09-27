@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import LeadershipSection from "@/components/LeadershipSection";
+import DepartmentSection from "@/components/DepartmentSection";
 import EventsCarousel from "@/components/EventsCarousel";
 import GalleryCarousel from "@/components/GalleryCarousel";
 import BlogSection from "@/components/BlogSection";
@@ -14,6 +16,12 @@ const Index = () => {
     <div className="min-h-screen w-full overflow-x-hidden bg-background relative">
       <Header />
       <HeroSection />
+      
+      {/* Leadership Section */}
+      <LeadershipSection />
+      
+      {/* Department Section */}
+      <DepartmentSection />
       
       {/* Upcoming Events Section */}
       <motion.section 
