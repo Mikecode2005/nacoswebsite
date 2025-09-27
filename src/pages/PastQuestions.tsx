@@ -9,13 +9,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { BookOpen, Plus, Download, Calendar, Upload } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BookOpen, Plus, Download, Calendar, Upload, Search, Filter } from "lucide-react";
 
 interface PastQuestion {
   id: string;
   title: string;
   subject: string;
   year: number;
+  level?: number;
   description: string;
   file_url: string;
   created_at: string;
@@ -26,13 +29,17 @@ const PastQuestions = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [questions, setQuestions] = useState<PastQuestion[]>([]);
+  const [filteredQuestions, setFilteredQuestions] = useState<PastQuestion[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
   const [year, setYear] = useState("");
+  const [level, setLevel] = useState("");
   const [description, setDescription] = useState("");
-  const [fileUrl, setFileUrl] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLevel, setSelectedLevel] = useState<string>("all");
 
   useEffect(() => {
     if (!loading && !user) {
@@ -52,25 +59,78 @@ const PastQuestions = () => {
         .order("year", { ascending: false });
 
       if (error) throw error;
-      setQuestions(data || []);
+      const questionsData = data || [];
+      setQuestions(questionsData);
+      setFilteredQuestions(questionsData);
     } catch (error) {
       console.error("Error fetching questions:", error);
     }
   };
 
+  const filterQuestions = () => {
+    let filtered = questions;
+    
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(q => 
+        q.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        q.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        q.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    // Filter by level
+    if (selectedLevel !== "all") {
+      const levelNum = parseInt(selectedLevel);
+      filtered = filtered.filter(q => q.level === levelNum);
+    }
+    
+    setFilteredQuestions(filtered);
+  };
+
+  useEffect(() => {
+    filterQuestions();
+  }, [searchTerm, selectedLevel, questions]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!file) {
+      toast({
+        title: "File Required",
+        description: "Please select a file to upload.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSubmitting(true);
 
     try {
+      // Upload file to storage
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('past-questions')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('past-questions')
+        .getPublicUrl(fileName);
+
+      // Insert into database
       const { error } = await supabase
         .from("past_questions")
         .insert({
           title,
           subject,
           year: parseInt(year),
+          level: level ? parseInt(level) : null,
           description,
-          file_url: fileUrl,
+          file_url: publicUrl,
           uploaded_by: user?.id,
         });
 
@@ -84,8 +144,9 @@ const PastQuestions = () => {
       setTitle("");
       setSubject("");
       setYear("");
+      setLevel("");
       setDescription("");
-      setFileUrl("");
+      setFile(null);
       setIsUploading(false);
       fetchQuestions();
     } catch (error: any) {
@@ -120,6 +181,38 @@ const PastQuestions = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Access previous exam materials and practice questions to ace your studies! 🎯
           </p>
+        </div>
+
+        {/* Search and Filter */}
+        <div className="mb-8 space-y-4">
+          <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Input
+                  placeholder="Search questions by title, subject, or description..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 border-primary/30 focus:border-primary"
+                />
+              </div>
+            </div>
+            <div className="md:w-48">
+              <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+                <SelectTrigger className="border-primary/30 focus:border-primary">
+                  <Filter className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Filter by level" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Levels</SelectItem>
+                  <SelectItem value="100">100 Level</SelectItem>
+                  <SelectItem value="200">200 Level</SelectItem>
+                  <SelectItem value="300">300 Level</SelectItem>
+                  <SelectItem value="400">400 Level</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
         </div>
 
         {/* Upload Button (Admin Only) */}
@@ -175,7 +268,7 @@ const PastQuestions = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-3 gap-4">
                   <div>
                     <label className="text-sm font-medium text-primary mb-2 block">
                       Year 📅
@@ -192,12 +285,29 @@ const PastQuestions = () => {
                   
                   <div>
                     <label className="text-sm font-medium text-primary mb-2 block">
-                      File URL 🔗
+                      Level 🎓
+                    </label>
+                    <Select value={level} onValueChange={setLevel}>
+                      <SelectTrigger className="border-accent/30 focus:border-accent">
+                        <SelectValue placeholder="Select level" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="100">100 Level</SelectItem>
+                        <SelectItem value="200">200 Level</SelectItem>
+                        <SelectItem value="300">300 Level</SelectItem>
+                        <SelectItem value="400">400 Level</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium text-primary mb-2 block">
+                      Question File 📄
                     </label>
                     <Input
-                      value={fileUrl}
-                      onChange={(e) => setFileUrl(e.target.value)}
-                      placeholder="https://example.com/question.pdf"
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      onChange={(e) => setFile(e.target.files?.[0] || null)}
                       required
                       className="border-accent/30 focus:border-accent"
                     />
@@ -239,10 +349,19 @@ const PastQuestions = () => {
           </Card>
         )}
 
-        {/* Past Questions List */}
-        <div className="grid gap-6">
-          {questions.length > 0 ? (
-            questions.map((question) => (
+        {/* Past Questions by Level */}
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList className="grid w-full grid-cols-5 mb-8">
+            <TabsTrigger value="all">All Questions</TabsTrigger>
+            <TabsTrigger value="100">100 Level</TabsTrigger>
+            <TabsTrigger value="200">200 Level</TabsTrigger>
+            <TabsTrigger value="300">300 Level</TabsTrigger>
+            <TabsTrigger value="400">400 Level</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="all" className="space-y-6">
+            {filteredQuestions.length > 0 ? (
+              filteredQuestions.map((question) => (
               <Card key={question.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
                 <CardHeader>
                   <div className="flex justify-between items-start">
@@ -258,6 +377,11 @@ const PastQuestions = () => {
                           <Calendar className="h-4 w-4 mr-1" />
                           {question.year}
                         </div>
+                        {question.level && (
+                          <span className="bg-primary/20 text-primary px-2 py-1 rounded">
+                            {question.level} Level
+                          </span>
+                        )}
                       </div>
                     </div>
                     {question.file_url && (
@@ -279,21 +403,90 @@ const PastQuestions = () => {
                   </CardContent>
                 )}
               </Card>
-            ))
-          ) : (
-            <Card className="text-center py-12 border-primary/20">
-              <CardContent>
-                <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-primary mb-2">
-                  No Past Questions Yet 📚
-                </h3>
-                <p className="text-muted-foreground">
-                  Past questions will appear here soon! 📖
-                </p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
+              ))
+            ) : (
+              <Card className="text-center py-12 border-primary/20">
+                <CardContent>
+                  <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-primary mb-2">
+                    No Past Questions Found 📚
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Try adjusting your search or filter criteria! 📖
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
+          {[100, 200, 300, 400].map(levelNum => (
+            <TabsContent key={levelNum} value={levelNum.toString()} className="space-y-6">
+              {questions.filter(q => q.level === levelNum).length > 0 ? (
+                questions
+                  .filter(q => q.level === levelNum)
+                  .filter(q => 
+                    !searchTerm || 
+                    q.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    q.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    q.description?.toLowerCase().includes(searchTerm.toLowerCase())
+                  )
+                  .map((question) => (
+                    <Card key={question.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
+                      <CardHeader>
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <CardTitle className="text-xl text-primary mb-2">
+                              {question.title}
+                            </CardTitle>
+                            <div className="flex items-center text-sm text-muted-foreground space-x-4">
+                              <span className="bg-accent/20 text-accent px-2 py-1 rounded">
+                                {question.subject}
+                              </span>
+                              <div className="flex items-center">
+                                <Calendar className="h-4 w-4 mr-1" />
+                                {question.year}
+                              </div>
+                              <span className="bg-primary/20 text-primary px-2 py-1 rounded">
+                                {levelNum} Level
+                              </span>
+                            </div>
+                          </div>
+                          {question.file_url && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => window.open(question.file_url, '_blank')}
+                              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                            >
+                              <Download className="h-4 w-4 mr-2" />
+                              Download
+                            </Button>
+                          )}
+                        </div>
+                      </CardHeader>
+                      {question.description && (
+                        <CardContent>
+                          <p className="text-muted-foreground">{question.description}</p>
+                        </CardContent>
+                      )}
+                    </Card>
+                  ))
+              ) : (
+                <Card className="text-center py-12 border-primary/20">
+                  <CardContent>
+                    <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-primary mb-2">
+                      No {levelNum} Level Questions Yet 📚
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Questions for {levelNum} level will appear here! 📖
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+          ))}
+        </Tabs>
       </main>
 
       <Footer />

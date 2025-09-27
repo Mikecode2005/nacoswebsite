@@ -31,9 +31,9 @@ const Gallery = () => {
   const [newImage, setNewImage] = useState({
     title: "",
     description: "",
-    image_url: "",
     category: ""
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   useEffect(() => {
     fetchImages();
@@ -57,18 +57,40 @@ const Gallery = () => {
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !newImage.title || !newImage.image_url) return;
+    if (!user || !newImage.title || !imageFile) {
+      toast({
+        title: "Missing Information",
+        description: "Please provide a title and select an image file.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsUploading(true);
     try {
+      // Upload image to storage
+      const fileExt = imageFile.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('gallery-images')
+        .upload(fileName, imageFile);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('gallery-images')
+        .getPublicUrl(fileName);
+
+      // Insert into database
       const { error } = await supabase
         .from('gallery')
         .insert({
           title: newImage.title,
           description: newImage.description,
-          image_url: newImage.image_url,
-          category: newImage.category,
-          uploaded_by: user.id
+          image_url: publicUrl,
+          category: newImage.category
         });
 
       if (error) throw error;
@@ -78,7 +100,8 @@ const Gallery = () => {
         description: "Your image has been added to the gallery.",
       });
 
-      setNewImage({ title: "", description: "", image_url: "", category: "" });
+      setNewImage({ title: "", description: "", category: "" });
+      setImageFile(null);
       setShowUploadForm(false);
       fetchImages();
     } catch (error: any) {
@@ -208,12 +231,12 @@ const Gallery = () => {
                   
                   <div>
                     <label className="text-lg font-medium text-primary mb-3 block font-rajdhani">
-                      Image URL *
+                      Select Image *
                     </label>
                     <Input
-                      value={newImage.image_url}
-                      onChange={(e) => setNewImage({...newImage, image_url: e.target.value})}
-                      placeholder="https://example.com/image.jpg"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setImageFile(e.target.files?.[0] || null)}
                       required
                       className="text-lg p-4 border-primary/30 focus:border-primary rounded-xl"
                     />
