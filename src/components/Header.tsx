@@ -26,11 +26,11 @@ const Header = () => {
             className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
             onClick={() => navigate("/")}
           >
-            <div className="p-2 bg-primary-foreground/10 rounded-lg border border-primary-foreground/20">
+            <div className="rounded-full overflow-hidden">
               <img 
                 src="/images/logo.png" 
                 alt="Logo" 
-                className="h-6 w-6"
+                className="h-8 w-8" // Slightly larger for better visibility
               />
             </div>
             <div className="text-primary-foreground font-orbitron">
