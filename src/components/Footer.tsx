@@ -1,5 +1,3 @@
-import { Shield, Mail, Phone, MapPin } from "lucide-react";
-
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground py-12">
@@ -8,8 +6,12 @@ const Footer = () => {
           {/* Logo and Description */}
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="p-2 bg-primary-foreground/10 rounded-lg border border-primary-foreground/20">
-                <Shield className="h-6 w-6" />
+              <div className="rounded-full overflow-hidden">
+                <img 
+                  src="/images/logo.png" 
+                  alt="Logo" 
+                  className="h-8 w-8"
+                />
               </div>
               <div>
                 <div className="font-bold text-lg">NACOS</div>
@@ -56,6 +58,9 @@ const Footer = () => {
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
           <p className="text-primary-foreground/60 text-sm">
             © 2024 NACOS JABU Chapter. All rights reserved.
+          </p>
+          <p className="text-primary-foreground/60 text-sm mt-2">
+            Made by ECM
           </p>
         </div>
       </div>
