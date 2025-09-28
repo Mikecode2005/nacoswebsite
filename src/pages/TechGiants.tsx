@@ -84,60 +84,54 @@ const TechGiants = () => {
           {techGiants.map((giant, index) => (
             <Card key={giant.id} className="overflow-hidden hover:shadow-xl transition-all duration-300">
               <div className="md:flex">
-                {/* Fixed image section for mobile */}
                 <div className="md:w-1/3">
-                  <div className="h-48 md:h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative p-4">
+                  <div className="h-64 md:h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
                     {giant.image === "/placeholder.svg" ? (
-                      <div className="w-24 h-24 md:w-32 md:h-32 bg-primary/30 rounded-full flex items-center justify-center">
-                        <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+                      <div className="w-32 h-32 bg-primary/30 rounded-full flex items-center justify-center">
+                        <Users className="h-16 w-16 text-primary" />
                       </div>
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center">
+                      <div className="w-full h-full">
                         <img 
                           src={giant.image} 
                           alt={giant.name}
-                          className="w-32 h-32 md:w-full md:h-full object-cover rounded-lg md:rounded-none"
-                          style={{ 
-                            objectPosition: 'center',
-                            maxWidth: '100%',
-                            maxHeight: '100%'
-                          }}
+                          className="w-full h-full object-cover object-center"
                         />
                       </div>
                     )}
                     <Badge 
                       variant="secondary" 
-                      className="absolute top-3 right-3 md:top-4 md:right-4 bg-primary/90 text-primary-foreground text-xs md:text-sm"
+                      className="absolute top-4 right-4 bg-primary/90 text-primary-foreground"
                     >
                       #{index + 1}
                     </Badge>
                   </div>
                 </div>
                 
-                <div className="md:w-2/3 p-4 md:p-6">
+                <div className="md:w-2/3 p-6">
                   <CardHeader className="px-0 pt-0">
-                    <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 space-y-2 md:space-y-0">
-                      <div className="flex-1">
-                        <CardTitle className="text-xl md:text-2xl text-primary mb-1">{giant.name}</CardTitle>
-                        <p className="text-base md:text-lg font-semibold text-muted-foreground">{giant.position}</p>
+                    <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
+                      <div>
+                        <CardTitle className="text-2xl text-primary mb-1">{giant.name}</CardTitle>
+                        <p className="text-lg font-semibold text-muted-foreground">{giant.position}</p>
                         <p className="text-sm text-muted-foreground">{giant.company}</p>
                         {giant.business && giant.business !== "Information coming soon" && (
-                          <p className="text-xs md:text-sm text-accent font-medium mt-1">{giant.business}</p>
+                          <p className="text-sm text-accent font-medium mt-1">{giant.business}</p>
                         )}
                       </div>
-                      <Badge variant="default" className="text-xs md:text-sm w-fit">
+                      <Badge variant="default" className="text-sm w-fit">
                         {giant.achievement}
                       </Badge>
                     </div>
                   </CardHeader>
 
                   <CardContent className="px-0">
-                    <p className="text-muted-foreground text-sm md:text-base mb-4">{giant.bio}</p>
+                    <p className="text-muted-foreground mb-4">{giant.bio}</p>
                     
                     <div className="grid md:grid-cols-2 gap-4 mb-6">
                       <div>
-                        <h4 className="font-semibold text-primary mb-2 flex items-center text-sm md:text-base">
-                          <Star className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+                        <h4 className="font-semibold text-primary mb-2 flex items-center">
+                          <Star className="h-4 w-4 mr-1" />
                           Specialties
                         </h4>
                         <div className="flex flex-wrap gap-1">
@@ -150,24 +144,24 @@ const TechGiants = () => {
                       </div>
                       
                       {giant.yearsOfExperience > 0 && (
-                        <div className="grid grid-cols-3 gap-2 md:gap-4 text-center">
-                          <div className="bg-primary/5 p-2 md:p-3 rounded-lg">
-                            <div className="text-base md:text-lg font-bold text-primary">{giant.yearsOfExperience}+</div>
+                        <div className="grid grid-cols-3 gap-4 text-center">
+                          <div className="bg-primary/5 p-3 rounded-lg">
+                            <div className="text-lg font-bold text-primary">{giant.yearsOfExperience}+</div>
                             <div className="text-xs text-muted-foreground">Years Exp</div>
                           </div>
-                          <div className="bg-accent/5 p-2 md:p-3 rounded-lg">
-                            <div className="text-base md:text-lg font-bold text-accent">{giant.projects}+</div>
+                          <div className="bg-accent/5 p-3 rounded-lg">
+                            <div className="text-lg font-bold text-accent">{giant.projects}+</div>
                             <div className="text-xs text-muted-foreground">Projects</div>
                           </div>
-                          <div className="bg-secondary/20 p-2 md:p-3 rounded-lg">
-                            <div className="text-base md:text-lg font-bold text-secondary-foreground">{giant.awards}</div>
+                          <div className="bg-secondary/20 p-3 rounded-lg">
+                            <div className="text-lg font-bold text-secondary-foreground">{giant.awards}</div>
                             <div className="text-xs text-muted-foreground">Awards</div>
                           </div>
                         </div>
                       )}
                     </div>
 
-                    <div className="flex flex-col md:flex-row md:items-center justify-between space-y-3 md:space-y-0">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       {giant.yearsOfExperience > 0 ? (
                         <div className="flex items-center space-x-3">
                           <Briefcase className="h-4 w-4 text-muted-foreground" />
@@ -182,7 +176,7 @@ const TechGiants = () => {
                       )}
                       
                       <Button variant="outline" size="sm" disabled={giant.id > 1} className="w-full md:w-auto">
-                        <ExternalLink className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+                        <ExternalLink className="h-4 w-4 mr-1" />
                         {giant.id === 1 ? "View Portfolio" : "Coming Soon"}
                       </Button>
                     </div>
@@ -195,13 +189,13 @@ const TechGiants = () => {
 
         <div className="mt-16 text-center">
           <Card className="max-w-2xl mx-auto bg-primary/5 border-primary/20">
-            <CardContent className="p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl font-bold text-primary mb-4">Join Our Legacy</h3>
-              <p className="text-muted-foreground text-sm md:text-base mb-4">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-primary mb-4">Join Our Legacy</h3>
+              <p className="text-muted-foreground mb-4">
                 Be inspired by our alumni success stories and start your own journey in tech. 
                 Your name could be featured here next!
               </p>
-              <div className="flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-4">
+              <div className="flex flex-col md:flex-row justify-center gap-4">
                 <Button variant="outline" className="w-full md:w-auto">
                   Student Resources
                 </Button>
