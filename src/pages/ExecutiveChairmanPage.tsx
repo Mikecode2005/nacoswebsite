@@ -78,13 +78,13 @@ const ExecutiveChairmanPage = () => {
     { icon: Zap, title: "Innovation Labs", desc: "State-of-the-art research facilities", color: "from-orange-500 to-red-500" }
   ];
 
-  const portfolio = {
-    role: "Full Stack Developer",
-    languages: ["JavaScript", "Python"],
-    experience: "4 years",
-    qualities: ["Visionary", "Tech Giant in the Making"],
-    projects: "Worked on over 10 major projects"
-  };
+  const portfolioItems = [
+    { icon: Code, title: "Role", desc: "Full Stack Developer", color: "from-blue-500 to-indigo-600" },
+    { icon: Code, title: "Languages", desc: "JavaScript, Python", color: "from-purple-500 to-pink-500" },
+    { icon: Trophy, title: "Experience", desc: "4 Years of Coding", color: "from-green-500 to-emerald-500" },
+    { icon: Lightbulb, title: "Qualities", desc: "Visionary, Tech Giant in the Making", color: "from-orange-500 to-red-500" },
+    { icon: Rocket, title: "Projects", desc: "Worked on over 10 major projects", color: "from-cyan-500 to-blue-600" }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 relative overflow-hidden">
@@ -115,7 +115,9 @@ const ExecutiveChairmanPage = () => {
 
       {/* Hero Section */}
       <div className="relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="max
+
+-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -212,7 +214,7 @@ const ExecutiveChairmanPage = () => {
                   transition={{ duration: 0.4 }}
                 >
                   <img 
-                    src="images/Chairman.jpeg" 
+                    src="images/Chairman.jpg" 
                     alt={chairman ? chairman.name : "Ogunmola Michael"}
                     className="w-full h-full object-cover"
                   />
@@ -234,34 +236,43 @@ const ExecutiveChairmanPage = () => {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <Card className="border-0 bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-xl shadow-lg">
-              <CardHeader className="text-center py-8">
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <Code className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                </motion.div>
-                <CardTitle className="text-2xl sm:text-3xl font-orbitron text-blue-800 mb-3">
-                  Portfolio
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4 text-center">
-                  <p className="text-base sm:text-lg text-blue-600 font-exo font-semibold">{portfolio.role}</p>
-                  <p className="text-base sm:text-lg text-blue-600 font-exo">
-                    <span className="font-semibold">Languages:</span> {portfolio.languages.join(", ")}
-                  </p>
-                  <p className="text-base sm:text-lg text-blue-600 font-exo">
-                    <span className="font-semibold">Experience:</span> {portfolio.experience}
-                  </p>
-                  <p className="text-base sm:text-lg text-blue-600 font-exo">
-                    <span className="font-semibold">Qualities:</span> {portfolio.qualities.join(", ")}
-                  </p>
-                  <p className="text-base sm:text-lg text-blue-600 font-exo">{portfolio.projects}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <h3 className="text-2xl sm:text-3xl font-orbitron font-bold text-center text-blue-800 mb-8">
+              Portfolio
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {portfolioItems.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.03, rotateY: 5 }}
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    <Card className="h-full bg-gradient-to-br from-white/90 to-blue-50/90 backdrop-blur-sm border-blue-200/50 hover:shadow-xl transition-all duration-300">
+                      <CardContent className="p-6 text-center">
+                        <motion.div 
+                          className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-md`}
+                          whileHover={{ scale: 1.1, rotate: 360 }}
+                          transition={{ duration: 0.4 }}
+                        >
+                          <Icon className="h-8 w-8 text-white" />
+                        </motion.div>
+                        <h4 className="text-lg font-orbitron font-bold text-blue-800 mb-2">
+                          {item.title}
+                        </h4>
+                        <p className="text-blue-600 font-exo text-sm sm:text-base">
+                          {item.desc}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
           </motion.div>
 
           {/* Vision & Leadership */}
