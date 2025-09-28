@@ -1,9 +1,8 @@
-import { Menu, Shield, User, LogOut } from "lucide-react";
+import { Menu, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import Image from "next/image";
 
 const Header = () => {
   const { user, userRole, signOut } = useAuth();
@@ -28,7 +27,7 @@ const Header = () => {
             onClick={() => navigate("/")}
           >
             <div className="p-2 bg-primary-foreground/10 rounded-lg border border-primary-foreground/20">
-              <Image 
+              <img 
                 src="/images/logo.png" 
                 alt="Logo" 
                 className="h-6 w-6"
