@@ -28,7 +28,13 @@ const Header = () => {
             onClick={() => navigate("/")}
           >
             <div className="p-2 bg-primary-foreground/10 rounded-lg border border-primary-foreground/20">
-              <Shield className="h-6 w-6 text-primary-foreground" />
+              <Image 
+                src="/images/logo.png" 
+                alt="Logo" 
+                width={24} 
+                height={24}
+                className="h-6 w-6"
+              />
             </div>
             <div className="text-primary-foreground font-orbitron">
               <div className="font-bold text-lg">NACOS</div>
