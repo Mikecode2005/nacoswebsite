@@ -8,24 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Users, 
-  BookOpen, 
-  Trophy, 
-  FileText, 
-  Shield, 
-  GraduationCap, 
-  Calendar,
-  Activity,
-  TrendingUp,
-  Database,
-  MessageSquare,
-  Image,
-  Award,
-  Target,
-  Clock,
-  BarChart3
-} from "lucide-react";
+import { Users, BookOpen, Trophy, FileText, Shield, GraduationCap, Calendar, Activity, TrendingUp, Database, MessageSquare, Image, Award, Target, Clock, ChartBar as BarChart3 } from "lucide-react";
 import { Navigate } from "react-router-dom";
 import AdminEventsManager from "@/components/AdminEventsManager";
 import { motion } from "framer-motion";
