@@ -150,10 +150,10 @@ const Blog = () => {
         {/* Action Buttons */}
         {user && !isWriting && !isEditingProfile && (
           <div className="text-center mb-12 space-y-4">
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button
                 onClick={() => setIsWriting(true)}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
                 size="lg"
               >
                 <Plus className="h-5 w-5 mr-2" />
@@ -162,7 +162,7 @@ const Blog = () => {
               <Button
                 onClick={() => setIsEditingProfile(true)}
                 variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto"
                 size="lg"
               >
                 <Settings className="h-5 w-5 mr-2" />
@@ -217,11 +217,11 @@ const Blog = () => {
                   />
                 </div>
                 
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     type="submit"
                     disabled={submitting}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
                   >
                     {submitting ? "Publishing..." : "Publish Post 🚀"}
                   </Button>
@@ -229,7 +229,7 @@ const Blog = () => {
                     type="button"
                     variant="outline"
                     onClick={() => setIsWriting(false)}
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto"
                   >
                     Cancel
                   </Button>
