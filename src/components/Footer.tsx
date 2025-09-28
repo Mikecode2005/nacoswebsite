@@ -1,3 +1,5 @@
+import { Mail, Phone, MapPin } from "lucide-react";
+
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground py-12">
