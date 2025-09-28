@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Linkedin, ArrowLeft, Star, Lightbulb, Network, Users, Trophy, Target, Zap, Code, Rocket } from "lucide-react";
+import { Mail, MessageCircle, ArrowLeft, Star, Lightbulb, Network, Users, Trophy, Target, Zap, Code, Rocket } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
@@ -15,7 +15,7 @@ interface Executive {
   position: string;
   bio: string;
   email: string;
-  linkedin: string;
+  whatsapp: string;
   image_url: string;
   order_index: number;
 }
@@ -77,6 +77,14 @@ const ExecutiveChairmanPage = () => {
     { icon: Lightbulb, title: "Skills Development", desc: "Regular workshops and training", color: "from-green-500 to-emerald-500" },
     { icon: Zap, title: "Innovation Labs", desc: "State-of-the-art research facilities", color: "from-orange-500 to-red-500" }
   ];
+
+  const portfolio = {
+    role: "Full Stack Developer",
+    languages: ["JavaScript", "Python"],
+    experience: "4 years",
+    qualities: ["Visionary", "Tech Giant in the Making"],
+    projects: "Worked on over 10 major projects"
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 relative overflow-hidden">
@@ -180,10 +188,12 @@ const ExecutiveChairmanPage = () => {
                 </motion.div>
                 
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto border-2 border-blue-300/50 text-blue-200 hover:bg-blue-400/20 backdrop-blur-sm font-rajdhani font-semibold text-base sm:text-lg px-6 py-4 rounded-xl">
-                    <Linkedin className="h-5 w-5 mr-2" />
-                    Connect
-                  </Button>
+                  <a href="https://wa.me/+2348057983551" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto border-2 border-blue-300/50 text-blue-200 hover:bg-blue-400/20 backdrop-blur-sm font-rajdhani font-semibold text-base sm:text-lg px-6 py-4 rounded-xl">
+                      <MessageCircle className="h-5 w-5 mr-2" />
+                      WhatsApp
+                    </Button>
+                  </a>
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -201,23 +211,11 @@ const ExecutiveChairmanPage = () => {
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.4 }}
                 >
-                  {chairman?.image_url ? (
-                    <img 
-                      src={chairman.image_url} 
-                      alt={chairman.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center h-full">
-                      <motion.div
-                        animate={{ scale: [1, 1.1, 1] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        <Star className="h-20 w-20 text-blue-300/80 mb-4" />
-                      </motion.div>
-                      <span className="text-blue-200/80 text-base sm:text-lg font-exo">Executive Chairman</span>
-                    </div>
-                  )}
+                  <img 
+                    src="images/Chairman.jpeg" 
+                    alt={chairman ? chairman.name : "Ogunmola Michael"}
+                    className="w-full h-full object-cover"
+                  />
                 </motion.div>
               </div>
             </motion.div>
@@ -228,6 +226,44 @@ const ExecutiveChairmanPage = () => {
       {/* Content Sections */}
       <div className="relative z-10 bg-gradient-to-br from-background via-blue-50/50 to-indigo-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          {/* Portfolio Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <Card className="border-0 bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-xl shadow-lg">
+              <CardHeader className="text-center py-8">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <Code className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                </motion.div>
+                <CardTitle className="text-2xl sm:text-3xl font-orbitron text-blue-800 mb-3">
+                  Portfolio
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="space-y-4 text-center">
+                  <p className="text-base sm:text-lg text-blue-600 font-exo font-semibold">{portfolio.role}</p>
+                  <p className="text-base sm:text-lg text-blue-600 font-exo">
+                    <span className="font-semibold">Languages:</span> {portfolio.languages.join(", ")}
+                  </p>
+                  <p className="text-base sm:text-lg text-blue-600 font-exo">
+                    <span className="font-semibold">Experience:</span> {portfolio.experience}
+                  </p>
+                  <p className="text-base sm:text-lg text-blue-600 font-exo">
+                    <span className="font-semibold">Qualities:</span> {portfolio.qualities.join(", ")}
+                  </p>
+                  <p className="text-base sm:text-lg text-blue-600 font-exo">{portfolio.projects}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
           {/* Vision & Leadership */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -391,14 +427,16 @@ const ExecutiveChairmanPage = () => {
                   </motion.div>
                   
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button 
-                      variant="outline"
-                      size="lg"
-                      className="w-full sm:w-auto border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-rajdhani font-semibold text-base sm:text-lg px-8 py-4 rounded-xl"
-                    >
-                      <Linkedin className="h-5 w-5 mr-2" />
-                      LinkedIn
-                    </Button>
+                    <a href="https://wa.me/+2348057983551" target="_blank" rel="noopener noreferrer">
+                      <Button 
+                        variant="outline"
+                        size="lg"
+                        className="w-full sm:w-auto border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-rajdhani font-semibold text-base sm:text-lg px-8 py-4 rounded-xl"
+                      >
+                        <MessageCircle className="h-5 w-5 mr-2" />
+                        WhatsApp
+                      </Button>
+                    </a>
                   </motion.div>
                 </div>
               </CardContent>
