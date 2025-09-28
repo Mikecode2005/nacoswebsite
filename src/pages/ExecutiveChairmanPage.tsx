@@ -15,7 +15,7 @@ interface Executive {
   position: string;
   bio: string;
   email: string;
-  whatsapp: string;
+  linkedin: string;
   image_url: string;
   order_index: number;
 }

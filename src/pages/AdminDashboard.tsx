@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Users, BookOpen, Trophy, FileText, Shield, GraduationCap } from "lucide-react";
+import { Users, BookOpen, Trophy, FileText, Shield, GraduationCap, Calendar } from "lucide-react";
 import { Navigate } from "react-router-dom";
+import AdminEventsManager from "@/components/AdminEventsManager";
 
 interface DashboardStats {
   totalUsers: number;
@@ -324,6 +325,19 @@ const AdminDashboard = () => {
             </CardContent>
           </Card>
         )}
+
+        {/* Events Management */}
+        <Card className="border-primary/20">
+          <CardHeader>
+            <CardTitle className="flex items-center text-2xl text-primary">
+              <Calendar className="h-6 w-6 mr-2" />
+              Events Management 📅
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <AdminEventsManager />
+          </CardContent>
+        </Card>
       </div>
       <Footer />
     </div>

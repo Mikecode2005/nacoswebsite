@@ -63,51 +63,55 @@ const EventsCarousel = () => {
     <Carousel className="w-full max-w-5xl mx-auto">
       <CarouselContent>
         {events.map((event) => (
-          <CarouselItem key={event.id}>
-            <Card className="bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-lg transition-all duration-300">
-              <CardHeader className="text-center">
-                <CardTitle className="font-orbitron text-2xl bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-                  {event.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {event.image_url && (
-                  <div className="relative h-48 overflow-hidden rounded-lg">
+          <CarouselItem key={event.id} className="md:basis-1/2 lg:basis-1/3">
+            <Card className="overflow-hidden bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-lg transition-all duration-300 group">
+              <CardContent className="p-0">
+                <div className="relative overflow-hidden h-64">
+                  {event.image_url ? (
                     <img 
                       src={event.image_url} 
                       alt={event.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                  </div>
-                )}
-                <p className="text-muted-foreground font-exo leading-relaxed">
-                  {event.description}
-                </p>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    <span className="font-rajdhani">
-                      {format(new Date(event.event_date), 'PPP')}
-                    </span>
-                  </div>
-                  {event.location && (
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4" />
-                      <span className="font-rajdhani">{event.location}</span>
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-blue-400/20 flex items-center justify-center">
+                      <Calendar className="h-16 w-16 text-primary/40" />
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <div className="h-full flex flex-col justify-end">
+                      <h3 className="font-orbitron font-bold text-xl mb-2">{event.title}</h3>
+                      <p className="text-sm text-gray-200 mb-3 font-exo line-clamp-3">{event.description}</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-xs">
+                          <Calendar className="h-3 w-3" />
+                          <span className="font-rajdhani">
+                            {format(new Date(event.event_date), 'MMM dd, yyyy')}
+                          </span>
+                        </div>
+                        {event.location && (
+                          <div className="flex items-center gap-2 text-xs">
+                            <MapPin className="h-3 w-3" />
+                            <span className="font-rajdhani">{event.location}</span>
+                          </div>
+                        )}
+                        {event.registration_link && (
+                          <Button 
+                            asChild 
+                            size="sm"
+                            className="mt-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 text-white font-rajdhani"
+                          >
+                            <a href={event.registration_link} target="_blank" rel="noopener noreferrer">
+                              Register Now
+                              <ExternalLink className="ml-1 h-3 w-3" />
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                {event.registration_link && (
-                  <Button 
-                    asChild 
-                    className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 font-rajdhani font-semibold"
-                  >
-                    <a href={event.registration_link} target="_blank" rel="noopener noreferrer">
-                      Register Now
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                )}
               </CardContent>
             </Card>
           </CarouselItem>
