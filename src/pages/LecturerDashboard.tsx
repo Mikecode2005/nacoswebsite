@@ -226,7 +226,7 @@ const LecturerDashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10">
       <Header />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 pt-24">
         {/* Welcome Section */}
         <div className="mb-8">
           <Card className="bg-gradient-to-r from-secondary/10 via-accent/10 to-primary/10 border-secondary/20 relative overflow-hidden">

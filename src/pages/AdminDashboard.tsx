@@ -157,7 +157,7 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10">
       <Header />
-      <div className="max-w-7xl mx-auto p-6 space-y-8">
+      <div className="max-w-7xl mx-auto p-6 pt-24 space-y-8">
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-primary mb-4 font-orbitron">
             {userRole === 'superadmin' ? 'Super Admin' : 'Admin'} Command Center 🛡️
