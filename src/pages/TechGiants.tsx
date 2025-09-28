@@ -13,7 +13,7 @@ const TechGiants = () => {
       position: "Founder & Creative Director",
       company: "Cpaws Studio",
       achievement: "Web3 Creative Pioneer",
-      image: "/images/cpaws2.jpg",
+      image: "/images/Cpaws2.jpg",
       bio: "Exceptional alumnus who excelled in multiple digital creative fields. Built a successful Web3 creative studio that combines cutting-edge technology with stunning visual design.",
       specialties: ["Web Development", "Branding & Graphic Design", "Video Editing", "Web3 Technologies"],
       yearsOfExperience: 4,
