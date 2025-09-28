@@ -99,28 +99,74 @@ const LeadershipSection = () => {
                 <Card className={`${leader.borderColor} bg-gradient-to-br ${leader.bgGradient} hover:shadow-2xl transition-all duration-500 relative overflow-hidden group`}>
                   {/* Animated Background Pattern */}
                   <div className="absolute inset-0 opacity-20">
-                    <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${leader.gradient} rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-110 transition-transform duration-500`}></div>
-                    <div className={`absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br ${leader.gradient} rounded-full transform -translate-x-12 translate-y-12 group-hover:scale-110 transition-transform duration-500`}></div>
+                    <motion.div 
+                      className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${leader.gradient} rounded-full transform translate-x-20 -translate-y-20`}
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 180, 360]
+                      }}
+                      transition={{ 
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    <motion.div 
+                      className={`absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br ${leader.gradient} rounded-lg transform -translate-x-16 translate-y-16 rotate-45`}
+                      animate={{ 
+                        scale: [1, 1.1, 1],
+                        rotate: [45, 225, 45]
+                      }}
+                      transition={{ 
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1
+                      }}
+                    />
                   </div>
 
                   <CardHeader className="text-center relative z-10">
                     <motion.div 
-                      className={`w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-500`}
+                      className={`w-32 h-32 mx-auto mb-8 rounded-2xl bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-500 relative`}
                       whileHover={{ 
-                        rotate: 360,
+                        rotate: [0, 5, -5, 0],
                         scale: 1.1
                       }}
-                      transition={{ duration: 0.8 }}
+                      transition={{ duration: 0.6 }}
                     >
-                      <Icon className="h-12 w-12 text-white drop-shadow-lg" />
+                      <Icon className="h-16 w-16 text-white drop-shadow-2xl" />
+                      
+                      {/* Floating particles around icon */}
+                      <div className="absolute inset-0">
+                        {[...Array(6)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-2 h-2 bg-white/60 rounded-full"
+                            style={{
+                              left: `${20 + Math.cos(i * 60 * Math.PI / 180) * 40}%`,
+                              top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 40}%`,
+                            }}
+                            animate={{
+                              scale: [0, 1, 0],
+                              opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              delay: i * 0.3,
+                            }}
+                          />
+                        ))}
+                      </div>
                     </motion.div>
                     
-                    <CardTitle className={`text-2xl font-orbitron ${leader.textColor} mb-2 group-hover:scale-105 transition-transform duration-300`}>
+                    <CardTitle className={`text-3xl font-orbitron ${leader.textColor} mb-4 group-hover:scale-105 transition-transform duration-300`}>
                       {leader.name}
                     </CardTitle>
                     
                     <motion.div 
-                      className={`inline-block px-4 py-2 bg-gradient-to-r ${leader.gradient} text-white rounded-full text-sm font-rajdhani font-semibold shadow-lg`}
+                      className={`inline-block px-6 py-3 bg-gradient-to-r ${leader.gradient} text-white rounded-full text-lg font-rajdhani font-semibold shadow-lg`}
                       whileHover={{ scale: 1.05 }}
                     >
                       {leader.position}
@@ -128,7 +174,7 @@ const LeadershipSection = () => {
                   </CardHeader>
 
                   <CardContent className="text-center space-y-6 relative z-10">
-                    <p className={`${leader.textColor} font-exo leading-relaxed`}>
+                    <p className={`${leader.textColor} font-exo text-lg leading-relaxed`}>
                       {leader.description}
                     </p>
 
