@@ -17,31 +17,33 @@ const TechGiantsSection = () => {
       achievements: "Web3 Creative Pioneer",
       years_experience: 4,
       specialties: ["Web Development", "Branding & Graphic Design", "Video Editing", "Web3 Technologies"],
-      business: "Cpaws Studio (Web3 Creative Studio)"
+      business: "Cpaws Studio (Web3 Creative Studio)",
+      portfolio: "https://www.cpawstudio.com"
     },
     {
       id: 2,
       name: "Eniola Arnold",
-      position: "Tech Professional",
-      company: "Information coming soon",
-      bio: "Details about Eniola's achievements and career path will be added soon.",
-      image_url: "/placeholder.svg",
-      achievements: "Rising Tech Star",
-      years_experience: 0,
-      specialties: ["Skills to be updated"],
-      business: "Information coming soon"
+      position: "Graphic Artist/Designer",
+      company: "GrayPlug",
+      bio: "Passionate about blending clean layouts with emotional storytelling. Brings creativity from Instagram portfolio (@arnolden_dev), exploring mood, typography, and visual identity.",
+      image_url: "/images/Arnold.jpg",
+      achievements: "Visual Storyteller",
+      years_experience: 2,
+      specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding"],
+      portfolio: "https://www.instagram.com/arnolden_dev"
     },
     {
       id: 3,
-      name: "Benjamin",
-      position: "Tech Professional",
-      company: "Information coming soon",
-      bio: "Details about Benjamin's achievements and career path will be added soon.",
-      image_url: "/placeholder.svg",
+      name: "Omolayo Ayokanmi (BeeTechHub)",
+      position: "Full-Stack Developer",
+      company: "BeeTechHub",
+      bio: "Forward-thinking full-stack developer with a strong foundation in HTML, TailwindCSS, JavaScript, PHP, SQL, Python, and Django. Builds smart, user-friendly web applications.",
+      image_url: "/images/BJ1.jpg",
       achievements: "Tech Innovator",
-      years_experience: 0,
-      specialties: ["Skills to be updated"],
-      business: "Information coming soon"
+      years_experience: 3,
+      specialties: ["Full-Stack Development", "Python/Django", "JavaScript", "PHP", "SQL"],
+      business: "BeeTechHub",
+      portfolio: "https://omolayoayokanmi.com.ng/"
     }
   ];
 
@@ -78,7 +80,7 @@ const TechGiantsSection = () => {
                   <CardHeader className="text-center pb-2">
                     <div className="relative">
                       <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
-                        {alumni.image_url && alumni.image_url !== "/placeholder.svg" ? (
+                        {alumni.image_url ? (
                           <img
                             src={alumni.image_url} 
                             alt={alumni.name}
@@ -100,7 +102,7 @@ const TechGiantsSection = () => {
                     </CardTitle>
                     <p className="text-primary font-rajdhani font-semibold text-lg">{alumni.position}</p>
                     <p className="text-accent font-rajdhani font-medium">{alumni.company}</p>
-                    {alumni.business && alumni.business !== "Information coming soon" && (
+                    {alumni.business && (
                       <p className="text-sm text-muted-foreground font-medium mt-1">{alumni.business}</p>
                     )}
                   </CardHeader>
@@ -112,7 +114,7 @@ const TechGiantsSection = () => {
                       </p>
                     </div>
                     
-                    {alumni.specialties && alumni.specialties.length > 0 && alumni.specialties[0] !== "Skills to be updated" && (
+                    {alumni.specialties && alumni.specialties.length > 0 && (
                       <div className="bg-primary/10 rounded-lg p-3">
                         <div className="flex items-center justify-center mb-2">
                           <Award className="h-4 w-4 text-primary mr-2" />
@@ -135,14 +137,23 @@ const TechGiantsSection = () => {
                       </div>
                     )}
                     
-                    {alumni.id === 1 && (
-                      <div className="text-center">
-                        <Button variant="outline" size="sm" className="w-full">
-                          <ExternalLink className="h-3 w-3 mr-1" />
-                          View Portfolio
-                        </Button>
-                      </div>
-                    )}
+                    <div className="text-center">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => {
+                          if (alumni.portfolio) {
+                            window.open(alumni.portfolio, '_blank', 'noopener,noreferrer');
+                          }
+                        }}
+                      >
+                        <ExternalLink className="h-3 w-3 mr-1" />
+                        {alumni.id === 1 ? "View Website" : 
+                         alumni.id === 2 ? "View Instagram" : 
+                         "View Portfolio"}
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
             </motion.div>
