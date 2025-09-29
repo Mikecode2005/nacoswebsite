@@ -17,7 +17,7 @@ const DepartmentSection = () => {
       borderColor: 'border-purple-200',
       textColor: 'text-purple-700',
       iconBg: 'bg-purple-100',
-      stats: { students: '150+', courses: '25+', placement: '95%' },
+      stats: { students: '30+', courses: '25+', placement: '95%' },
       tools: ['Python', 'R', 'SQL', 'Tableau']
     },
     {
@@ -31,7 +31,7 @@ const DepartmentSection = () => {
       borderColor: 'border-red-200',
       textColor: 'text-red-700',
       iconBg: 'bg-red-100',
-      stats: { students: '120+', courses: '20+', placement: '98%' },
+      stats: { students: '20+', courses: '20+', placement: '98%' },
       tools: ['Kali Linux', 'Wireshark', 'Metasploit', 'Burp Suite']
     }
   ];

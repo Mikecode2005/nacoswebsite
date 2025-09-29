@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Mail, Linkedin, Crown, Star, GraduationCap, Code, Database } from "lucide-react";
+import { Users, Mail, Linkedin, Crown, Star } from "lucide-react";
 
 interface Executive {
   id: string;
@@ -59,11 +59,11 @@ const Executives = () => {
   const sampleExecutives = [
     {
       id: '1',
-      name: 'Emmanuel Adebayo',
+      name: 'Duduyemi Olalekan',
       position: 'President 👑',
       bio: 'Leading NACOS with vision and passion for tech innovation. Computer Science final year student with expertise in full-stack development.',
       email: 'president@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/emmanuel-adebayo',
+      linkedin: 'https://linkedin.com/in/duduyemi-olalekan',
       image_url: '',
       order_index: 1,
       created_at: '2024-01-01'
@@ -81,55 +81,55 @@ const Executives = () => {
     },
     {
       id: '3',
-      name: 'Michael Chen',
-      position: 'General Secretary 📝',
-      bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
-      email: 'secretary@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/michael-chen',
+      name: 'Temitope Adeyemi',
+      position: 'Vice President ⚡',
+      bio: 'Supporting the president in strategic planning and execution. Skilled in leadership and community building with a focus on tech education.',
+      email: 'vice@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/temitope-adeyemi',
       image_url: '',
       order_index: 3,
       created_at: '2024-01-01'
     },
     {
       id: '4',
-      name: 'Fatima Ibrahim',
-      position: 'Treasurer 💰',
-      bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
-      email: 'treasurer@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/fatima-ibrahim',
+      name: 'Michael Chen',
+      position: 'General Secretary 📝',
+      bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
+      email: 'secretary@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/michael-chen',
       image_url: '',
       order_index: 4,
       created_at: '2024-01-01'
     },
     {
       id: '5',
-      name: 'David Ojo',
-      position: 'Public Relations Officer 📢',
-      bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
-      email: 'pro@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/david-ojo',
+      name: 'Aisha Bello',
+      position: 'Assistant General Secretary 📋',
+      bio: 'Assisting in administrative duties and record-keeping. Detail-oriented with strong organizational skills and tech proficiency.',
+      email: 'asst-secretary@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/aisha-bello',
       image_url: '',
       order_index: 5,
       created_at: '2024-01-01'
     },
     {
       id: '6',
-      name: 'Grace Okwu',
-      position: 'Social Director 🎉',
-      bio: 'Creating memorable experiences and fostering community spirit. Event management and UX design specialist.',
-      email: 'social@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/grace-okwu',
+      name: 'Fatima Ibrahim',
+      position: 'Financial Secretary 💰',
+      bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
+      email: 'treasurer@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/fatima-ibrahim',
       image_url: '',
       order_index: 6,
       created_at: '2024-01-01'
     },
     {
       id: '7',
-      name: 'Dr. Adebayo Kolawole',
-      position: 'Head of Department (HOD) 🎓',
-      bio: 'Leading the Computer Science department with academic excellence and industry experience. PhD in Computer Science with specialization in AI and Machine Learning.',
-      email: 'hod@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/dr-adebayo-kolawole',
+      name: 'Chinedu Okeke',
+      position: 'Software Director 💻',
+      bio: 'Overseeing software development initiatives and hackathons. Full-stack developer passionate about open-source contributions.',
+      email: 'software@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/chinedu-okeke',
       image_url: '',
       order_index: 7,
       created_at: '2024-01-01'
@@ -137,9 +137,9 @@ const Executives = () => {
     {
       id: '8',
       name: 'Sarah Okonkwo',
-      position: 'Subdepartment Coordinator - Software Engineering 💻',
-      bio: 'Coordinating software engineering programs and industry partnerships. Expert in full-stack development and project management methodologies.',
-      email: 'software@nacos.jabu.edu.ng',
+      position: 'Assistant Software Director 🔧',
+      bio: 'Supporting software projects and mentoring junior developers. Specializes in frontend technologies and agile methodologies.',
+      email: 'asst-software@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/sarah-okonkwo',
       image_url: '',
       order_index: 8,
@@ -147,13 +147,101 @@ const Executives = () => {
     },
     {
       id: '9',
-      name: 'James Adedayo',
-      position: 'Subdepartment Coordinator - Data Science 📊',
-      bio: 'Leading data science initiatives and research projects. Specialist in machine learning, data analytics, and business intelligence.',
-      email: 'datascience@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/james-adedayo',
+      name: 'Zainab Ali',
+      position: 'Sports Director 🏃‍♂️',
+      bio: 'Promoting physical wellness and team-building through sports events. Fitness enthusiast and data analyst.',
+      email: 'sports@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/zainab-ali',
       image_url: '',
       order_index: 9,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '10',
+      name: 'Peter Adebayo',
+      position: 'Assistant Sports Director ⚽',
+      bio: 'Coordinating sports activities and tournaments. Passionate about sports tech and community health initiatives.',
+      email: 'asst-sports@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/peter-adebayo',
+      image_url: '',
+      order_index: 10,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '11',
+      name: 'Grace Okwu',
+      position: 'Social Director 🎉',
+      bio: 'Creating memorable experiences and fostering community spirit. Event management and UX design specialist.',
+      email: 'social@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/grace-okwu',
+      image_url: '',
+      order_index: 11,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '12',
+      name: 'Emeka Nwosu',
+      position: 'Assistant Social Director 🎊',
+      bio: 'Assisting in event planning and social media engagement. Creative mind with experience in digital marketing.',
+      email: 'asst-social@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/emeka-nwosu',
+      image_url: '',
+      order_index: 12,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '13',
+      name: 'Halima Yusuf',
+      position: 'Welfare Director ❤️',
+      bio: 'Ensuring member well-being and support systems. Counselor with background in health informatics.',
+      email: 'welfare@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/halima-yusuf',
+      image_url: '',
+      order_index: 13,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '14',
+      name: 'Olumide Johnson',
+      position: 'Assistant Welfare Director 🤝',
+      bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
+      email: 'asst-welfare@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/olumide-johnson',
+      image_url: '',
+      order_index: 14,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '15',
+      name: 'Fatima Musa',
+      position: 'Chief Whip 🔗',
+      bio: 'Ensuring discipline and unity within the executive team. Legal studies background with tech interests.',
+      email: 'whip@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/fatima-musa',
+      image_url: '',
+      order_index: 15,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '16',
+      name: 'James Adedayo',
+      position: 'Media Director 📸',
+      bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
+      email: 'media@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/james-adedayo',
+      image_url: '',
+      order_index: 16,
+      created_at: '2024-01-01'
+    },
+    {
+      id: '17',
+      name: 'David Ojo',
+      position: 'Public Relations Officer 📢',
+      bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
+      email: 'pro@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/david-ojo',
+      image_url: '',
+      order_index: 17,
       created_at: '2024-01-01'
     }
   ];
@@ -180,23 +268,25 @@ const Executives = () => {
           {displayExecutives.map((executive) => (
             <Card key={executive.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
               <CardHeader className="text-center">
-                <Link to={`/executives/${executive.id}`} className="block">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer">
+                <Link to={
+                  executive.position.includes('President') ? '/president' :
+                  executive.position.includes('Executive Chairman') ? '/executive-chairman' :
+                  `/executives/${executive.id}`
+                } className="block">
+                  <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer">
                     {executive.position.includes('President') && <Crown className="h-12 w-12 text-primary" />}
                     {executive.position.includes('Chairman') && <Star className="h-12 w-12 text-accent" />}
-                    {executive.position.includes('HOD') && <GraduationCap className="h-12 w-12 text-secondary" />}
-                    {executive.position.includes('Software Engineering') && <Code className="h-12 w-12 text-blue-500" />}
-                    {executive.position.includes('Data Science') && <Database className="h-12 w-12 text-green-500" />}
                     {!executive.position.includes('President') && 
-                     !executive.position.includes('Chairman') && 
-                     !executive.position.includes('HOD') && 
-                     !executive.position.includes('Software Engineering') && 
-                     !executive.position.includes('Data Science') && (
+                     !executive.position.includes('Chairman') && (
                       <Users className="h-12 w-12 text-primary" />
                     )}
                   </div>
                 </Link>
-                <Link to={`/executives/${executive.id}`}>
+                <Link to={
+                  executive.position.includes('President') ? '/president' :
+                  executive.position.includes('Executive Chairman') ? '/executive-chairman' :
+                  `/executives/${executive.id}`
+                }>
                   <CardTitle className="text-xl text-primary mb-2 hover:text-primary/80 transition-colors cursor-pointer">
                     {executive.name}
                   </CardTitle>
