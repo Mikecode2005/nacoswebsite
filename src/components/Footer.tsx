@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -47,7 +48,9 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-hero-accent" />
-                <span className="text-primary-foreground/80 text-sm">+234 XXX XXX XXXX</span>
+                <span className="text-primary-foreground/80 text-sm">+234 813 926 1960</span>
+                <Phone className="h-4 w-4 text-hero-accent" />
+                <span className="text-primary-foreground/80 text-sm">+234 805 798 3551</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-4 w-4 text-hero-accent" />
@@ -62,7 +65,13 @@ const Footer = () => {
             © 2024 NACOS JABU Chapter. All rights reserved.
           </p>
           <p className="text-primary-foreground/60 text-sm mt-2">
-            Made by ECM
+            Made by{" "}
+            <Link 
+              to="/executive-chairman" 
+              className="font-bold text-hero-accent hover:text-hero-accent/80 transition-colors"
+            >
+              ECM
+            </Link>
           </p>
         </div>
       </div>
