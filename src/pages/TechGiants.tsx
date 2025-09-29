@@ -16,9 +16,9 @@ const TechGiants = () => {
       image: "/images/Cpaws2.jpg",
       bio: "Exceptional alumnus who excelled in multiple digital creative fields. Built a successful Web3 creative studio that combines cutting-edge technology with stunning visual design.",
       specialties: ["Web Development", "Branding & Graphic Design", "Video Editing", "Web3 Technologies"],
-      yearsOfExperience: 4+,
-      projects: 40+,
-      awards: 3+,
+      yearsOfExperience: 4,
+      projects: 40,
+      awards: 3,
       business: "Cpaws Studio (Web3 Creative Studio)",
       portfolio: "https://www.cpawstudio.com"
     },
@@ -31,9 +31,9 @@ const TechGiants = () => {
       image: "/images/Arnold.jpg",
       bio: "Passionate about blending clean layouts with emotional storytelling. Brings creativity from Instagram portfolio (@arnolden_dev), exploring mood, typography, and visual identity.",
       specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding"],
-      yearsOfExperience: 4+,
-      projects: 25+,
-      awards: 2+,
+      yearsOfExperience: 4,
+      projects: 25,
+      awards: 2,
       portfolio: "https://www.instagram.com/arnolden_dev"
     },
     {
@@ -45,9 +45,9 @@ const TechGiants = () => {
       image: "/images/BJ2.jpg",
       bio: "Forward-thinking full-stack developer with a strong foundation in HTML, TailwindCSS, JavaScript, PHP, SQL, Python, and Django. Builds smart, user-friendly web applications that combine traditional best practices with cutting-edge technology.",
       specialties: ["Full-Stack Development", "Python/Django", "JavaScript", "PHP", "SQL"],
-      yearsOfExperience: 4+,
-      projects: 30+,
-      awards: 3+,
+      yearsOfExperience: 4,
+      projects: 30,
+      awards: 3,
       portfolio: "https://omolayoayokanmi.com.ng/"
     },
     {
