@@ -75,7 +75,7 @@ const Executives = () => {
       bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
       email: 'chairman@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/ogunmola-michael',
-      image_url: '',
+      image_url: '/image/Chairman',
       order_index: 2,
       created_at: '2024-01-01'
     },
