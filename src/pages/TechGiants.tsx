@@ -28,7 +28,7 @@ const TechGiants = () => {
       position: "Graphic Artist/Designer",
       company: "GrayPlug",
       achievement: "Visual Storyteller",
-      image: "/images/Arnold.jpg", // You'll need to add his image
+      image: "/images/Arnold.jpg",
       bio: "Passionate about blending clean layouts with emotional storytelling. Brings creativity from Instagram portfolio (@arnolden_dev), exploring mood, typography, and visual identity.",
       specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding"],
       yearsOfExperience: 2,
@@ -89,7 +89,7 @@ const TechGiants = () => {
               <div className="flex flex-col md:flex-row">
                 {/* Image Section - Full width on mobile, 1/3 on desktop */}
                 <div className="w-full md:w-1/3">
-                  <div className="h-64 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
+                  <div className="h-64 md:h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
                     {giant.image === "/placeholder.svg" ? (
                       <div className="w-32 h-32 bg-primary/30 rounded-full flex items-center justify-center">
                         <Users className="h-16 w-16 text-primary" />
@@ -98,7 +98,7 @@ const TechGiants = () => {
                       <img 
                         src={giant.image} 
                         alt={giant.name}
-                        className="w-full h-full object-cover object-center"
+                        className="w-full h-full object-contain md:object-cover"
                       />
                     )}
                     <Badge 
