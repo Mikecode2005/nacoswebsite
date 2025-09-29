@@ -8,9 +8,9 @@ const LeadershipSection = () => {
   const leaders = [
     {
       id: 'hod',
-      name: 'Mr. Lawal',
+      name: 'Mr Lawal',
       position: 'Head of Department',
-      description: 'Leading the Computer Science department with academic excellence.',
+      description: 'Leading the Computer Science department with excellence and industry experience.',
       route: '/hod',
       icon: GraduationCap,
       gradient: 'from-green-500 to-emerald-600',
@@ -22,9 +22,9 @@ const LeadershipSection = () => {
     },
     {
       id: 'president',
-      name: 'Emmanuel Adebayo',
+      name: 'Duduyemi Olalaken',
       position: 'NACOS President',
-      description: 'Leading NACOS with vision and passion for tech innovation.',
+      description: 'Leading NACOS with vision and passion for tech innovation and student excellence.',
       route: '/president',
       icon: Crown,
       gradient: 'from-yellow-500 to-orange-500',
@@ -38,7 +38,7 @@ const LeadershipSection = () => {
       id: 'chairman',
       name: 'Ogunmola Michael',
       position: 'Executive Chairman',
-      description: 'Driving strategic vision and fostering innovation.',
+      description: 'Driving strategic vision and fostering innovation within the NACOS community.',
       route: '/executive-chairman',
       icon: Star,
       gradient: 'from-blue-500 to-indigo-600',
@@ -89,133 +89,133 @@ const LeadershipSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                whileHover={{ 
-                  scale: 1.05,
-                  rotateY: 5,
-                }}
-                style={{ transformStyle: "preserve-3d" }}
-                className="h-full"
               >
-                <Card className={`${leader.borderColor} bg-gradient-to-br ${leader.bgGradient} hover:shadow-2xl transition-all duration-500 relative overflow-hidden group h-full flex flex-col`}>
-                  {/* Animated Background Pattern */}
-                  <div className="absolute inset-0 opacity-20">
-                    <motion.div 
-                      className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${leader.gradient} rounded-full transform translate-x-20 -translate-y-20`}
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 180, 360]
-                      }}
-                      transition={{ 
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    <motion.div 
-                      className={`absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br ${leader.gradient} rounded-lg transform -translate-x-16 translate-y-16 rotate-45`}
-                      animate={{ 
-                        scale: [1, 1.1, 1],
-                        rotate: [45, 225, 45]
-                      }}
-                      transition={{ 
-                        duration: 6,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 1
-                      }}
-                    />
-                  </div>
-
-                  <CardHeader className="text-center relative z-10 pb-4">
-                    <motion.div 
-                      className={`w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-500 relative`}
-                      whileHover={{ 
-                        rotate: [0, 5, -5, 0],
-                        scale: 1.1
-                      }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <Icon className="h-12 w-12 text-white drop-shadow-2xl" />
-                      
-                      {/* Floating particles around icon */}
-                      <div className="absolute inset-0">
-                        {[...Array(6)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="absolute w-2 h-2 bg-white/60 rounded-full"
-                            style={{
-                              left: `${20 + Math.cos(i * 60 * Math.PI / 180) * 40}%`,
-                              top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 40}%`,
-                            }}
-                            animate={{
-                              scale: [0, 1, 0],
-                              opacity: [0, 1, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              delay: i * 0.3,
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </motion.div>
-                    
-                    <CardTitle className={`text-2xl font-orbitron ${leader.textColor} mb-3 group-hover:scale-105 transition-transform duration-300`}>
-                      {leader.name}
-                    </CardTitle>
-                    
-                    <motion.div 
-                      className={`inline-block px-4 py-2 bg-gradient-to-r ${leader.gradient} text-white rounded-full text-sm font-rajdhani font-semibold shadow-lg`}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {leader.position}
-                    </motion.div>
-                  </CardHeader>
-
-                  <CardContent className="text-center space-y-4 relative z-10 flex-1 flex flex-col justify-between">
-                    <p className={`${leader.textColor} font-exo text-base leading-relaxed`}>
-                      {leader.description}
-                    </p>
-
-                    {/* Contact Info */}
-                    <div className="flex justify-center space-x-3">
-                      <motion.div
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        className={`p-2 ${leader.iconBg} rounded-full`}
-                      >
-                        <Mail className={`h-4 w-4 ${leader.textColor}`} />
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ scale: 1.1, rotate: -5 }}
-                        className={`p-2 ${leader.iconBg} rounded-full`}
-                      >
-                        <Linkedin className={`h-4 w-4 ${leader.textColor}`} />
-                      </motion.div>
+                <motion.div
+                  whileHover={{ 
+                    scale: 1.05,
+                    rotateY: 5,
+                  }}
+                  style={{ transformStyle: "preserve-3d" }}
+                  className="h-full"
+                >
+                  <Card className={`${leader.borderColor} bg-gradient-to-br ${leader.bgGradient} hover:shadow-2xl transition-all duration-500 relative overflow-hidden group h-full cursor-pointer`}>
+                    {/* Animated Background Pattern */}
+                    <div className="absolute inset-0 opacity-20">
+                      <motion.div 
+                        className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${leader.gradient} rounded-full transform translate-x-20 -translate-y-20`}
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                          rotate: [0, 180, 360]
+                        }}
+                        transition={{ 
+                          duration: 8,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className={`absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br ${leader.gradient} rounded-lg transform -translate-x-16 translate-y-16 rotate-45`}
+                        animate={{ 
+                          scale: [1, 1.1, 1],
+                          rotate: [45, 225, 45]
+                        }}
+                        transition={{ 
+                          duration: 6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1
+                        }}
+                      />
                     </div>
 
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="mt-auto"
-                    >
-                      <Button 
-                        asChild
-                        className={`w-full bg-gradient-to-r ${leader.gradient} hover:shadow-xl text-white font-rajdhani font-semibold text-base py-4 rounded-xl transition-all duration-300`}
+                    <CardHeader className="text-center relative z-10">
+                      <motion.div 
+                        className={`w-32 h-32 mx-auto mb-8 rounded-2xl bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-500 relative`}
+                        whileHover={{ 
+                          rotate: [0, 5, -5, 0],
+                          scale: 1.1
+                        }}
+                        transition={{ duration: 0.6 }}
                       >
-                        <Link to={leader.route}>
-                          {leader.id === 'hod' ? 'Meet Head' : 
-                           leader.id === 'president' ? 'Meet President' : 
-                           'Meet Chairman'}
-                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                      </Button>
-                    </motion.div>
-                  </CardContent>
+                        <Icon className="h-16 w-16 text-white drop-shadow-2xl" />
+                        
+                        {/* Floating particles around icon */}
+                        <div className="absolute inset-0">
+                          {[...Array(6)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              className="absolute w-2 h-2 bg-white/60 rounded-full"
+                              style={{
+                                left: `${20 + Math.cos(i * 60 * Math.PI / 180) * 40}%`,
+                                top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 40}%`,
+                              }}
+                              animate={{
+                                scale: [0, 1, 0],
+                                opacity: [0, 1, 0],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: i * 0.3,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </motion.div>
+                      
+                      <CardTitle className={`text-3xl font-orbitron ${leader.textColor} mb-4 group-hover:scale-105 transition-transform duration-300`}>
+                        {leader.name}
+                      </CardTitle>
+                      
+                      <motion.div 
+                        className={`inline-block px-6 py-3 bg-gradient-to-r ${leader.gradient} text-white rounded-full text-lg font-rajdhani font-semibold shadow-lg`}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        {leader.position}
+                      </motion.div>
+                    </CardHeader>
 
-                  {/* Hover Glow Effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${leader.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-lg`}></div>
-                </Card>
+                    <CardContent className="text-center space-y-6 relative z-10">
+                      <p className={`${leader.textColor} font-exo text-lg leading-relaxed`}>
+                        {leader.description}
+                      </p>
+
+                      {/* Contact Info */}
+                      <div className="flex justify-center space-x-4">
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className={`p-3 ${leader.iconBg} rounded-full`}
+                        >
+                          <Mail className={`h-5 w-5 ${leader.textColor}`} />
+                        </motion.div>
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: -5 }}
+                          className={`p-3 ${leader.iconBg} rounded-full`}
+                        >
+                          <Linkedin className={`h-5 w-5 ${leader.textColor}`} />
+                        </motion.div>
+                      </div>
+
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Button 
+                          asChild
+                          className={`w-full bg-gradient-to-r ${leader.gradient} hover:shadow-xl text-white font-rajdhani font-semibold text-lg py-6 rounded-xl transition-all duration-300 relative z-50`}
+                        >
+                          <Link to={leader.route}>
+                            Meet {leader.position.split(' ')[0]}
+                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                          </Link>
+                        </Button>
+                      </motion.div>
+                    </CardContent>
+
+                    {/* Hover Glow Effect */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${leader.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-lg`}></div>
+                  </Card>
+                </motion.div>
               </motion.div>
             );
           })}
