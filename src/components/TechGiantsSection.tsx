@@ -38,7 +38,7 @@ const TechGiantsSection = () => {
       position: "Full-Stack Developer",
       company: "BeeTechHub",
       bio: "Forward-thinking full-stack developer with a strong foundation in HTML, TailwindCSS, JavaScript, PHP, SQL, Python, and Django. Builds smart, user-friendly web applications.",
-      image_url: "/images/BJ1.jpg",
+      image_url: "/images/BJ.jpg",
       achievements: "Tech Innovator",
       years_experience: 3,
       specialties: ["Full-Stack Development", "Python/Django", "JavaScript", "PHP", "SQL"],
