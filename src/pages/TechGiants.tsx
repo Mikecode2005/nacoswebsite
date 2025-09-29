@@ -19,35 +19,37 @@ const TechGiants = () => {
       yearsOfExperience: 4,
       projects: 50,
       awards: 3,
-      business: "Cpaws Studio (Web3 Creative Studio)"
+      business: "Cpaws Studio (Web3 Creative Studio)",
+      portfolio: "https://www.cpawstudio.com"
     },
     {
       id: 2,
       name: "Eniola Arnold",
-      position: "Tech Professional",
-      company: "Information coming soon",
-      achievement: "Rising Tech Star",
-      image: "/placeholder.svg",
-      bio: "Details about Eniola's achievements and career path will be added soon.",
-      specialties: ["Skills to be updated"],
-      yearsOfExperience: 0,
-      projects: 0,
-      awards: 0,
-      business: "Information coming soon"
+      position: "Graphic Artist/Designer",
+      company: "GrayPlug",
+      achievement: "Visual Storyteller",
+      image: "/images/Arnold.jpg", // You'll need to add his image
+      bio: "Passionate about blending clean layouts with emotional storytelling. Brings creativity from Instagram portfolio (@arnolden_dev), exploring mood, typography, and visual identity.",
+      specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding"],
+      yearsOfExperience: 2,
+      projects: 25,
+      awards: 2,
+      portfolio: "https://www.instagram.com/arnolden_dev"
     },
     {
       id: 3,
-      name: "Benjamin",
-      position: "Tech Professional",
-      company: "Information coming soon",
+      name: "Omolayo Ayokanmi (BeeTechHub)",
+      position: "Full-Stack Developer",
+      company: "BeeTechHub",
       achievement: "Tech Innovator",
-      image: "/placeholder.svg",
-      bio: "Details about Benjamin's achievements and career path will be added soon.",
-      specialties: ["Skills to be updated"],
-      yearsOfExperience: 0,
-      projects: 0,
-      awards: 0,
-      business: "Information coming soon"
+      image: "/images/BJ2.jpg",
+      bio: "Forward-thinking full-stack developer with a strong foundation in HTML, TailwindCSS, JavaScript, PHP, SQL, Python, and Django. Builds smart, user-friendly web applications that combine traditional best practices with cutting-edge technology.",
+      specialties: ["Full-Stack Development", "Python/Django", "JavaScript", "PHP", "SQL"],
+      yearsOfExperience: 3,
+      projects: 30,
+      awards: 2,
+      business: "BeeTechHub",
+      portfolio: "https://omolayoayokanmi.com.ng/"
     },
     {
       id: 4,
@@ -83,21 +85,21 @@ const TechGiants = () => {
         <div className="grid gap-8 max-w-6xl mx-auto">
           {techGiants.map((giant, index) => (
             <Card key={giant.id} className="overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="md:flex">
-                <div className="md:w-1/3">
-                  <div className="h-64 md:h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
+              {/* Mobile: Stack layout, Desktop: Side by side */}
+              <div className="flex flex-col md:flex-row">
+                {/* Image Section - Full width on mobile, 1/3 on desktop */}
+                <div className="w-full md:w-1/3">
+                  <div className="h-64 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
                     {giant.image === "/placeholder.svg" ? (
                       <div className="w-32 h-32 bg-primary/30 rounded-full flex items-center justify-center">
                         <Users className="h-16 w-16 text-primary" />
                       </div>
                     ) : (
-                      <div className="w-full h-full">
-                        <img 
-                          src={giant.image} 
-                          alt={giant.name}
-                          className="w-full h-full object-cover object-center"
-                        />
-                      </div>
+                      <img 
+                        src={giant.image} 
+                        alt={giant.name}
+                        className="w-full h-full object-cover object-center"
+                      />
                     )}
                     <Badge 
                       variant="secondary" 
@@ -108,7 +110,8 @@ const TechGiants = () => {
                   </div>
                 </div>
                 
-                <div className="md:w-2/3 p-6">
+                {/* Content Section - Full width on mobile, 2/3 on desktop */}
+                <div className="w-full md:w-2/3 p-6">
                   <CardHeader className="px-0 pt-0">
                     <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
                       <div>
@@ -175,9 +178,21 @@ const TechGiants = () => {
                         </div>
                       )}
                       
-                      <Button variant="outline" size="sm" disabled={giant.id > 1} className="w-full md:w-auto">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        disabled={giant.id > 3}
+                        className="w-full md:w-auto"
+                        onClick={() => {
+                          if (giant.portfolio) {
+                            window.open(giant.portfolio, '_blank', 'noopener,noreferrer');
+                          }
+                        }}
+                      >
                         <ExternalLink className="h-4 w-4 mr-1" />
-                        {giant.id === 1 ? "View Portfolio" : "Coming Soon"}
+                        {giant.id === 1 ? "View Website" : 
+                         giant.id === 2 ? "View Instagram" : 
+                         giant.id === 3 ? "View Portfolio" : "Coming Soon"}
                       </Button>
                     </div>
                   </CardContent>
