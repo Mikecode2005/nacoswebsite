@@ -64,7 +64,7 @@ const Footer = () => {
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
           <p className="text-primary-foreground/60 text-sm">
-            © 2024 NACOS JABU Chapter. All rights reserved.
+            © 2025 NACOS JABU Chapter. All rights reserved.
           </p>
           <p className="text-primary-foreground/60 text-sm mt-2">
             Made by{" "}

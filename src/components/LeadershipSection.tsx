@@ -8,9 +8,9 @@ const LeadershipSection = () => {
   const leaders = [
     {
       id: 'hod',
-      name: 'Dr. Adebayo Kolawole',
+      name: 'Mr. Lawal',
       position: 'Head of Department',
-      description: 'Leading the Computer Science department with academic excellence and industry experience.',
+      description: 'Leading the Computer Science department with academic excellence.',
       route: '/hod',
       icon: GraduationCap,
       gradient: 'from-green-500 to-emerald-600',
@@ -24,7 +24,7 @@ const LeadershipSection = () => {
       id: 'president',
       name: 'Emmanuel Adebayo',
       position: 'NACOS President',
-      description: 'Leading NACOS with vision and passion for tech innovation and student excellence.',
+      description: 'Leading NACOS with vision and passion for tech innovation.',
       route: '/president',
       icon: Crown,
       gradient: 'from-yellow-500 to-orange-500',
@@ -38,7 +38,7 @@ const LeadershipSection = () => {
       id: 'chairman',
       name: 'Ogunmola Michael',
       position: 'Executive Chairman',
-      description: 'Driving strategic vision and fostering innovation within the NACOS community.',
+      description: 'Driving strategic vision and fostering innovation.',
       route: '/executive-chairman',
       icon: Star,
       gradient: 'from-blue-500 to-indigo-600',
@@ -92,11 +92,11 @@ const LeadershipSection = () => {
                 whileHover={{ 
                   scale: 1.05,
                   rotateY: 5,
-                  z: 50
                 }}
                 style={{ transformStyle: "preserve-3d" }}
+                className="h-full"
               >
-                <Card className={`${leader.borderColor} bg-gradient-to-br ${leader.bgGradient} hover:shadow-2xl transition-all duration-500 relative overflow-hidden group`}>
+                <Card className={`${leader.borderColor} bg-gradient-to-br ${leader.bgGradient} hover:shadow-2xl transition-all duration-500 relative overflow-hidden group h-full flex flex-col`}>
                   {/* Animated Background Pattern */}
                   <div className="absolute inset-0 opacity-20">
                     <motion.div 
@@ -126,16 +126,16 @@ const LeadershipSection = () => {
                     />
                   </div>
 
-                  <CardHeader className="text-center relative z-10">
+                  <CardHeader className="text-center relative z-10 pb-4">
                     <motion.div 
-                      className={`w-32 h-32 mx-auto mb-8 rounded-2xl bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-500 relative`}
+                      className={`w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-500 relative`}
                       whileHover={{ 
                         rotate: [0, 5, -5, 0],
                         scale: 1.1
                       }}
                       transition={{ duration: 0.6 }}
                     >
-                      <Icon className="h-16 w-16 text-white drop-shadow-2xl" />
+                      <Icon className="h-12 w-12 text-white drop-shadow-2xl" />
                       
                       {/* Floating particles around icon */}
                       <div className="absolute inset-0">
@@ -161,50 +161,53 @@ const LeadershipSection = () => {
                       </div>
                     </motion.div>
                     
-                    <CardTitle className={`text-3xl font-orbitron ${leader.textColor} mb-4 group-hover:scale-105 transition-transform duration-300`}>
+                    <CardTitle className={`text-2xl font-orbitron ${leader.textColor} mb-3 group-hover:scale-105 transition-transform duration-300`}>
                       {leader.name}
                     </CardTitle>
                     
                     <motion.div 
-                      className={`inline-block px-6 py-3 bg-gradient-to-r ${leader.gradient} text-white rounded-full text-lg font-rajdhani font-semibold shadow-lg`}
+                      className={`inline-block px-4 py-2 bg-gradient-to-r ${leader.gradient} text-white rounded-full text-sm font-rajdhani font-semibold shadow-lg`}
                       whileHover={{ scale: 1.05 }}
                     >
                       {leader.position}
                     </motion.div>
                   </CardHeader>
 
-                  <CardContent className="text-center space-y-6 relative z-10">
-                    <p className={`${leader.textColor} font-exo text-lg leading-relaxed`}>
+                  <CardContent className="text-center space-y-4 relative z-10 flex-1 flex flex-col justify-between">
+                    <p className={`${leader.textColor} font-exo text-base leading-relaxed`}>
                       {leader.description}
                     </p>
 
                     {/* Contact Info */}
-                    <div className="flex justify-center space-x-4">
+                    <div className="flex justify-center space-x-3">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        className={`p-3 ${leader.iconBg} rounded-full`}
+                        className={`p-2 ${leader.iconBg} rounded-full`}
                       >
-                        <Mail className={`h-5 w-5 ${leader.textColor}`} />
+                        <Mail className={`h-4 w-4 ${leader.textColor}`} />
                       </motion.div>
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: -5 }}
-                        className={`p-3 ${leader.iconBg} rounded-full`}
+                        className={`p-2 ${leader.iconBg} rounded-full`}
                       >
-                        <Linkedin className={`h-5 w-5 ${leader.textColor}`} />
+                        <Linkedin className={`h-4 w-4 ${leader.textColor}`} />
                       </motion.div>
                     </div>
 
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      className="mt-auto"
                     >
                       <Button 
                         asChild
-                        className={`w-full bg-gradient-to-r ${leader.gradient} hover:shadow-xl text-white font-rajdhani font-semibold text-lg py-6 rounded-xl transition-all duration-300`}
+                        className={`w-full bg-gradient-to-r ${leader.gradient} hover:shadow-xl text-white font-rajdhani font-semibold text-base py-4 rounded-xl transition-all duration-300`}
                       >
                         <Link to={leader.route}>
-                          Meet {leader.position.split(' ')[0]}
-                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                          {leader.id === 'hod' ? 'Meet Head' : 
+                           leader.id === 'president' ? 'Meet President' : 
+                           'Meet Chairman'}
+                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                       </Button>
                     </motion.div>
