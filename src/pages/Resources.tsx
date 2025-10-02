@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Plus, Download, Calendar, Upload, Search, Filter, Trash2 } from "lucide-react";
+import { BookOpen, Plus, ExternalLink, Search, Filter, Trash2, Upload } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,35 +23,35 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-interface PastQuestion {
+interface LearningResource {
   id: string;
   title: string;
   subject: string;
-  year: number;
-  level?: number;
   description: string;
   file_url: string;
+  resource_type: string;
+  level?: number;
   created_at: string;
 }
 
-const PastQuestions = () => {
+const Resources = () => {
   const { user, userRole, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [questions, setQuestions] = useState<PastQuestion[]>([]);
-  const [filteredQuestions, setFilteredQuestions] = useState<PastQuestion[]>([]);
+  const [resources, setResources] = useState<LearningResource[]>([]);
+  const [filteredResources, setFilteredResources] = useState<LearningResource[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
-  const [year, setYear] = useState("");
   const [level, setLevel] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState<File | null>(null);
+  const [googleDriveLink, setGoogleDriveLink] = useState("");
+  const [resourceType, setResourceType] = useState("pdf");
   const [submitting, setSubmitting] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<string>("all");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [questionToDelete, setQuestionToDelete] = useState<string | null>(null);
+  const [resourceToDelete, setResourceToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -60,56 +60,57 @@ const PastQuestions = () => {
   }, [user, loading, navigate]);
 
   useEffect(() => {
-    fetchQuestions();
+    fetchResources();
   }, []);
 
-  const fetchQuestions = async () => {
+  const fetchResources = async () => {
     try {
       const { data, error } = await supabase
-        .from("past_questions")
+        .from("learning_resources")
         .select("*")
-        .order("year", { ascending: false });
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
-      const questionsData = data || [];
-      setQuestions(questionsData);
-      setFilteredQuestions(questionsData);
+      const resourcesData = data || [];
+      setResources(resourcesData);
+      setFilteredResources(resourcesData);
     } catch (error) {
-      console.error("Error fetching questions:", error);
+      console.error("Error fetching resources:", error);
     }
   };
 
-  const filterQuestions = () => {
-    let filtered = questions;
+  const filterResources = () => {
+    let filtered = resources;
     
     // Filter by search term
     if (searchTerm) {
-      filtered = filtered.filter(q => 
-        q.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        q.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        q.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(r => 
+        r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        r.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        r.description?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
     
     // Filter by level
     if (selectedLevel !== "all") {
       const levelNum = parseInt(selectedLevel);
-      filtered = filtered.filter(q => q.level === levelNum);
+      filtered = filtered.filter(r => r.level === levelNum);
     }
     
-    setFilteredQuestions(filtered);
+    setFilteredResources(filtered);
   };
 
   useEffect(() => {
-    filterQuestions();
-  }, [searchTerm, selectedLevel, questions]);
+    filterResources();
+  }, [searchTerm, selectedLevel, resources]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) {
+
+    if (!googleDriveLink) {
       toast({
-        title: "File Required",
-        description: "Please select a file to upload.",
+        title: "Link Required",
+        description: "Please provide a Google Drive link.",
         variant: "destructive",
       });
       return;
@@ -118,49 +119,33 @@ const PastQuestions = () => {
     setSubmitting(true);
 
     try {
-      // Upload file to storage
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-      
-      const { error: uploadError } = await supabase.storage
-        .from('past-questions')
-        .upload(fileName, file);
-
-      if (uploadError) throw uploadError;
-
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('past-questions')
-        .getPublicUrl(fileName);
-
-      // Insert into database
       const { error } = await supabase
-        .from("past_questions")
+        .from("learning_resources")
         .insert({
           title,
           subject,
-          year: parseInt(year),
           level: level ? parseInt(level) : null,
           description,
-          file_url: publicUrl,
+          file_url: googleDriveLink,
+          resource_type: resourceType,
           uploaded_by: user?.id,
         });
 
       if (error) throw error;
 
       toast({
-        title: "Past Question Uploaded! 📚",
-        description: "Students can now access this resource.",
+        title: "Resource Added! 📚",
+        description: "Students can now access this learning resource.",
       });
 
       setTitle("");
       setSubject("");
-      setYear("");
       setLevel("");
       setDescription("");
-      setFile(null);
+      setGoogleDriveLink("");
+      setResourceType("pdf");
       setIsUploading(false);
-      fetchQuestions();
+      fetchResources();
     } catch (error: any) {
       toast({
         title: "Upload Failed 😞",
@@ -173,24 +158,24 @@ const PastQuestions = () => {
   };
 
   const handleDelete = async () => {
-    if (!questionToDelete) return;
+    if (!resourceToDelete) return;
 
     try {
       const { error } = await supabase
-        .from("past_questions")
+        .from("learning_resources")
         .delete()
-        .eq("id", questionToDelete);
+        .eq("id", resourceToDelete);
 
       if (error) throw error;
 
       toast({
-        title: "Question Deleted! 🗑️",
-        description: "Past question has been removed successfully.",
+        title: "Resource Deleted! 🗑️",
+        description: "Learning resource has been removed successfully.",
       });
 
-      fetchQuestions();
+      fetchResources();
       setDeleteDialogOpen(false);
-      setQuestionToDelete(null);
+      setResourceToDelete(null);
     } catch (error: any) {
       toast({
         title: "Delete Failed 😞",
@@ -216,10 +201,10 @@ const PastQuestions = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">
-            Past Questions 📚
+            Learning Resources 📚
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Access previous exam materials and practice questions to ace your studies! 🎯
+            Access study materials, lecture notes, and learning resources! 📖
           </p>
         </div>
 
@@ -230,7 +215,7 @@ const PastQuestions = () => {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
-                  placeholder="Search questions by title, subject, or description..."
+                  placeholder="Search resources by title, subject, or description..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 border-primary/30 focus:border-primary"
@@ -256,7 +241,7 @@ const PastQuestions = () => {
         </div>
 
         {/* Upload Button (Admin Only) */}
-        {user && (userRole === 'admin' || userRole === 'lecturer') && !isUploading && (
+        {user && userRole === 'admin' && !isUploading && (
           <div className="text-center mb-12">
             <Button
               onClick={() => setIsUploading(true)}
@@ -264,18 +249,18 @@ const PastQuestions = () => {
               size="lg"
             >
               <Plus className="h-5 w-5 mr-2" />
-              Upload Past Question 📤
+              Add Learning Resource 📤
             </Button>
           </div>
         )}
 
         {/* Upload Form (Admin Only) */}
-        {isUploading && (userRole === 'admin' || userRole === 'lecturer') && (
+        {isUploading && userRole === 'admin' && (
           <Card className="mb-12 border-accent/20 bg-accent/5">
             <CardHeader>
               <CardTitle className="flex items-center text-accent">
                 <Upload className="h-5 w-5 mr-2" />
-                Upload New Past Question 📋
+                Add New Learning Resource 📋
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -283,12 +268,12 @@ const PastQuestions = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-primary mb-2 block">
-                      Question Title 📝
+                      Resource Title 📝
                     </label>
                     <Input
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      placeholder="e.g., Computer Science Final Exam"
+                      placeholder="e.g., Introduction to Data Structures"
                       required
                       className="border-accent/30 focus:border-accent"
                     />
@@ -301,7 +286,7 @@ const PastQuestions = () => {
                     <Input
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      placeholder="e.g., Data Structures"
+                      placeholder="e.g., Computer Science"
                       required
                       className="border-accent/30 focus:border-accent"
                     />
@@ -309,20 +294,6 @@ const PastQuestions = () => {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-primary mb-2 block">
-                      Year 📅
-                    </label>
-                    <Input
-                      type="number"
-                      value={year}
-                      onChange={(e) => setYear(e.target.value)}
-                      placeholder="2024"
-                      required
-                      className="border-accent/30 focus:border-accent"
-                    />
-                  </div>
-                  
                   <div>
                     <label className="text-sm font-medium text-primary mb-2 block">
                       Level 🎓
@@ -342,12 +313,31 @@ const PastQuestions = () => {
                   
                   <div>
                     <label className="text-sm font-medium text-primary mb-2 block">
-                      Question File 📄
+                      Resource Type 📄
+                    </label>
+                    <Select value={resourceType} onValueChange={setResourceType}>
+                      <SelectTrigger className="border-accent/30 focus:border-accent">
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pdf">PDF Document</SelectItem>
+                        <SelectItem value="video">Video</SelectItem>
+                        <SelectItem value="document">Document</SelectItem>
+                        <SelectItem value="slides">Presentation</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium text-primary mb-2 block">
+                      Google Drive Link 🔗
                     </label>
                     <Input
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      onChange={(e) => setFile(e.target.files?.[0] || null)}
+                      type="url"
+                      value={googleDriveLink}
+                      onChange={(e) => setGoogleDriveLink(e.target.value)}
+                      placeholder="https://drive.google.com/..."
                       required
                       className="border-accent/30 focus:border-accent"
                     />
@@ -361,7 +351,7 @@ const PastQuestions = () => {
                   <Textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Additional details about this past question..."
+                    placeholder="Brief description of this learning resource..."
                     rows={4}
                     className="border-accent/30 focus:border-accent"
                   />
@@ -373,7 +363,7 @@ const PastQuestions = () => {
                     disabled={submitting}
                     className="bg-accent hover:bg-accent/90 text-accent-foreground"
                   >
-                    {submitting ? "Uploading..." : "Upload Question 🚀"}
+                    {submitting ? "Adding..." : "Add Resource 🚀"}
                   </Button>
                   <Button
                     type="button"
@@ -389,12 +379,12 @@ const PastQuestions = () => {
           </Card>
         )}
 
-        {/* Past Questions by Level */}
+        {/* Resources by Level */}
         <Tabs defaultValue="all" className="w-full">
           <TabsList className="grid w-full grid-cols-5 mb-8">
             <TabsTrigger value="all">
               <span className="sm:hidden">All</span>
-              <span className="hidden sm:inline">All Questions</span>
+              <span className="hidden sm:inline">All Resources</span>
             </TabsTrigger>
             <TabsTrigger value="100">
               <span className="sm:hidden">100</span>
@@ -415,48 +405,47 @@ const PastQuestions = () => {
           </TabsList>
 
           <TabsContent value="all" className="space-y-6">
-            {filteredQuestions.length > 0 ? (
-              filteredQuestions.map((question) => (
-              <Card key={question.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
+            {filteredResources.length > 0 ? (
+              filteredResources.map((resource) => (
+              <Card key={resource.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="text-xl text-primary mb-2">
-                        {question.title}
+                        {resource.title}
                       </CardTitle>
                       <div className="flex items-center text-sm text-muted-foreground space-x-4">
                         <span className="bg-accent/20 text-accent px-2 py-1 rounded">
-                          {question.subject}
+                          {resource.subject}
                         </span>
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-1" />
-                          {question.year}
-                        </div>
-                        {question.level && (
+                        <span className="bg-secondary/20 text-secondary px-2 py-1 rounded">
+                          {resource.resource_type}
+                        </span>
+                        {resource.level && (
                           <span className="bg-primary/20 text-primary px-2 py-1 rounded">
-                            {question.level} Level
+                            {resource.level} Level
                           </span>
                         )}
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      {question.file_url && (
+                      {resource.file_url && (
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => window.open(question.file_url, '_blank')}
+                          onClick={() => window.open(resource.file_url, '_blank')}
                           className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                         >
-                          <Download className="h-4 w-4 mr-2" />
-                          Download
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          Open
                         </Button>
                       )}
-                      {(userRole === 'admin' || userRole === 'lecturer') && (
+                      {userRole === 'admin' && (
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => {
-                            setQuestionToDelete(question.id);
+                            setResourceToDelete(resource.id);
                             setDeleteDialogOpen(true);
                           }}
                           className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
@@ -468,9 +457,9 @@ const PastQuestions = () => {
                     </div>
                   </div>
                 </CardHeader>
-                {question.description && (
+                {resource.description && (
                   <CardContent>
-                    <p className="text-muted-foreground">{question.description}</p>
+                    <p className="text-muted-foreground">{resource.description}</p>
                   </CardContent>
                 )}
               </Card>
@@ -480,7 +469,7 @@ const PastQuestions = () => {
                 <CardContent>
                   <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-primary mb-2">
-                    No Past Questions Found 📚
+                    No Resources Found 📚
                   </h3>
                   <p className="text-muted-foreground">
                     Try adjusting your search or filter criteria! 📖
@@ -492,56 +481,55 @@ const PastQuestions = () => {
 
           {[100, 200, 300, 400].map(levelNum => (
             <TabsContent key={levelNum} value={levelNum.toString()} className="space-y-6">
-              {questions.filter(q => q.level === levelNum).length > 0 ? (
-                questions
-                  .filter(q => q.level === levelNum)
-                  .filter(q => 
+              {resources.filter(r => r.level === levelNum).length > 0 ? (
+                resources
+                  .filter(r => r.level === levelNum)
+                  .filter(r => 
                     !searchTerm || 
-                    q.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    q.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    q.description?.toLowerCase().includes(searchTerm.toLowerCase())
+                    r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    r.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    r.description?.toLowerCase().includes(searchTerm.toLowerCase())
                   )
-                  .map((question) => (
-                    <Card key={question.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
+                  .map((resource) => (
+                    <Card key={resource.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <div>
                             <CardTitle className="text-xl text-primary mb-2">
-                              {question.title}
+                              {resource.title}
                             </CardTitle>
                             <div className="flex items-center text-sm text-muted-foreground space-x-4">
                               <span className="bg-accent/20 text-accent px-2 py-1 rounded">
-                                {question.subject}
+                                {resource.subject}
                               </span>
-                              <div className="flex items-center">
-                                <Calendar className="h-4 w-4 mr-1" />
-                                {question.year}
-                              </div>
-                              {question.level && (
+                              <span className="bg-secondary/20 text-secondary px-2 py-1 rounded">
+                                {resource.resource_type}
+                              </span>
+                              {resource.level && (
                                 <span className="bg-primary/20 text-primary px-2 py-1 rounded">
-                                  {question.level} Level
+                                  {resource.level} Level
                                 </span>
                               )}
                             </div>
                           </div>
                           <div className="flex gap-2">
-                            {question.file_url && (
+                            {resource.file_url && (
                               <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => window.open(question.file_url, '_blank')}
+                                onClick={() => window.open(resource.file_url, '_blank')}
                                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                               >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                Open
                               </Button>
                             )}
-                            {(userRole === 'admin' || userRole === 'lecturer') && (
+                            {userRole === 'admin' && (
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => {
-                                  setQuestionToDelete(question.id);
+                                  setResourceToDelete(resource.id);
                                   setDeleteDialogOpen(true);
                                 }}
                                 className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
@@ -553,9 +541,9 @@ const PastQuestions = () => {
                           </div>
                         </div>
                       </CardHeader>
-                      {question.description && (
+                      {resource.description && (
                         <CardContent>
-                          <p className="text-muted-foreground">{question.description}</p>
+                          <p className="text-muted-foreground">{resource.description}</p>
                         </CardContent>
                       )}
                     </Card>
@@ -565,10 +553,10 @@ const PastQuestions = () => {
                   <CardContent>
                     <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-primary mb-2">
-                      No {levelNum} Level Questions Yet 📚
+                      No Resources Found for {levelNum} Level 📚
                     </h3>
                     <p className="text-muted-foreground">
-                      Questions for {levelNum} level will appear here! 📖
+                      Check back soon for new learning materials! 📖
                     </p>
                   </CardContent>
                 </Card>
@@ -583,13 +571,13 @@ const PastQuestions = () => {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Past Question?</AlertDialogTitle>
+            <AlertDialogTitle>Delete Learning Resource?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the past question from the database.
+              This action cannot be undone. This will permanently delete the learning resource from the database.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setQuestionToDelete(null)}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => setResourceToDelete(null)}>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
               Delete
             </AlertDialogAction>
@@ -600,4 +588,4 @@ const PastQuestions = () => {
   );
 };
 
-export default PastQuestions;
+export default Resources;

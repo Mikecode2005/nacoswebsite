@@ -139,6 +139,18 @@ const EnhancedResourcesSection = () => {
                 </Card>
               </Link>
 
+              <Link to="/resources">
+                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-accent/5 to-accent/10 border border-accent/20">
+                  <CardContent className="p-6 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-accent/20 to-green-400/20 rounded-lg mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <FileText className="h-8 w-8 text-accent" />
+                    </div>
+                    <h4 className="font-orbitron font-bold text-lg text-accent mb-2">Resources</h4>
+                    <p className="text-muted-foreground text-sm font-exo">Study materials & notes</p>
+                  </CardContent>
+                </Card>
+              </Link>
+
               <Link to="/quizzes">
                 <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer bg-gradient-to-br from-accent/5 to-accent/10 border border-accent/20">
                   <CardContent className="p-6 text-center">
