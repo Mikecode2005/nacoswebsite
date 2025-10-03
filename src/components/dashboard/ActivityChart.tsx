@@ -1,35 +1,81 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from "recharts";
-import { Activity, Calendar, TrendingUp } from "lucide-react";
-
-const weeklyData = [
-  { day: "Mon", quizzes: 3, blogs: 1, study: 45 },
-  { day: "Tue", quizzes: 5, blogs: 2, study: 60 },
-  { day: "Wed", quizzes: 2, blogs: 0, study: 30 },
-  { day: "Thu", quizzes: 7, blogs: 3, study: 80 },
-  { day: "Fri", quizzes: 4, blogs: 1, study: 55 },
-  { day: "Sat", quizzes: 6, blogs: 2, study: 70 },
-  { day: "Sun", quizzes: 2, blogs: 1, study: 25 },
-];
-
-const studyData = [
-  { name: "Algorithms", value: 35, color: "hsl(var(--primary))" },
-  { name: "Data Structures", value: 25, color: "hsl(var(--accent))" },
-  { name: "Web Dev", value: 20, color: "hsl(var(--secondary))" },
-  { name: "Databases", value: 15, color: "hsl(var(--hero-accent))" },
-  { name: "Others", value: 5, color: "hsl(var(--muted))" },
-];
-
-const performanceData = [
-  { month: "Jan", score: 78 },
-  { month: "Feb", score: 82 },
-  { month: "Mar", score: 85 },
-  { month: "Apr", score: 88 },
-  { month: "May", score: 91 },
-  { month: "Jun", score: 89 },
-];
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { Activity, TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 
 const ActivityChart = () => {
+  const { user } = useAuth();
+  const [weeklyData, setWeeklyData] = useState<any[]>([]);
+  const [monthlyPerformance, setMonthlyPerformance] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      fetchActivityData();
+    }
+  }, [user]);
+
+  const fetchActivityData = async () => {
+    try {
+      // Get quiz attempts for the last 7 days
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      const { data: quizData } = await supabase
+        .from("quiz_attempts")
+        .select("completed_at, score, total_questions")
+        .eq("user_id", user?.id)
+        .gte("completed_at", sevenDaysAgo.toISOString());
+
+      const { data: blogData } = await supabase
+        .from("blog_posts")
+        .select("created_at")
+        .eq("author_id", user?.id)
+        .gte("created_at", sevenDaysAgo.toISOString());
+
+      // Process weekly data
+      const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const weekly = days.map((day, index) => {
+        const dayQuizzes = quizData?.filter(q => new Date(q.completed_at).getDay() === index).length || 0;
+        const dayBlogs = blogData?.filter(b => new Date(b.created_at).getDay() === index).length || 0;
+        return { day, quizzes: dayQuizzes, blogs: dayBlogs };
+      });
+      setWeeklyData(weekly);
+
+      // Get monthly performance (last 6 months)
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+      const { data: performanceData } = await supabase
+        .from("quiz_attempts")
+        .select("completed_at, score, total_questions")
+        .eq("user_id", user?.id)
+        .gte("completed_at", sixMonthsAgo.toISOString());
+
+      // Group by month
+      const monthlyScores = new Map();
+      performanceData?.forEach(attempt => {
+        const month = new Date(attempt.completed_at).toLocaleString('default', { month: 'short' });
+        const score = (attempt.score / attempt.total_questions) * 100;
+        if (!monthlyScores.has(month)) {
+          monthlyScores.set(month, []);
+        }
+        monthlyScores.get(month).push(score);
+      });
+
+      const performance = Array.from(monthlyScores.entries()).map(([month, scores]) => ({
+        month,
+        score: Math.round(scores.reduce((a: number, b: number) => a + b, 0) / scores.length)
+      }));
+
+      setMonthlyPerformance(performance.length > 0 ? performance : [{ month: "No data", score: 0 }]);
+
+    } catch (error) {
+      console.error("Error fetching activity data:", error);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       {/* Weekly Activity Bar Chart */}
@@ -78,17 +124,17 @@ const ActivityChart = () => {
         </CardContent>
       </Card>
 
-      {/* Performance Trend Line Chart */}
+      {/* Performance Trend */}
       <Card className="border-accent/20">
         <CardHeader>
           <CardTitle className="flex items-center text-lg font-rajdhani">
             <TrendingUp className="h-5 w-5 mr-2 text-accent" />
-            Performance Trend
+            Quiz Performance Over Time
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={performanceData}>
+            <BarChart data={monthlyPerformance}>
               <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
               <XAxis 
                 dataKey="month" 
@@ -98,103 +144,7 @@ const ActivityChart = () => {
               <YAxis 
                 className="text-xs font-exo"
                 tick={{ fill: "hsl(var(--muted-foreground))" }}
-                domain={[70, 95]}
-              />
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: "hsl(var(--card))", 
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "8px",
-                  fontFamily: "Exo 2"
-                }}
-              />
-              <Line 
-                type="monotone" 
-                dataKey="score" 
-                stroke="hsl(var(--accent))" 
-                strokeWidth={3}
-                dot={{ fill: "hsl(var(--accent))", strokeWidth: 2, r: 6 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-          <div className="text-center mt-4">
-            <p className="text-sm text-muted-foreground font-exo">
-              Average quiz performance over time
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Study Distribution Pie Chart */}
-      <Card className="border-secondary/20">
-        <CardHeader>
-          <CardTitle className="flex items-center text-lg font-rajdhani">
-            <Calendar className="h-5 w-5 mr-2 text-secondary" />
-            Study Focus Areas
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={studyData}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={100}
-                paddingAngle={5}
-                dataKey="value"
-              >
-                {studyData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: "hsl(var(--card))", 
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "8px",
-                  fontFamily: "Exo 2"
-                }}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="grid grid-cols-2 gap-2 mt-4 text-xs font-exo">
-            {studyData.map((item, index) => (
-              <div key={index} className="flex items-center">
-                <div 
-                  className="w-3 h-3 rounded mr-2" 
-                  style={{ backgroundColor: item.color }}
-                ></div>
-                <span className="truncate">{item.name}</span>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Study Time Heatmap */}
-      <Card className="border-hero-accent/20">
-        <CardHeader>
-          <CardTitle className="flex items-center text-lg font-rajdhani">
-            <Activity className="h-5 w-5 mr-2 text-hero-accent" />
-            Study Time (Minutes)
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={weeklyData} layout="horizontal">
-              <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-              <XAxis 
-                type="number"
-                className="text-xs font-exo"
-                tick={{ fill: "hsl(var(--muted-foreground))" }}
-              />
-              <YAxis 
-                type="category"
-                dataKey="day" 
-                className="text-xs font-exo"
-                tick={{ fill: "hsl(var(--muted-foreground))" }}
+                domain={[0, 100]}
               />
               <Tooltip 
                 contentStyle={{ 
@@ -205,15 +155,15 @@ const ActivityChart = () => {
                 }}
               />
               <Bar 
-                dataKey="study" 
-                fill="hsl(var(--hero-accent))" 
-                radius={[0, 4, 4, 0]}
+                dataKey="score" 
+                fill="hsl(var(--accent))" 
+                radius={[4, 4, 0, 0]}
               />
             </BarChart>
           </ResponsiveContainer>
           <div className="text-center mt-4">
             <p className="text-sm text-muted-foreground font-exo">
-              Daily study time in minutes
+              {monthlyPerformance.length > 1 ? "Monthly average quiz scores" : "Start taking quizzes to see your performance!"}
             </p>
           </div>
         </CardContent>

@@ -30,13 +30,12 @@ const Dashboard = () => {
     totalUsers: 0,
     totalBlogs: 0,
     totalQuizzes: 0,
-    userBlogCount: 5,
-    userQuizAttempts: 12,
-    weeklyActivity: 78,
-    achievementRate: 85,
-    studyStreak: 14,
+    userBlogCount: 0,
+    userQuizAttempts: 0,
+    averageScore: 0,
   });
   const [loadingStats, setLoadingStats] = useState(true);
+  const [recentActivities, setRecentActivities] = useState<any[]>([]);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -48,18 +47,44 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const [usersRes, blogsRes, quizzesRes] = await Promise.all([
+      const [usersRes, blogsRes, quizzesRes, userBlogsRes, userQuizAttemptsRes] = await Promise.all([
         supabase.from("profiles").select("id", { count: 'exact' }),
         supabase.from("blog_posts").select("id", { count: 'exact' }),
-        supabase.from("quizzes").select("id", { count: 'exact' })
+        supabase.from("quizzes").select("id", { count: 'exact' }),
+        supabase.from("blog_posts").select("id", { count: 'exact' }).eq("author_id", user?.id),
+        supabase.from("quiz_attempts").select("*").eq("user_id", user?.id).order("completed_at", { ascending: false })
       ]);
 
-      setDashboardStats(prev => ({
-        ...prev,
+      // Calculate average score
+      const attempts = userQuizAttemptsRes.data || [];
+      const avgScore = attempts.length > 0
+        ? Math.round(attempts.reduce((acc, curr) => acc + (curr.score / curr.total_questions) * 100, 0) / attempts.length)
+        : 0;
+
+      setDashboardStats({
         totalUsers: usersRes.count || 0,
         totalBlogs: blogsRes.count || 0,
         totalQuizzes: quizzesRes.count || 0,
-      }));
+        userBlogCount: userBlogsRes.count || 0,
+        userQuizAttempts: attempts.length,
+        averageScore: avgScore,
+      });
+
+      // Fetch recent activities
+      const [recentBlogs, recentQuizzes, recentResources] = await Promise.all([
+        supabase.from("blog_posts").select("title, created_at").order("created_at", { ascending: false }).limit(2),
+        supabase.from("quizzes").select("title, created_at").order("created_at", { ascending: false }).limit(2),
+        supabase.from("learning_resources").select("title, created_at").order("created_at", { ascending: false }).limit(2)
+      ]);
+
+      const activities = [
+        ...(recentQuizzes.data?.map(q => ({ action: `New quiz: ${q.title}`, time: new Date(q.created_at).toLocaleDateString(), type: "Quiz" })) || []),
+        ...(recentBlogs.data?.map(b => ({ action: `Blog posted: ${b.title}`, time: new Date(b.created_at).toLocaleDateString(), type: "Blog" })) || []),
+        ...(recentResources.data?.map(r => ({ action: `Resource added: ${r.title}`, time: new Date(r.created_at).toLocaleDateString(), type: "Resource" })) || [])
+      ].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()).slice(0, 4);
+
+      setRecentActivities(activities);
+
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
     } finally {
@@ -170,12 +195,7 @@ const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {[
-                  { action: "Completed Data Structures Quiz", time: "2 hours ago", score: "95%" },
-                  { action: "Posted blog: React Best Practices", time: "1 day ago", score: "Published" },
-                  { action: "Downloaded Algorithm Notes", time: "2 days ago", score: "PDF" },
-                  { action: "Joined Sports Event", time: "3 days ago", score: "Football" }
-                ].map((activity, index) => (
+                {recentActivities.length > 0 ? recentActivities.map((activity, index) => (
                   <motion.div 
                     key={index} 
                     className="flex items-center justify-between p-3 bg-primary/5 rounded-lg border border-primary/10"
@@ -192,10 +212,14 @@ const Dashboard = () => {
                       className="text-sm bg-accent/20 text-accent px-2 py-1 rounded font-rajdhani font-medium"
                       whileHover={{ scale: 1.1 }}
                     >
-                      {activity.score}
+                      {activity.type}
                     </motion.span>
                   </motion.div>
-                ))}
+                )) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p>No recent activities yet. Start exploring! 🚀</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </motion.div>

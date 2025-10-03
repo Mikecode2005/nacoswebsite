@@ -239,6 +239,7 @@ export type Database = {
           description: string | null
           file_url: string | null
           id: string
+          level: number | null
           resource_type: string
           subject: string | null
           title: string
@@ -250,6 +251,7 @@ export type Database = {
           description?: string | null
           file_url?: string | null
           id?: string
+          level?: number | null
           resource_type?: string
           subject?: string | null
           title: string
@@ -261,6 +263,7 @@ export type Database = {
           description?: string | null
           file_url?: string | null
           id?: string
+          level?: number | null
           resource_type?: string
           subject?: string | null
           title?: string

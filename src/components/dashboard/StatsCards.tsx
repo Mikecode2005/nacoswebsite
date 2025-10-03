@@ -4,12 +4,6 @@ import {
   Users, 
   FileText, 
   Trophy, 
-  BookOpen, 
-  TrendingUp, 
-  Clock,
-  Award,
-  Target,
-  Activity,
   Brain
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -21,9 +15,7 @@ interface StatsData {
   totalQuizzes: number;
   userBlogCount: number;
   userQuizAttempts: number;
-  weeklyActivity: number;
-  achievementRate: number;
-  studyStreak: number;
+  averageScore: number;
 }
 
 interface StatsCardsProps {
@@ -38,9 +30,7 @@ const StatsCards = ({ stats, loading }: StatsCardsProps) => {
     totalQuizzes: 0,
     userBlogCount: 0,
     userQuizAttempts: 0,
-    weeklyActivity: 0,
-    achievementRate: 0,
-    studyStreak: 0,
+    averageScore: 0,
   });
 
   // Animate numbers on load
@@ -204,7 +194,7 @@ const StatsCards = ({ stats, loading }: StatsCardsProps) => {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <StatCard
         title="My Blog Posts"
         value={animatedValues.userBlogCount}
@@ -217,36 +207,25 @@ const StatsCards = ({ stats, loading }: StatsCardsProps) => {
       />
 
       <StatCard
-        title="Quiz Score"
-        value={`${animatedValues.achievementRate}%`}
-        subtitle="Average performance"
+        title="Quiz Attempts"
+        value={animatedValues.userQuizAttempts}
+        subtitle="Total quizzes taken"
         icon={Brain}
         color="accent"
         gradient="from-accent/5 to-accent/10"
-        progress={animatedValues.achievementRate}
+        progress={Math.min((animatedValues.userQuizAttempts / 20) * 100, 100)}
         delay={0.1}
       />
 
       <StatCard
-        title="Study Streak"
-        value={animatedValues.studyStreak}
-        subtitle="Days active"
-        icon={Target}
+        title="Average Score"
+        value={`${animatedValues.averageScore}%`}
+        subtitle="Quiz performance"
+        icon={Trophy}
         color="secondary"
         gradient="from-secondary/5 to-secondary/10"
-        progress={Math.min((animatedValues.studyStreak / 30) * 100, 100)}
+        progress={animatedValues.averageScore}
         delay={0.2}
-      />
-
-      <StatCard
-        title="Weekly Activity"
-        value={`${animatedValues.weeklyActivity}%`}
-        subtitle="This week's engagement"
-        icon={Activity}
-        color="hero-accent"
-        gradient="from-hero-accent/5 to-hero-accent/10"
-        progress={animatedValues.weeklyActivity}
-        delay={0.3}
       />
 
       {/* Platform Stats Overview */}
