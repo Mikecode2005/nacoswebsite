@@ -3,7 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Linkedin, ArrowLeft, Crown, Users, Star, Target, Trophy, Zap, Heart } from "lucide-react";
+import { Mail, Linkedin, ArrowLeft, Users, Target, Trophy, Zap, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -18,28 +18,8 @@ interface Executive {
   order_index: number;
 }
 
-// Sample executives data - same as in Executives.tsx
+// Sample executives data - only the regular executives (no president/chairman)
 const sampleExecutives: Executive[] = [
-  {
-    id: 'president',
-    name: 'Duduyemi Olalekan',
-    position: 'President 👑',
-    bio: 'Leading NACOS with vision and passion for tech innovation. Computer Science final year student with expertise in full-stack development.',
-    email: 'president@nacos.jabu.edu.ng',
-    linkedin: 'https://linkedin.com/in/duduyemi-olalekan',
-    image_url: "/images/Duduyemi.jpg",
-    order_index: 1
-  },
-  {
-    id: 'executive-chairman',
-    name: 'Ogunmola Michael',
-    position: 'Executive Chairman 🌟',
-    bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
-    email: 'chairman@nacos.jabu.edu.ng',
-    linkedin: 'https://linkedin.com/in/ogunmola-michael',
-    image_url: '/images/Chairman.jpg',
-    order_index: 2
-  },
   {
     id: 'vice-president',
     name: 'Temitope Adeyemi',
@@ -212,14 +192,14 @@ const ExecutiveProfile = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-900 via-green-900 to-teal-900">
         <div className="text-center">
           <motion.div
             animate={{ rotate: 360, scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-16 h-16 border-4 border-cyan-400 border-t-transparent rounded-full mx-auto mb-4"
+            className="w-16 h-16 border-4 border-emerald-400 border-t-transparent rounded-full mx-auto mb-4"
           />
-          <p className="text-cyan-100 font-light">Loading executive profile...</p>
+          <p className="text-emerald-100 font-light">Loading executive profile...</p>
         </div>
       </div>
     );
@@ -228,10 +208,6 @@ const ExecutiveProfile = () => {
   if (!executive) {
     return <Navigate to="/executives" replace />;
   }
-
-  const isPresident = executive.position.toLowerCase().includes('president');
-  const isChairman = executive.position.toLowerCase().includes('chairman');
-  const isMichael = executive.name.toLowerCase().includes('michael') || executive.name.toLowerCase().includes('ogunmola');
 
   // Animation variants
   const fadeInUp = {
@@ -249,17 +225,17 @@ const ExecutiveProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-900 to-teal-900">
       {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-6 py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
@@ -268,7 +244,7 @@ const ExecutiveProfile = () => {
             <Link to="/executives">
               <Button 
                 variant="outline" 
-                className="mb-8 border-cyan-400/30 text-cyan-100 hover:bg-cyan-400/20 hover:border-cyan-400/50 backdrop-blur-sm"
+                className="mb-6 lg:mb-8 border-emerald-400/30 text-emerald-100 hover:bg-emerald-400/20 hover:border-emerald-400/50 backdrop-blur-sm text-sm lg:text-base"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Executives
@@ -276,45 +252,29 @@ const ExecutiveProfile = () => {
             </Link>
           </motion.div>
           
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="text-white"
+              className="text-white order-2 lg:order-1"
             >
               <motion.div 
-                className="flex items-center gap-4 mb-8"
+                className="flex items-center gap-4 mb-6 lg:mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                {isPresident && (
-                  <motion.div
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <Crown className="h-10 w-10 text-yellow-400" />
-                  </motion.div>
-                )}
-                {isChairman && (
-                  <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <Star className="h-10 w-10 text-cyan-400" />
-                  </motion.div>
-                )}
                 <Badge 
                   variant="secondary" 
-                  className="text-lg px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 border-0 text-white backdrop-blur-sm"
+                  className="text-sm lg:text-lg px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-emerald-500 to-green-500 border-0 text-white backdrop-blur-sm"
                 >
                   {executive.position}
                 </Badge>
               </motion.div>
               
               <motion.h1 
-                className="text-6xl font-bold mb-6 leading-tight bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent"
+                className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 lg:mb-6 leading-tight bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
@@ -323,7 +283,7 @@ const ExecutiveProfile = () => {
               </motion.h1>
               
               <motion.p 
-                className="text-xl text-cyan-100 leading-relaxed mb-8"
+                className="text-base lg:text-xl text-emerald-100 leading-relaxed mb-6 lg:mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
@@ -332,31 +292,31 @@ const ExecutiveProfile = () => {
               </motion.p>
               
               <motion.div 
-                className="flex gap-4"
+                className="flex flex-col sm:flex-row gap-3 lg:gap-4"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1 }}
               >
                 {executive.email && (
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
                       variant="outline" 
                       size="lg" 
-                      className="border-cyan-400/50 text-cyan-100 hover:bg-cyan-400/20 hover:border-cyan-400 backdrop-blur-sm"
+                      className="w-full border-emerald-400/50 text-emerald-100 hover:bg-emerald-400/20 hover:border-emerald-400 backdrop-blur-sm text-sm lg:text-base"
                     >
-                      <Mail className="h-5 w-5 mr-2" />
+                      <Mail className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       Contact
                     </Button>
                   </motion.div>
                 )}
                 {executive.linkedin && (
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
                       variant="outline" 
                       size="lg" 
-                      className="border-blue-400/50 text-blue-100 hover:bg-blue-400/20 hover:border-blue-400 backdrop-blur-sm"
+                      className="w-full border-teal-400/50 text-teal-100 hover:bg-teal-400/20 hover:border-teal-400 backdrop-blur-sm text-sm lg:text-base"
                     >
-                      <Linkedin className="h-5 w-5 mr-2" />
+                      <Linkedin className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       LinkedIn
                     </Button>
                   </motion.div>
@@ -368,7 +328,7 @@ const ExecutiveProfile = () => {
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
-              className="flex justify-center"
+              className="flex justify-center order-1 lg:order-2"
             >
               <div className="relative">
                 <motion.div
@@ -380,7 +340,7 @@ const ExecutiveProfile = () => {
                     rotateY: { duration: 6, repeat: Infinity },
                     scale: { duration: 4, repeat: Infinity }
                   }}
-                  className="w-96 h-96 rounded-3xl bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-blue-500/20 backdrop-blur-xl flex items-center justify-center overflow-hidden border border-cyan-400/30 shadow-2xl"
+                  className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-3xl bg-gradient-to-br from-emerald-500/20 via-green-500/20 to-teal-500/20 backdrop-blur-xl flex items-center justify-center overflow-hidden border border-emerald-400/30 shadow-2xl"
                 >
                   {executive.image_url ? (
                     <img 
@@ -390,44 +350,11 @@ const ExecutiveProfile = () => {
                     />
                   ) : (
                     <div className="text-center">
-                      <Users className="h-32 w-32 text-cyan-400/60 mx-auto mb-6" />
-                      <span className="text-cyan-400/60 text-xl font-light">Profile Photo</span>
+                      <Users className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 text-emerald-400/60 mx-auto mb-4" />
+                      <span className="text-emerald-400/60 text-lg font-light">Profile Photo</span>
                     </div>
                   )}
                 </motion.div>
-                
-                {/* Floating Elements */}
-                {isPresident && (
-                  <motion.div 
-                    className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-2xl"
-                    animate={{ 
-                      rotate: [0, 360],
-                      scale: [1, 1.1, 1]
-                    }}
-                    transition={{ 
-                      rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-                      scale: { duration: 2, repeat: Infinity }
-                    }}
-                  >
-                    <Crown className="h-10 w-10 text-white" />
-                  </motion.div>
-                )}
-                
-                {isChairman && (
-                  <motion.div 
-                    className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-2xl"
-                    animate={{ 
-                      y: [0, -20, 0],
-                      rotate: [0, 180, 360]
-                    }}
-                    transition={{ 
-                      duration: 4,
-                      repeat: Infinity
-                    }}
-                  >
-                    <Star className="h-8 w-8 text-white" />
-                  </motion.div>
-                )}
               </div>
             </motion.div>
           </div>
@@ -435,86 +362,72 @@ const ExecutiveProfile = () => {
       </div>
 
       {/* Content Section */}
-      <div className="relative max-w-7xl mx-auto px-6 py-20">
-        <div className="grid lg:grid-cols-3 gap-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 lg:space-y-8">
             {/* About Section */}
             <motion.div
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <Card className="border-cyan-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
+              <Card className="border-emerald-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
-                  <CardTitle className="text-3xl text-cyan-400 flex items-center gap-3">
-                    <Zap className="h-8 w-8" />
+                  <CardTitle className="text-2xl lg:text-3xl text-emerald-400 flex items-center gap-3">
+                    <Zap className="h-6 w-6 lg:h-8 lg:w-8" />
                     About {executive.name.split(' ')[0]}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  {isMichael ? (
-                    <motion.div
-                      variants={staggerChildren}
-                      initial="initial"
-                      animate="animate"
-                      className="space-y-6"
-                    >
-                      <motion.p variants={fadeInUp} className="text-lg leading-relaxed text-cyan-100">
-                        As the Executive Chairman of NACOS, Ogunmola Michael brings exceptional leadership 
-                        and technical expertise to our organization. With a passion for advancing computer 
-                        science education and fostering innovation among students.
-                      </motion.p>
-                      
-                      <motion.div variants={fadeInUp} className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 p-8 rounded-2xl border border-cyan-400/20">
-                        <h3 className="text-2xl font-semibold text-cyan-400 mb-4 flex items-center gap-2">
-                          <Target className="h-6 w-6" />
-                          Vision & Leadership
-                        </h3>
-                        <p className="text-cyan-100 leading-relaxed">
-                          Michael is committed to creating an inclusive environment where every NACOS member 
-                          can thrive, learn, and contribute to the tech community. His leadership focuses on 
-                          bridging the gap between academic learning and industry requirements.
-                        </p>
-                      </motion.div>
-                      
-                      <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6">
-                        <Card className="border-cyan-400/20 bg-cyan-500/10 backdrop-blur-sm">
-                          <CardContent className="p-6">
-                            <Target className="h-8 w-8 text-cyan-400 mb-4" />
-                            <h4 className="font-semibold text-cyan-400 mb-3 text-lg">Key Initiatives</h4>
-                            <ul className="space-y-3 text-cyan-100">
-                              <li className="flex items-center gap-2">• Mentorship Programs</li>
-                              <li className="flex items-center gap-2">• Industry Partnerships</li>
-                              <li className="flex items-center gap-2">• Technical Workshops</li>
-                              <li className="flex items-center gap-2">• Career Development</li>
-                            </ul>
-                          </CardContent>
-                        </Card>
-                        
-                        <Card className="border-purple-400/20 bg-purple-500/10 backdrop-blur-sm">
-                          <CardContent className="p-6">
-                            <Trophy className="h-8 w-8 text-purple-400 mb-4" />
-                            <h4 className="font-semibold text-purple-400 mb-3 text-lg">Achievements</h4>
-                            <ul className="space-y-3 text-purple-100">
-                              <li className="flex items-center gap-2">• Platform Development</li>
-                              <li className="flex items-center gap-2">• Community Growth</li>
-                              <li className="flex items-center gap-2">• Event Organization</li>
-                              <li className="flex items-center gap-2">• Student Engagement</li>
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    </motion.div>
-                  ) : (
-                    <motion.p 
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-lg leading-relaxed text-cyan-100"
-                    >
+                  <motion.div
+                    variants={staggerChildren}
+                    initial="initial"
+                    animate="animate"
+                    className="space-y-6"
+                  >
+                    <motion.p variants={fadeInUp} className="text-base lg:text-lg leading-relaxed text-emerald-100">
                       {executive.bio || `${executive.name} serves as ${executive.position} of NACOS, bringing valuable expertise and dedication to our organization's mission.`}
                     </motion.p>
-                  )}
+                    
+                    <motion.div variants={fadeInUp} className="bg-gradient-to-r from-emerald-500/10 to-green-500/10 p-6 lg:p-8 rounded-2xl border border-emerald-400/20">
+                      <h3 className="text-xl lg:text-2xl font-semibold text-emerald-400 mb-4 flex items-center gap-2">
+                        <Target className="h-5 w-5 lg:h-6 lg:w-6" />
+                        Role & Responsibilities
+                      </h3>
+                      <p className="text-emerald-100 leading-relaxed">
+                        {executive.name} plays a crucial role in the NACOS executive team, contributing to the growth and development of our tech community through dedicated service and innovative leadership.
+                      </p>
+                    </motion.div>
+                    
+                    <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-4 lg:gap-6">
+                      <Card className="border-emerald-400/20 bg-emerald-500/10 backdrop-blur-sm">
+                        <CardContent className="p-4 lg:p-6">
+                          <Target className="h-6 w-6 lg:h-8 lg:w-8 text-emerald-400 mb-4" />
+                          <h4 className="font-semibold text-emerald-400 mb-3 text-lg">Key Focus Areas</h4>
+                          <ul className="space-y-2 lg:space-y-3 text-emerald-100">
+                            <li className="flex items-center gap-2">• Student Engagement</li>
+                            <li className="flex items-center gap-2">• Project Development</li>
+                            <li className="flex items-center gap-2">• Community Building</li>
+                            <li className="flex items-center gap-2">• Technical Growth</li>
+                          </ul>
+                        </CardContent>
+                      </Card>
+                      
+                      <Card className="border-green-400/20 bg-green-500/10 backdrop-blur-sm">
+                        <CardContent className="p-4 lg:p-6">
+                          <Trophy className="h-6 w-6 lg:h-8 lg:w-8 text-green-400 mb-4" />
+                          <h4 className="font-semibold text-green-400 mb-3 text-lg">Contributions</h4>
+                          <ul className="space-y-2 lg:space-y-3 text-green-100">
+                            <li className="flex items-center gap-2">• Event Coordination</li>
+                            <li className="flex items-center gap-2">• Member Support</li>
+                            <li className="flex items-center gap-2">• Program Development</li>
+                            <li className="flex items-center gap-2">• Team Collaboration</li>
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </motion.div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -525,10 +438,10 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <Card className="border-cyan-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
+              <Card className="border-emerald-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-cyan-400 flex items-center gap-3">
-                    <Mail className="h-6 w-6" />
+                  <CardTitle className="text-xl lg:text-2xl text-emerald-400 flex items-center gap-3">
+                    <Mail className="h-5 w-5 lg:h-6 lg:w-6" />
                     Get In Touch
                   </CardTitle>
                 </CardHeader>
@@ -537,12 +450,12 @@ const ExecutiveProfile = () => {
                     {executive.email && (
                       <motion.div 
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-4 p-6 bg-cyan-500/10 rounded-xl border border-cyan-400/20"
+                        className="flex items-center gap-4 p-4 lg:p-6 bg-emerald-500/10 rounded-xl border border-emerald-400/20"
                       >
-                        <Mail className="h-8 w-8 text-cyan-400" />
+                        <Mail className="h-6 w-6 lg:h-8 lg:w-8 text-emerald-400" />
                         <div>
-                          <p className="font-medium text-cyan-400 text-lg">Email</p>
-                          <a href={`mailto:${executive.email}`} className="text-cyan-100 hover:text-cyan-300 transition-colors">
+                          <p className="font-medium text-emerald-400 text-lg">Email</p>
+                          <a href={`mailto:${executive.email}`} className="text-emerald-100 hover:text-emerald-300 transition-colors break-all">
                             {executive.email}
                           </a>
                         </div>
@@ -552,16 +465,16 @@ const ExecutiveProfile = () => {
                     {executive.linkedin && (
                       <motion.div 
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-4 p-6 bg-blue-500/10 rounded-xl border border-blue-400/20"
+                        className="flex items-center gap-4 p-4 lg:p-6 bg-teal-500/10 rounded-xl border border-teal-400/20"
                       >
-                        <Linkedin className="h-8 w-8 text-blue-400" />
+                        <Linkedin className="h-6 w-6 lg:h-8 lg:w-8 text-teal-400" />
                         <div>
-                          <p className="font-medium text-blue-400 text-lg">LinkedIn</p>
+                          <p className="font-medium text-teal-400 text-lg">LinkedIn</p>
                           <a 
                             href={executive.linkedin} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-blue-100 hover:text-blue-300 transition-colors"
+                            className="text-teal-100 hover:text-teal-300 transition-colors break-all"
                           >
                             Connect on LinkedIn
                           </a>
@@ -581,30 +494,28 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <Card className="border-cyan-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
+              <Card className="border-emerald-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
-                  <CardTitle className="text-cyan-400 flex items-center gap-2">
+                  <CardTitle className="text-emerald-400 flex items-center gap-2">
                     <Users className="h-5 w-5" />
                     Quick Facts
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-4 lg:space-y-6">
                   <div>
-                    <p className="font-medium text-cyan-400">Position</p>
-                    <p className="text-cyan-100 text-lg">{executive.position}</p>
+                    <p className="font-medium text-emerald-400">Position</p>
+                    <p className="text-emerald-100 text-lg">{executive.position}</p>
                   </div>
                   
                   <div>
-                    <p className="font-medium text-cyan-400">Organization</p>
-                    <p className="text-cyan-100">NACOS JABU Chapter</p>
+                    <p className="font-medium text-emerald-400">Organization</p>
+                    <p className="text-emerald-100">NACOS JABU Chapter</p>
                   </div>
                   
-                  {isMichael && (
-                    <div>
-                      <p className="font-medium text-cyan-400">Specialization</p>
-                      <p className="text-cyan-100">Software Development & Leadership</p>
-                    </div>
-                  )}
+                  <div>
+                    <p className="font-medium text-emerald-400">Department</p>
+                    <p className="text-emerald-100">Executive Team</p>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -614,15 +525,15 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <Card className="border-purple-400/20 bg-purple-500/10 backdrop-blur-xl shadow-2xl">
+              <Card className="border-green-400/20 bg-green-500/10 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
-                  <CardTitle className="text-purple-400 flex items-center gap-2">
+                  <CardTitle className="text-green-400 flex items-center gap-2">
                     <Heart className="h-5 w-5" />
                     NACOS Mission
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-purple-100 leading-relaxed">
+                  <p className="text-green-100 leading-relaxed">
                     Empowering the next generation of tech innovators through education, 
                     collaboration, and cutting-edge technology.
                   </p>
