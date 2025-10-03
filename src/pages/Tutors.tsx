@@ -15,7 +15,7 @@ const Tutors = () => {
       experience: "3 years",
       icon: Crown,
       bio: "Leading NACOS with academic excellence and providing guidance to fellow students in computer science fundamentals and leadership development.",
-      subjects: ["Computer Science Fundamentals", "Leadership", "Academic Planning", "Project Guidance"],
+      subjects: ["Computer Science Fundamentals", "Leadership", "Academic Planning", "Project Guidance", "Calculus"],
       availability: "Mon, Wed, Fri - 2:00 PM - 5:00 PM",
       email: "president@nacos.jabu.edu.ng",
       whatsapp: "+234 XXX XXX XXXX",
@@ -43,7 +43,7 @@ const Tutors = () => {
       experience: "2 years",
       icon: PenTool,
       bio: "Experienced in programming competitions and algorithm design. Dedicated to helping students improve their coding skills and problem-solving abilities.",
-      subjects: ["Python", "Java", "Algorithms", "Data Structures", "Competitive Programming"],
+      subjects: ["Python", "Java", "Algorithms", "Data Structures", "Competitive Programming", "Calculus"],
       availability: "Mon, Wed, Fri - 9:00 AM - 12:00 PM",
       email: "adebayo.oluwatoyin@student.jabu.edu.ng",
       whatsapp: "+234 XXX XXX XXXX",
@@ -75,7 +75,7 @@ const Tutors = () => {
                 <div className="md:flex">
                   <div className="md:w-1/3">
                     <div className="h-64 md:h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                      <div className="w-32 h-32 bg-primary/30 rounded-full flex items-center justify-center">
+                      <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border-4 border-green-500 shadow-lg">
                         <Icon className="h-16 w-16 text-primary" />
                       </div>
                     </div>
@@ -121,22 +121,22 @@ const Tutors = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                           <span>{tutor.sessions} Sessions</span>
                           <span>★ {tutor.rating}/5.0</span>
                         </div>
                         
-                        <div className="flex items-center space-x-3">
-                          <Button variant="outline" size="sm">
+                        <div className="flex flex-wrap gap-2">
+                          <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
                             <Mail className="h-4 w-4 mr-1" />
                             Email
                           </Button>
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
                             <Phone className="h-4 w-4 mr-1" />
                             WhatsApp
                           </Button>
-                          <Button size="sm">
+                          <Button size="sm" className="flex-1 sm:flex-none">
                             Book Session
                           </Button>
                         </div>
@@ -165,21 +165,21 @@ const Tutors = () => {
         </div>
 
         <div className="mt-16 text-center">
-  <Card className="max-w-2xl mx-auto bg-primary/5 border-primary/20">
-    <CardContent className="p-8">
-      <h3 className="text-2xl font-bold text-primary mb-4">Meet Our Past Tutors</h3>
-      <p className="text-muted-foreground mb-4">
-        Discover the exceptional alumni who have dedicated their time to help fellow students succeed. 
-        Learn from their experiences and see how they've impacted our academic community.
-      </p>
-      <Button size="lg" asChild>
-        <Link to="/past-tutors">
-          View Past Tutors
-        </Link>
-      </Button>
-    </CardContent>
-  </Card>
-</div>
+          <Card className="max-w-2xl mx-auto bg-primary/5 border-primary/20">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-primary mb-4">Meet Our Past Tutors</h3>
+              <p className="text-muted-foreground mb-4">
+                Discover the exceptional alumni who have dedicated their time to help fellow students succeed. 
+                Learn from their experiences and see how they've impacted our academic community.
+              </p>
+              <Button size="lg" asChild>
+                <Link to="/past-tutors">
+                  View Past Tutors
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
       <Footer />
     </div>
