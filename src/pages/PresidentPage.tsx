@@ -270,7 +270,7 @@ const PresidentPage = () => {
                 <CardContent className="space-y-4">
                   <div>
                     <p className="font-medium text-yellow-700">Term</p>
-                    <p className="text-yellow-600">2024-2025 Academic Session</p>
+                    <p className="text-yellow-600">2025-2026 Academic Session</p>
                   </div>
                   
                   <div>
@@ -280,7 +280,7 @@ const PresidentPage = () => {
                   
                   <div>
                     <p className="font-medium text-yellow-700">Members Served</p>
-                    <p className="text-yellow-600">500+ Active Members</p>
+                    <p className="text-yellow-600">400+ Active Members</p>
                   </div>
                 </CardContent>
               </Card>
