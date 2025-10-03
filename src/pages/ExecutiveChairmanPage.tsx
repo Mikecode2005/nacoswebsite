@@ -124,7 +124,7 @@ const ExecutiveChairmanPage = () => {
             transition={{ duration: 0.6 }}
           >
             <Link to="/executives">
-              <Button variant="outline" className="mb-6 border-blue-300/30 text-blue-200 hover:bg-blue-400/20 backdrop-blur-sm text-sm sm:text-base">
+              <Button variant="outline" className="mb-6 border-blue-300/30 text-white-200 hover:bg-blue-400/20 backdrop-blur-sm text-sm sm:text-base">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Executives
               </Button>

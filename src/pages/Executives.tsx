@@ -64,7 +64,7 @@ const Executives = () => {
       bio: 'Leading NACOS with vision and passion for tech innovation. Computer Science final year student with expertise in full-stack development.',
       email: 'president@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/duduyemi-olalekan',
-      image_url: '/images/Duduyemi.jpg',
+      image_url: "/images/Duduyemi.jpg",
       order_index: 1,
       created_at: '2024-01-01'
     },
