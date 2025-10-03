@@ -1,10 +1,66 @@
-import { Calendar, User, ArrowRight, FileText, Code, Shield } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ArrowRight, BookOpen, Code, Lightbulb } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  created_at: string;
+  author_id: string;
+}
 
 const BlogSection = () => {
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .eq('status', 'published')
+          .order('created_at', { ascending: false })
+          .limit(3);
+        
+        if (error) throw error;
+        setBlogPosts(data || []);
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
+
+  const getIcon = (index: number) => {
+    const icons = [BookOpen, Code, Lightbulb];
+    const Icon = icons[index % icons.length];
+    return <Icon className="h-6 w-6 text-primary" />;
+  };
+
+  const truncateContent = (content: string, maxLength: number = 150) => {
+    if (content.length <= maxLength) return content;
+    return content.substring(0, maxLength) + '...';
+  };
+
+  if (loading) {
+    return (
+      <section className="py-16 px-4 bg-gradient-to-br from-background to-primary/5">
+        <div className="max-w-7xl mx-auto flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="blog" className="py-16 bg-gradient-to-br from-primary/5 to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,125 +77,61 @@ const BlogSection = () => {
             Stay updated with the latest insights, tutorials, and tech trends from our community
           </p>
         </motion.div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Card className="group hover:shadow-xl transition-all duration-300 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
-            <CardHeader>
-              <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg mb-4 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-12 bg-primary/40 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                      <FileText className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="text-xs text-primary/70 font-exo">React Tutorial</div>
-                  </div>
-                </div>
-              </div>
-              <CardTitle className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                Advanced React Patterns & Best Practices
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center text-sm text-muted-foreground mb-4 space-x-4">
-                <div className="flex items-center">
-                  <User className="h-4 w-4 mr-1" />
-                  Michael Ogurmola
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  April 2024
-                </div>
-              </div>
-              <p className="text-muted-foreground mb-4">
-                Explore advanced React patterns, hooks, and performance optimization techniques for building scalable applications.
-              </p>
-              <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                Read More
-                <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </CardContent>
-          </Card>
 
-          <Card className="group hover:shadow-xl transition-all duration-300 border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10">
-            <CardHeader>
-              <div className="aspect-video bg-gradient-to-br from-accent/10 to-secondary/10 rounded-lg mb-4 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-12 h-16 bg-accent/40 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                      <Code className="h-8 w-8 text-accent" />
-                    </div>
-                    <div className="text-xs text-accent/70 font-exo">ML Guide</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {blogPosts.length > 0 ? blogPosts.map((post, index) => (
+            <motion.div
+              key={post.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+                <CardHeader>
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    {getIcon(index)}
                   </div>
-                </div>
-              </div>
-              <CardTitle className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                Machine Learning with Python
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center text-sm text-muted-foreground mb-4 space-x-4">
-                <div className="flex items-center">
-                  <User className="h-4 w-4 mr-1" />
-                  Sarah Johnson
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  March 2024
-                </div>
-              </div>
-              <p className="text-muted-foreground mb-4">
-                Dive into machine learning algorithms and implement them using Python libraries like scikit-learn and TensorFlow.
-              </p>
-              <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                Read More
-                <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-xl transition-all duration-300 border-secondary/20 bg-gradient-to-br from-secondary/5 to-secondary/10 md:col-span-2 lg:col-span-1">
-            <CardHeader>
-              <div className="aspect-video bg-gradient-to-br from-secondary/10 to-hero-accent/10 rounded-lg mb-4 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-14 h-14 bg-secondary/40 rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <Shield className="h-8 w-8 text-secondary" />
-                    </div>
-                    <div className="text-xs text-secondary/70 font-exo">Security</div>
+                  <CardTitle className="font-orbitron text-xl group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                    {post.title}
+                  </CardTitle>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+                    <span className="font-rajdhani">{new Date(post.created_at).toLocaleDateString()}</span>
                   </div>
-                </div>
-              </div>
-              <CardTitle className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                Cybersecurity Fundamentals
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center text-sm text-muted-foreground mb-4 space-x-4">
-                <div className="flex items-center">
-                  <User className="h-4 w-4 mr-1" />
-                  David Chen
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  February 2024
-                </div>
-              </div>
-              <p className="text-muted-foreground mb-4">
-                Learn essential cybersecurity concepts, threat detection, and how to protect systems from cyber attacks.
-              </p>
-              <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                Read More
-                <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </CardContent>
-          </Card>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground font-exo mb-6 leading-relaxed line-clamp-3">
+                    {truncateContent(post.content)}
+                  </p>
+                  <Button 
+                    asChild
+                    variant="ghost" 
+                    className="w-full group/btn hover:bg-primary/10 transition-colors duration-300"
+                  >
+                    <Link to="/blog">
+                      <span className="font-rajdhani font-medium">Read More</span>
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )) : (
+            <div className="col-span-full">
+              <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
+                <CardContent className="flex items-center justify-center h-64">
+                  <p className="text-muted-foreground font-exo">No blog posts available at the moment.</p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
+          className="text-center"
         >
           <Button 
             asChild 

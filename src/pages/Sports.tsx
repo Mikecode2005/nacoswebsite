@@ -5,7 +5,13 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, MapPin, Calendar, Users, Timer } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Trophy, MapPin, Calendar, Users, Timer, Plus, Trash2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface Sport {
   id: string;
@@ -19,9 +25,19 @@ interface Sport {
 }
 
 const Sports = () => {
-  const { user, loading } = useAuth();
+  const { user, userRole, loading } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [sports, setSports] = useState<Sport[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    schedule: "",
+    location: "",
+    contact_person: "",
+    image_url: ""
+  });
 
   useEffect(() => {
     if (!loading && !user) {
@@ -47,6 +63,66 @@ const Sports = () => {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      const { error } = await supabase
+        .from("sports")
+        .insert([formData]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Sport added successfully!",
+      });
+
+      setFormData({
+        name: "",
+        description: "",
+        schedule: "",
+        location: "",
+        contact_person: "",
+        image_url: ""
+      });
+      setIsDialogOpen(false);
+      fetchSports();
+    } catch (error) {
+      console.error("Error adding sport:", error);
+      toast({
+        title: "Error",
+        description: "Failed to add sport. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from("sports")
+        .delete()
+        .eq("id", id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Sport deleted successfully!",
+      });
+
+      fetchSports();
+    } catch (error) {
+      console.error("Error deleting sport:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete sport. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -55,40 +131,7 @@ const Sports = () => {
     );
   }
 
-  const sampleSports = [
-    {
-      id: '1',
-      name: 'Football ⚽',
-      description: 'Join our competitive football team and represent NACOS in inter-faculty tournaments!',
-      schedule: 'Mondays & Thursdays 4:00 PM',
-      location: 'University Sports Complex',
-      contact_person: 'David Okafor',
-      image_url: '',
-      created_at: '2024-01-01'
-    },
-    {
-      id: '2',
-      name: 'Basketball 🏀',
-      description: 'Fast-paced basketball games for tech enthusiasts who love the court!',
-      schedule: 'Tuesdays & Fridays 5:00 PM',
-      location: 'Indoor Basketball Court',
-      contact_person: 'Sarah Adebayo',
-      image_url: '',
-      created_at: '2024-01-01'
-    },
-    {
-      id: '3',
-      name: 'Table Tennis 🏓',
-      description: 'Quick reflexes meet strategy in our table tennis tournaments!',
-      schedule: 'Wednesdays 3:00 PM',
-      location: 'Student Recreation Center',
-      contact_person: 'Michael Chen',
-      image_url: '',
-      created_at: '2024-01-01'
-    }
-  ];
-
-  const displaySports = sports.length > 0 ? sports : sampleSports;
+  const isAdmin = userRole === 'admin' || userRole === 'superadmin';
 
   return (
     <div className="min-h-screen bg-background">
@@ -97,24 +140,89 @@ const Sports = () => {
       <main className="container mx-auto px-4 py-24">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-primary mb-4">
+          <h1 className="text-4xl font-bold text-primary mb-4 font-orbitron">
             Sports Hub ⚽
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-exo">
             Get active, stay healthy, and connect with fellow tech enthusiasts through sports! 🏃‍♂️
           </p>
+          
+          {isAdmin && (
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="mt-6">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Sport
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>Add New Sport</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <Input
+                      placeholder="Sport Name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Textarea
+                      placeholder="Description"
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Input
+                      placeholder="Schedule (e.g., Mondays & Thursdays 4:00 PM)"
+                      value={formData.schedule}
+                      onChange={(e) => setFormData({ ...formData, schedule: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Input
+                      placeholder="Location"
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Input
+                      placeholder="Contact Person"
+                      value={formData.contact_person}
+                      onChange={(e) => setFormData({ ...formData, contact_person: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Input
+                      placeholder="Image URL (optional)"
+                      value={formData.image_url}
+                      onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                    />
+                  </div>
+                  <Button type="submit" className="w-full">Add Sport</Button>
+                </form>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
 
         {/* Sports Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {displaySports.map((sport) => (
+          {sports.length > 0 ? sports.map((sport) => (
             <Card key={sport.id} className="border-accent/20 bg-accent/5 hover:shadow-lg transition-all duration-300">
               <CardHeader>
                 <div className="w-16 h-16 bg-accent/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  {sport.name.includes('Football') && <Trophy className="h-8 w-8 text-accent" />}
-                  {sport.name.includes('Basketball') && <Trophy className="h-8 w-8 text-accent" />}
-                  {sport.name.includes('Tennis') && <Trophy className="h-8 w-8 text-accent" />}
-                  {!sport.name.includes('Football') && !sport.name.includes('Basketball') && !sport.name.includes('Tennis') && (
+                  {sport.image_url ? (
+                    <img src={sport.image_url} alt={sport.name} className="w-full h-full object-cover rounded-lg" />
+                  ) : (
                     <Trophy className="h-8 w-8 text-accent" />
                   )}
                 </div>
@@ -143,9 +251,42 @@ const Sports = () => {
                     <span className="text-muted-foreground">Contact: {sport.contact_person}</span>
                   </div>
                 </div>
+
+                {isAdmin && (
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="destructive" size="sm" className="w-full mt-4">
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Delete
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This will permanently delete this sport activity.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleDelete(sport.id)}>
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                )}
               </CardContent>
             </Card>
-          ))}
+          )) : (
+            <div className="col-span-full">
+              <Card className="border-accent/20 bg-accent/5">
+                <CardContent className="flex items-center justify-center h-64">
+                  <p className="text-muted-foreground">No sports activities available at the moment.</p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
 
         {/* Sports Stats */}
@@ -177,7 +318,7 @@ const Sports = () => {
           <Card className="text-center border-primary/20 bg-primary/5">
             <CardContent className="p-6">
               <Timer className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-primary">3</h3>
+              <h3 className="text-2xl font-bold text-primary">{sports.length}</h3>
               <p className="text-muted-foreground">Sports Available ⚽</p>
             </CardContent>
           </Card>
