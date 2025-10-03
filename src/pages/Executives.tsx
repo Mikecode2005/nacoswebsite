@@ -84,7 +84,7 @@ const Executives = () => {
     },
     {
       id: 'general-secretary',
-      name: 'Michael Chen',
+      name: 'Omamegbe Marvellous',
       position: 'General Secretary 📝',
       bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
       email: 'secretary@nacos.jabu.edu.ng',
