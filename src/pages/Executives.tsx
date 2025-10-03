@@ -48,17 +48,9 @@ const Executives = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  const sampleExecutives = [
+  const sampleExecutives: Executive[] = [
     {
-      id: '1',
+      id: 'president',
       name: 'Duduyemi Olalekan',
       position: 'President 👑',
       bio: 'Leading NACOS with vision and passion for tech innovation. Computer Science final year student with expertise in full-stack development.',
@@ -69,7 +61,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '2',
+      id: 'executive-chairman',
       name: 'Ogunmola Michael',
       position: 'Executive Chairman 🌟',
       bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
@@ -80,7 +72,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '3',
+      id: 'vice-president',
       name: 'Temitope Adeyemi',
       position: 'Vice President ⚡',
       bio: 'Supporting the president in strategic planning and execution. Skilled in leadership and community building with a focus on tech education.',
@@ -91,7 +83,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '4',
+      id: 'general-secretary',
       name: 'Michael Chen',
       position: 'General Secretary 📝',
       bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
@@ -102,7 +94,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '5',
+      id: 'assistant-general-secretary',
       name: 'Aisha Bello',
       position: 'Assistant General Secretary 📋',
       bio: 'Assisting in administrative duties and record-keeping. Detail-oriented with strong organizational skills and tech proficiency.',
@@ -113,7 +105,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '6',
+      id: 'financial-secretary',
       name: 'Fatima Ibrahim',
       position: 'Financial Secretary 💰',
       bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
@@ -124,7 +116,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '7',
+      id: 'software-director',
       name: 'Chinedu Okeke',
       position: 'Software Director 💻',
       bio: 'Overseeing software development initiatives and hackathons. Full-stack developer passionate about open-source contributions.',
@@ -135,7 +127,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '8',
+      id: 'assistant-software-director',
       name: 'Sarah Okonkwo',
       position: 'Assistant Software Director 🔧',
       bio: 'Supporting software projects and mentoring junior developers. Specializes in frontend technologies and agile methodologies.',
@@ -146,7 +138,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '9',
+      id: 'sports-director',
       name: 'Zainab Ali',
       position: 'Sports Director 🏃‍♂️',
       bio: 'Promoting physical wellness and team-building through sports events. Fitness enthusiast and data analyst.',
@@ -157,7 +149,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '10',
+      id: 'assistant-sports-director',
       name: 'Peter Adebayo',
       position: 'Assistant Sports Director ⚽',
       bio: 'Coordinating sports activities and tournaments. Passionate about sports tech and community health initiatives.',
@@ -168,7 +160,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '11',
+      id: 'social-director',
       name: 'Grace Okwu',
       position: 'Social Director 🎉',
       bio: 'Creating memorable experiences and fostering community spirit. Event management and UX design specialist.',
@@ -179,7 +171,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '12',
+      id: 'assistant-social-director',
       name: 'Emeka Nwosu',
       position: 'Assistant Social Director 🎊',
       bio: 'Assisting in event planning and social media engagement. Creative mind with experience in digital marketing.',
@@ -190,7 +182,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '13',
+      id: 'welfare-director',
       name: 'Halima Yusuf',
       position: 'Welfare Director ❤️',
       bio: 'Ensuring member well-being and support systems. Counselor with background in health informatics.',
@@ -201,7 +193,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '14',
+      id: 'assistant-welfare-director',
       name: 'Adesida Jemima',
       position: 'Assistant Welfare Director 🤝',
       bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
@@ -212,7 +204,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '15',
+      id: 'chief-whip',
       name: 'Fatima Musa',
       position: 'Chief Whip 🔗',
       bio: 'Ensuring discipline and unity within the executive team. Legal studies background with tech interests.',
@@ -223,7 +215,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '16',
+      id: 'media-director',
       name: 'James Adedayo',
       position: 'Media Director 📸',
       bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
@@ -234,7 +226,7 @@ const Executives = () => {
       created_at: '2024-01-01'
     },
     {
-      id: '17',
+      id: 'public-relations-officer',
       name: 'David Ojo',
       position: 'Public Relations Officer 📢',
       bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
@@ -247,6 +239,14 @@ const Executives = () => {
   ];
 
   const displayExecutives = executives.length > 0 ? executives : sampleExecutives;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -268,11 +268,7 @@ const Executives = () => {
           {displayExecutives.map((executive) => (
             <Card key={executive.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
               <CardHeader className="text-center">
-                <Link to={
-                  executive.position === 'President 👑' ? '/president' :
-                  executive.position === 'Executive Chairman 🌟' ? '/executive-chairman' :
-                  `/executives/${executive.id}`
-                } className="block">
+                <Link to={`/executives/${executive.id}`} className="block">
                   <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer overflow-hidden">
                     {executive.image_url ? (
                       <img 
@@ -292,11 +288,7 @@ const Executives = () => {
                     )}
                   </div>
                 </Link>
-                <Link to={
-                  executive.position === 'President 👑' ? '/president' :
-                  executive.position === 'Executive Chairman 🌟' ? '/executive-chairman' :
-                  `/executives/${executive.id}`
-                }>
+                <Link to={`/executives/${executive.id}`}>
                   <CardTitle className="text-xl text-primary mb-2 hover:text-primary/80 transition-colors cursor-pointer">
                     {executive.name}
                   </CardTitle>

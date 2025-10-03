@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,33 +18,197 @@ interface Executive {
   order_index: number;
 }
 
+// Sample executives data - same as in Executives.tsx
+const sampleExecutives: Executive[] = [
+  {
+    id: 'president',
+    name: 'Duduyemi Olalekan',
+    position: 'President 👑',
+    bio: 'Leading NACOS with vision and passion for tech innovation. Computer Science final year student with expertise in full-stack development.',
+    email: 'president@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/duduyemi-olalekan',
+    image_url: "/images/Duduyemi.jpg",
+    order_index: 1
+  },
+  {
+    id: 'executive-chairman',
+    name: 'Ogunmola Michael',
+    position: 'Executive Chairman 🌟',
+    bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
+    email: 'chairman@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/ogunmola-michael',
+    image_url: '/images/Chairman.jpg',
+    order_index: 2
+  },
+  {
+    id: 'vice-president',
+    name: 'Temitope Adeyemi',
+    position: 'Vice President ⚡',
+    bio: 'Supporting the president in strategic planning and execution. Skilled in leadership and community building with a focus on tech education.',
+    email: 'vice@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/temitope-adeyemi',
+    image_url: '',
+    order_index: 3
+  },
+  {
+    id: 'general-secretary',
+    name: 'Michael Chen',
+    position: 'General Secretary 📝',
+    bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
+    email: 'secretary@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/michael-chen',
+    image_url: '/images/Mavel.jpg',
+    order_index: 4
+  },
+  {
+    id: 'assistant-general-secretary',
+    name: 'Aisha Bello',
+    position: 'Assistant General Secretary 📋',
+    bio: 'Assisting in administrative duties and record-keeping. Detail-oriented with strong organizational skills and tech proficiency.',
+    email: 'asst-secretary@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/aisha-bello',
+    image_url: '',
+    order_index: 5
+  },
+  {
+    id: 'financial-secretary',
+    name: 'Fatima Ibrahim',
+    position: 'Financial Secretary 💰',
+    bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
+    email: 'treasurer@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/fatima-ibrahim',
+    image_url: '',
+    order_index: 6
+  },
+  {
+    id: 'software-director',
+    name: 'Chinedu Okeke',
+    position: 'Software Director 💻',
+    bio: 'Overseeing software development initiatives and hackathons. Full-stack developer passionate about open-source contributions.',
+    email: 'software@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/chinedu-okeke',
+    image_url: '',
+    order_index: 7
+  },
+  {
+    id: 'assistant-software-director',
+    name: 'Sarah Okonkwo',
+    position: 'Assistant Software Director 🔧',
+    bio: 'Supporting software projects and mentoring junior developers. Specializes in frontend technologies and agile methodologies.',
+    email: 'asst-software@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/sarah-okonkwo',
+    image_url: '',
+    order_index: 8
+  },
+  {
+    id: 'sports-director',
+    name: 'Zainab Ali',
+    position: 'Sports Director 🏃‍♂️',
+    bio: 'Promoting physical wellness and team-building through sports events. Fitness enthusiast and data analyst.',
+    email: 'sports@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/zainab-ali',
+    image_url: '',
+    order_index: 9
+  },
+  {
+    id: 'assistant-sports-director',
+    name: 'Peter Adebayo',
+    position: 'Assistant Sports Director ⚽',
+    bio: 'Coordinating sports activities and tournaments. Passionate about sports tech and community health initiatives.',
+    email: 'asst-sports@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/peter-adebayo',
+    image_url: '',
+    order_index: 10
+  },
+  {
+    id: 'social-director',
+    name: 'Grace Okwu',
+    position: 'Social Director 🎉',
+    bio: 'Creating memorable experiences and fostering community spirit. Event management and UX design specialist.',
+    email: 'social@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/grace-okwu',
+    image_url: '',
+    order_index: 11
+  },
+  {
+    id: 'assistant-social-director',
+    name: 'Emeka Nwosu',
+    position: 'Assistant Social Director 🎊',
+    bio: 'Assisting in event planning and social media engagement. Creative mind with experience in digital marketing.',
+    email: 'asst-social@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/emeka-nwosu',
+    image_url: '',
+    order_index: 12
+  },
+  {
+    id: 'welfare-director',
+    name: 'Halima Yusuf',
+    position: 'Welfare Director ❤️',
+    bio: 'Ensuring member well-being and support systems. Counselor with background in health informatics.',
+    email: 'welfare@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/halima-yusuf',
+    image_url: '',
+    order_index: 13
+  },
+  {
+    id: 'assistant-welfare-director',
+    name: 'Adesida Jemima',
+    position: 'Assistant Welfare Director 🤝',
+    bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
+    email: 'asst-welfare@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/olumide-johnson',
+    image_url: '/images/Jemmy.jpg',
+    order_index: 14
+  },
+  {
+    id: 'chief-whip',
+    name: 'Fatima Musa',
+    position: 'Chief Whip 🔗',
+    bio: 'Ensuring discipline and unity within the executive team. Legal studies background with tech interests.',
+    email: 'whip@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/fatima-musa',
+    image_url: '',
+    order_index: 15
+  },
+  {
+    id: 'media-director',
+    name: 'James Adedayo',
+    position: 'Media Director 📸',
+    bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
+    email: 'media@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/james-adedayo',
+    image_url: '',
+    order_index: 16
+  },
+  {
+    id: 'public-relations-officer',
+    name: 'David Ojo',
+    position: 'Public Relations Officer 📢',
+    bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
+    email: 'pro@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/david-ojo',
+    image_url: '',
+    order_index: 17
+  }
+];
+
 const ExecutiveProfile = () => {
   const { id } = useParams();
   const [executive, setExecutive] = useState<Executive | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id) {
-      fetchExecutive();
-    }
-  }, [id]);
-
-  const fetchExecutive = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("executives")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-      if (error) throw error;
-      setExecutive(data);
-    } catch (error) {
-      console.error("Error fetching executive:", error);
-    } finally {
+    // Simulate API call with timeout
+    const timer = setTimeout(() => {
+      if (id) {
+        const foundExecutive = sampleExecutives.find(exec => exec.id === id);
+        setExecutive(foundExecutive || null);
+      }
       setLoading(false);
-    }
-  };
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [id]);
 
   if (loading) {
     return (
