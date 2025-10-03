@@ -64,7 +64,7 @@ const Executives = () => {
       bio: 'Leading NACOS with vision and passion for tech innovation. Computer Science final year student with expertise in full-stack development.',
       email: 'president@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/duduyemi-olalekan',
-      image_url: '',
+      image_url: 'Duduyemi.jpg',
       order_index: 1,
       created_at: '2024-01-01'
     },
@@ -75,7 +75,7 @@ const Executives = () => {
       bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
       email: 'chairman@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/ogunmola-michael',
-      image_url: '/image/Chairman',
+      image_url: '/image/Chairman.jpg',
       order_index: 2,
       created_at: '2024-01-01'
     },
@@ -97,7 +97,7 @@ const Executives = () => {
       bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
       email: 'secretary@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/michael-chen',
-      image_url: '',
+      image_url: '/images/Mavel.jpg',
       order_index: 4,
       created_at: '2024-01-01'
     },
@@ -202,12 +202,12 @@ const Executives = () => {
     },
     {
       id: '14',
-      name: 'Olumide Johnson',
+      name: 'Adesida Jemima',
       position: 'Assistant Welfare Director 🤝',
       bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
       email: 'asst-welfare@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/olumide-johnson',
-      image_url: '',
+      image_url: 'images/Jemmy.jpg',
       order_index: 14,
       created_at: '2024-01-01'
     },
