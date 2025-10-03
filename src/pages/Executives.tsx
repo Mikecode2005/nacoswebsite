@@ -268,7 +268,14 @@ const Executives = () => {
           {displayExecutives.map((executive) => (
             <Card key={executive.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
               <CardHeader className="text-center">
-                <Link to={`/executives/${executive.id}`} className="block">
+                <Link 
+  to={
+    executive.position === 'President 👑' ? '/PresidentPage' :
+    executive.position === 'Executive Chairman 🌟' ? '/ExecutiveChairman' :
+    `/executives/${executive.id}`
+  }
+  className="block"
+>
                   <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer overflow-hidden">
                     {executive.image_url ? (
                       <img 
