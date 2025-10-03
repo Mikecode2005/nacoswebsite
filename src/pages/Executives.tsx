@@ -207,7 +207,7 @@ const Executives = () => {
       bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
       email: 'asst-welfare@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/olumide-johnson',
-      image_url: 'images/Jemmy.jpg',
+      image_url: '/images/Jemmy.jpg',
       order_index: 14,
       created_at: '2024-01-01'
     },
@@ -269,22 +269,32 @@ const Executives = () => {
             <Card key={executive.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
               <CardHeader className="text-center">
                 <Link to={
-                  executive.position.includes('President') ? '/president' :
-                  executive.position.includes('Executive Chairman') ? '/executive-chairman' :
+                  executive.position === 'President 👑' ? '/president' :
+                  executive.position === 'Executive Chairman 🌟' ? '/executive-chairman' :
                   `/executives/${executive.id}`
                 } className="block">
-                  <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer">
-                    {executive.position.includes('President') && <Crown className="h-12 w-12 text-primary" />}
-                    {executive.position.includes('Chairman') && <Star className="h-12 w-12 text-accent" />}
-                    {!executive.position.includes('President') && 
-                     !executive.position.includes('Chairman') && (
-                      <Users className="h-12 w-12 text-primary" />
+                  <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer overflow-hidden">
+                    {executive.image_url ? (
+                      <img 
+                        src={executive.image_url} 
+                        alt={executive.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <>
+                        {executive.position === 'President 👑' && <Crown className="h-12 w-12 text-primary" />}
+                        {executive.position === 'Executive Chairman 🌟' && <Star className="h-12 w-12 text-accent" />}
+                        {executive.position !== 'President 👑' && 
+                         executive.position !== 'Executive Chairman 🌟' && (
+                          <Users className="h-12 w-12 text-primary" />
+                        )}
+                      </>
                     )}
                   </div>
                 </Link>
                 <Link to={
-                  executive.position.includes('President') ? '/president' :
-                  executive.position.includes('Executive Chairman') ? '/executive-chairman' :
+                  executive.position === 'President 👑' ? '/president' :
+                  executive.position === 'Executive Chairman 🌟' ? '/executive-chairman' :
                   `/executives/${executive.id}`
                 }>
                   <CardTitle className="text-xl text-primary mb-2 hover:text-primary/80 transition-colors cursor-pointer">
