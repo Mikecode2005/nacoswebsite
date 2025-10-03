@@ -65,7 +65,7 @@ const PresidentPage = () => {
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative max-w-7xl mx-auto px-6 py-20">
             <Link to="/executives">
-              <Button variant="outline" className="mb-8 border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline" className="mb-8 border-white/20 text-orange hover:bg-white/10">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Executives
               </Button>
@@ -81,7 +81,7 @@ const PresidentPage = () => {
                 </div>
                 
                 <h1 className="text-6xl font-bold mb-6 leading-tight">
-                  {president ? president.name : "Emmanuel Adebayo"}
+                  {president ? president.name : "Duduyemi Olalekan"}
                 </h1>
                 
                 <p className="text-xl text-white/90 leading-relaxed mb-8">
@@ -115,10 +115,11 @@ const PresidentPage = () => {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="text-center">
-                        <Crown className="h-24 w-24 text-yellow-300/80 mx-auto mb-4" />
-                        <span className="text-white/60 text-lg">President's Photo</span>
-                      </div>
+                      <img 
+                        src="/images/Duduyemi.jpg" 
+                        alt="Duduyemi Olalekan"
+                        className="w-full h-full object-cover"
+                      />
                     )}
                   </div>
                   <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center border-4 border-white">
