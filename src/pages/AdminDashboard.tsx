@@ -414,7 +414,7 @@ const AdminDashboard = () => {
         </motion.div>
 
         {/* Enhanced Stats Grid - Mobile Responsive */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {statCards.map((card, index) => {
             const Icon = card.icon;
             return (
@@ -435,19 +435,19 @@ const AdminDashboard = () => {
                   <div className={`absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-${card.color}/10 rounded-full transform translate-x-8 sm:translate-x-10 -translate-y-8 sm:-translate-y-10`}></div>
                   <div className={`absolute bottom-0 left-0 w-12 sm:w-16 h-12 sm:h-16 bg-${card.color}/5 rounded-full transform -translate-x-6 sm:-translate-x-8 translate-y-6 sm:translate-y-8`}></div>
                   
-                  <CardContent className="p-4 sm:p-6 relative z-10">
-                    <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4">
+                  <CardContent className="p-3 sm:p-4 md:p-6 relative z-10">
+                    <div className="flex flex-col items-center text-center space-y-2 sm:space-y-3 md:space-y-4">
                       <motion.div
                         whileHover={{ rotate: 360, scale: 1.1 }}
                         transition={{ duration: 0.5 }}
-                        className={`w-12 h-12 sm:w-16 sm:h-16 bg-${card.color}/20 rounded-xl flex items-center justify-center`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-${card.color}/20 rounded-xl flex items-center justify-center`}
                       >
-                        <Icon className={`h-6 w-6 sm:h-8 sm:w-8 text-${card.color}`} />
+                        <Icon className={`h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 text-${card.color}`} />
                       </motion.div>
                       
-                      <div className="space-y-1 sm:space-y-2">
+                      <div className="space-y-0.5 sm:space-y-1 md:space-y-2">
                         <motion.div 
-                          className={`text-2xl sm:text-3xl font-orbitron font-bold text-${card.color}`}
+                          className={`text-xl sm:text-2xl md:text-3xl font-orbitron font-bold text-${card.color}`}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
@@ -457,17 +457,17 @@ const AdminDashboard = () => {
                         <p className={`text-xs sm:text-sm font-rajdhani font-semibold text-${card.color}`}>
                           {card.title}
                         </p>
-                        <p className="text-xs text-muted-foreground font-exo">
+                        <p className="text-xs text-muted-foreground font-exo hidden sm:block">
                           {card.description}
                         </p>
                       </div>
 
-                      {/* Circular Progress */}
-                      <div className="mt-2">
+                      {/* Circular Progress - Hidden on mobile */}
+                      <div className="mt-1 hidden sm:block">
                         <CircularProgress 
                           percentage={card.progress} 
-                          size={60} 
-                          strokeWidth={4}
+                          size={50} 
+                          strokeWidth={3}
                           color={`text-${card.color}`}
                           showPercentage={false}
                         />

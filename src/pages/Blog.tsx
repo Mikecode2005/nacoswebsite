@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { BookOpen, Plus, Calendar, User, Edit3, Settings } from "lucide-react";
+import { BookOpen, Plus, Calendar, User, Edit3, Settings, Trash2 } from "lucide-react";
 import ProfileEdit from "@/components/ProfileEdit";
 
 interface BlogPost {
@@ -25,7 +25,7 @@ interface BlogPost {
 }
 
 const Blog = () => {
-  const { user, loading } = useAuth();
+  const { user, userRole, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -121,6 +121,44 @@ const Blog = () => {
       });
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (postId: string, authorId: string) => {
+    // Check if user is admin or the author
+    if (user?.id !== authorId && userRole !== 'admin' && userRole !== 'superadmin') {
+      toast({
+        title: "Unauthorized",
+        description: "You don't have permission to delete this post.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!confirm("Are you sure you want to delete this blog post?")) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from("blog_posts")
+        .delete()
+        .eq("id", postId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Post Deleted! 🗑️",
+        description: "The blog post has been removed.",
+      });
+
+      fetchPosts();
+    } catch (error: any) {
+      toast({
+        title: "Delete Failed 😞",
+        description: error.message,
+        variant: "destructive",
+      });
     }
   };
 
@@ -245,18 +283,31 @@ const Blog = () => {
             posts.map((post) => (
               <Card key={post.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-xl text-primary hover:text-accent transition-colors">
-                    {post.title}
-                  </CardTitle>
-                  <div className="flex items-center text-sm text-muted-foreground space-x-4">
-                    <div className="flex items-center">
-                      <User className="h-4 w-4 mr-1" />
-                      {post.profiles?.display_name || "Anonymous User"}
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <CardTitle className="text-xl text-primary hover:text-accent transition-colors">
+                        {post.title}
+                      </CardTitle>
+                      <div className="flex items-center text-sm text-muted-foreground space-x-4 mt-2">
+                        <div className="flex items-center">
+                          <User className="h-4 w-4 mr-1" />
+                          {post.profiles?.display_name || "Anonymous User"}
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1" />
+                          {new Date(post.created_at).toLocaleDateString()}
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      {new Date(post.created_at).toLocaleDateString()}
-                    </div>
+                    {user && (user.id === post.author_id || userRole === 'admin' || userRole === 'superadmin') && (
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(post.id, post.author_id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
                 </CardHeader>
                 <CardContent>

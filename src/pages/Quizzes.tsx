@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Brain, Plus, Play, Trophy, Clock, X, Check, Edit } from "lucide-react";
+import { Brain, Plus, Play, Trophy, Clock, X, Check, Edit, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import QuizTaker from "@/components/QuizTaker";
 import QuizScoreboard from "@/components/QuizScoreboard";
@@ -184,6 +184,43 @@ const Quizzes = () => {
   const handleBackToQuizzes = () => {
     setView('list');
     setSelectedQuiz(null);
+  };
+
+  const handleDeleteQuiz = async (quizId: string) => {
+    if (!user || !['admin', 'superadmin'].includes(userRole || '')) {
+      toast({
+        title: "Unauthorized",
+        description: "You don't have permission to delete quizzes.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!confirm("Are you sure you want to delete this quiz? This action cannot be undone.")) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from("quizzes")
+        .delete()
+        .eq("id", quizId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Quiz Deleted! 🗑️",
+        description: "The quiz has been removed.",
+      });
+
+      fetchQuizzes();
+    } catch (error: any) {
+      toast({
+        title: "Delete Failed 😞",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   };
 
   if (loading) {
@@ -552,18 +589,31 @@ const Quizzes = () => {
               >
                 <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 hover:shadow-xl transition-all duration-300 group">
                   <CardHeader>
-                    <CardTitle className="text-lg text-primary mb-2 font-rajdhani group-hover:text-accent transition-colors">
-                      {quiz.title}
-                    </CardTitle>
-                    <div className="flex items-center text-sm text-muted-foreground space-x-3">
-                      <div className="flex items-center">
-                        <Brain className="h-4 w-4 mr-1" />
-                        {quiz.questions?.length || 0} Questions
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <CardTitle className="text-lg text-primary mb-2 font-rajdhani group-hover:text-accent transition-colors">
+                          {quiz.title}
+                        </CardTitle>
+                        <div className="flex items-center text-sm text-muted-foreground space-x-3">
+                          <div className="flex items-center">
+                            <Brain className="h-4 w-4 mr-1" />
+                            {quiz.questions?.length || 0} Questions
+                          </div>
+                          <div className="flex items-center">
+                            <Clock className="h-4 w-4 mr-1" />
+                            ~{Math.max(5, (quiz.questions?.length || 0) * 2)} min
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-1" />
-                        ~{Math.max(5, (quiz.questions?.length || 0) * 2)} min
-                      </div>
+                      {user && ['admin', 'superadmin'].includes(userRole || '') && (
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDeleteQuiz(quiz.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
                   </CardHeader>
                   <CardContent>

@@ -55,10 +55,10 @@ const GalleryCarousel = () => {
   }
 
   return (
-    <Carousel className="w-full max-w-5xl mx-auto">
-      <CarouselContent>
+    <Carousel className="w-full max-w-5xl mx-auto" opts={{ loop: true, align: "start" }}>
+      <CarouselContent className="-ml-2 md:-ml-4">
         {images.map((image) => (
-          <CarouselItem key={image.id} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={image.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
             <Card className="overflow-hidden bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-lg transition-all duration-300 group">
               <CardContent className="p-0">
                 <div className="relative overflow-hidden">
@@ -80,8 +80,8 @@ const GalleryCarousel = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="-left-4 md:-left-12" />
+      <CarouselNext className="-right-4 md:-right-12" />
     </Carousel>
   );
 };
