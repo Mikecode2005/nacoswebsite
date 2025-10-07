@@ -67,7 +67,7 @@ const Executives = () => {
       bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
       email: 'chairman@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/ogunmola-michael',
-      image_url: '/images/Chairman.jpg',
+      image_url: '/images/Michael2.jpg',
       order_index: 2,
       created_at: '2024-01-01'
     },
@@ -88,7 +88,7 @@ const Executives = () => {
       position: 'General Secretary 📝',
       bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
       email: 'secretary@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/michael-chen',
+      linkedin: 'https://linkedin.com/in/omamegbe-marvellous',
       image_url: '/images/Mavel.jpg',
       order_index: 4,
       created_at: '2024-01-01'
@@ -106,13 +106,24 @@ const Executives = () => {
     },
     {
       id: 'financial-secretary',
-      name: 'Fatima Ibrahim',
+      name: 'Olubo Isaac',
       position: 'Financial Secretary 💰',
       bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
+      email: 'financial@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/olubo-isaac',
+      image_url: '/images/Isaac.jpg',
+      order_index: 6,
+      created_at: '2024-01-01'
+    },
+    {
+      id: 'treasurer',
+      name: 'Fatima Ibrahim',
+      position: 'Treasurer 💳',
+      bio: 'Overseeing financial planning and budget management. Accounting expert with strong analytical skills.',
       email: 'treasurer@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/fatima-ibrahim',
       image_url: '',
-      order_index: 6,
+      order_index: 7,
       created_at: '2024-01-01'
     },
     {
@@ -123,7 +134,7 @@ const Executives = () => {
       email: 'software@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/chinedu-okeke',
       image_url: '',
-      order_index: 7,
+      order_index: 8,
       created_at: '2024-01-01'
     },
     {
@@ -134,7 +145,7 @@ const Executives = () => {
       email: 'asst-software@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/sarah-okonkwo',
       image_url: '',
-      order_index: 8,
+      order_index: 9,
       created_at: '2024-01-01'
     },
     {
@@ -145,7 +156,7 @@ const Executives = () => {
       email: 'sports@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/zainab-ali',
       image_url: '',
-      order_index: 9,
+      order_index: 10,
       created_at: '2024-01-01'
     },
     {
@@ -156,7 +167,7 @@ const Executives = () => {
       email: 'asst-sports@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/peter-adebayo',
       image_url: '',
-      order_index: 10,
+      order_index: 11,
       created_at: '2024-01-01'
     },
     {
@@ -167,18 +178,18 @@ const Executives = () => {
       email: 'social@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/grace-okwu',
       image_url: '',
-      order_index: 11,
+      order_index: 12,
       created_at: '2024-01-01'
     },
     {
       id: 'assistant-social-director',
-      name: 'Emeka Nwosu',
+      name: 'Ogunmola Abigail',
       position: 'Assistant Social Director 🎊',
       bio: 'Assisting in event planning and social media engagement. Creative mind with experience in digital marketing.',
       email: 'asst-social@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/emeka-nwosu',
-      image_url: '',
-      order_index: 12,
+      linkedin: 'https://linkedin.com/in/ogunmola-abigail',
+      image_url: '/images/Abigail.jpg',
+      order_index: 13,
       created_at: '2024-01-01'
     },
     {
@@ -189,7 +200,7 @@ const Executives = () => {
       email: 'welfare@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/halima-yusuf',
       image_url: '',
-      order_index: 13,
+      order_index: 14,
       created_at: '2024-01-01'
     },
     {
@@ -198,9 +209,9 @@ const Executives = () => {
       position: 'Assistant Welfare Director 🤝',
       bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
       email: 'asst-welfare@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/olumide-johnson',
+      linkedin: 'https://linkedin.com/in/adesida-jemima',
       image_url: '/images/Jemmy.jpg',
-      order_index: 14,
+      order_index: 15,
       created_at: '2024-01-01'
     },
     {
@@ -211,29 +222,29 @@ const Executives = () => {
       email: 'whip@nacos.jabu.edu.ng',
       linkedin: 'https://linkedin.com/in/fatima-musa',
       image_url: '',
-      order_index: 15,
-      created_at: '2024-01-01'
-    },
-    {
-      id: 'media-director',
-      name: 'James Adedayo',
-      position: 'Media Director 📸',
-      bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
-      email: 'media@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/james-adedayo',
-      image_url: '',
       order_index: 16,
       created_at: '2024-01-01'
     },
     {
+      id: 'media-director',
+      name: 'Ibironke Precious',
+      position: 'Media Director 📸',
+      bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
+      email: 'media@nacos.jabu.edu.ng',
+      linkedin: 'https://linkedin.com/in/ibironke-precious',
+      image_url: '/images/Precious.jpg',
+      order_index: 17,
+      created_at: '2024-01-01'
+    },
+    {
       id: 'public-relations-officer',
-      name: 'David Ojo',
+      name: 'Wande-Adeyemo Iteoluwakiisi',
       position: 'Public Relations Officer 📢',
       bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
       email: 'pro@nacos.jabu.edu.ng',
-      linkedin: 'https://linkedin.com/in/david-ojo',
-      image_url: '',
-      order_index: 17,
+      linkedin: 'https://linkedin.com/in/wande-adeyemo-iteoluwakiisi',
+      image_url: '/images/Wendy.jpg',
+      order_index: 18,
       created_at: '2024-01-01'
     }
   ];
@@ -269,13 +280,13 @@ const Executives = () => {
             <Card key={executive.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
               <CardHeader className="text-center">
                 <Link 
-  to={
-    executive.position === 'President 👑' ? '/PresidentPage' :
-    executive.position === 'Executive Chairman 🌟' ? '/ExecutiveChairman' :
-    `/executives/${executive.id}`
-  }
-  className="block"
->
+                  to={
+                    executive.position === 'President 👑' ? '/PresidentPage' :
+                    executive.position === 'Executive Chairman 🌟' ? '/ExecutiveChairman' :
+                    `/executives/${executive.id}`
+                  }
+                  className="block"
+                >
                   <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer overflow-hidden">
                     {executive.image_url ? (
                       <img 

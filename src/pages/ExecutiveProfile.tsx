@@ -32,11 +32,11 @@ const sampleExecutives: Executive[] = [
   },
   {
     id: 'general-secretary',
-    name: 'Michael Chen',
+    name: 'Omamegbe Marvellous',
     position: 'General Secretary 📝',
     bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
     email: 'secretary@nacos.jabu.edu.ng',
-    linkedin: 'https://linkedin.com/in/michael-chen',
+    linkedin: 'https://linkedin.com/in/omamegbe-marvellous',
     image_url: '/images/Mavel.jpg',
     order_index: 4
   },
@@ -52,13 +52,23 @@ const sampleExecutives: Executive[] = [
   },
   {
     id: 'financial-secretary',
-    name: 'Fatima Ibrahim',
+    name: 'Olubo Isaac',
     position: 'Financial Secretary 💰',
     bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
+    email: 'financial@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/olubo-isaac',
+    image_url: '/images/Isaac.jpg',
+    order_index: 6
+  },
+  {
+    id: 'treasurer',
+    name: 'Fatima Ibrahim',
+    position: 'Treasurer 💳',
+    bio: 'Overseeing financial planning and budget management. Accounting expert with strong analytical skills.',
     email: 'treasurer@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/fatima-ibrahim',
     image_url: '',
-    order_index: 6
+    order_index: 7
   },
   {
     id: 'software-director',
@@ -68,7 +78,7 @@ const sampleExecutives: Executive[] = [
     email: 'software@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/chinedu-okeke',
     image_url: '',
-    order_index: 7
+    order_index: 8
   },
   {
     id: 'assistant-software-director',
@@ -78,7 +88,7 @@ const sampleExecutives: Executive[] = [
     email: 'asst-software@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/sarah-okonkwo',
     image_url: '',
-    order_index: 8
+    order_index: 9
   },
   {
     id: 'sports-director',
@@ -88,7 +98,7 @@ const sampleExecutives: Executive[] = [
     email: 'sports@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/zainab-ali',
     image_url: '',
-    order_index: 9
+    order_index: 10
   },
   {
     id: 'assistant-sports-director',
@@ -98,7 +108,7 @@ const sampleExecutives: Executive[] = [
     email: 'asst-sports@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/peter-adebayo',
     image_url: '',
-    order_index: 10
+    order_index: 11
   },
   {
     id: 'social-director',
@@ -108,17 +118,17 @@ const sampleExecutives: Executive[] = [
     email: 'social@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/grace-okwu',
     image_url: '',
-    order_index: 11
+    order_index: 12
   },
   {
     id: 'assistant-social-director',
-    name: 'Emeka Nwosu',
+    name: 'Ogunmola Abigail',
     position: 'Assistant Social Director 🎊',
     bio: 'Assisting in event planning and social media engagement. Creative mind with experience in digital marketing.',
     email: 'asst-social@nacos.jabu.edu.ng',
-    linkedin: 'https://linkedin.com/in/emeka-nwosu',
-    image_url: '',
-    order_index: 12
+    linkedin: 'https://linkedin.com/in/ogunmola-abigail',
+    image_url: '/images/Abigail.jpg',
+    order_index: 13
   },
   {
     id: 'welfare-director',
@@ -128,7 +138,7 @@ const sampleExecutives: Executive[] = [
     email: 'welfare@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/halima-yusuf',
     image_url: '',
-    order_index: 13
+    order_index: 14
   },
   {
     id: 'assistant-welfare-director',
@@ -136,9 +146,9 @@ const sampleExecutives: Executive[] = [
     position: 'Assistant Welfare Director 🤝',
     bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
     email: 'asst-welfare@nacos.jabu.edu.ng',
-    linkedin: 'https://linkedin.com/in/olumide-johnson',
+    linkedin: 'https://linkedin.com/in/adesida-jemima',
     image_url: '/images/Jemmy.jpg',
-    order_index: 14
+    order_index: 15
   },
   {
     id: 'chief-whip',
@@ -148,27 +158,27 @@ const sampleExecutives: Executive[] = [
     email: 'whip@nacos.jabu.edu.ng',
     linkedin: 'https://linkedin.com/in/fatima-musa',
     image_url: '',
-    order_index: 15
-  },
-  {
-    id: 'media-director',
-    name: 'James Adedayo',
-    position: 'Media Director 📸',
-    bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
-    email: 'media@nacos.jabu.edu.ng',
-    linkedin: 'https://linkedin.com/in/james-adedayo',
-    image_url: '',
     order_index: 16
   },
   {
+    id: 'media-director',
+    name: 'Ibironke Precious',
+    position: 'Media Director 📸',
+    bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
+    email: 'media@nacos.jabu.edu.ng',
+    linkedin: 'https://linkedin.com/in/ibironke-precious',
+    image_url: '/images/Precious.jpg',
+    order_index: 17
+  },
+  {
     id: 'public-relations-officer',
-    name: 'David Ojo',
+    name: 'Wande-Adeyemo Iteoluwakiisi',
     position: 'Public Relations Officer 📢',
     bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
     email: 'pro@nacos.jabu.edu.ng',
-    linkedin: 'https://linkedin.com/in/david-ojo',
-    image_url: '',
-    order_index: 17
+    linkedin: 'https://linkedin.com/in/wande-adeyemo-iteoluwakiisi',
+    image_url: '/images/Wendy.jpg',
+    order_index: 18
   }
 ];
 
@@ -243,8 +253,7 @@ const ExecutiveProfile = () => {
           >
             <Link to="/executives">
               <Button 
-                variant="outline" 
-                className="mb-6 lg:mb-8 border-emerald-400/30 text-emerald-100 hover:bg-emerald-400/20 hover:border-emerald-400/50 backdrop-blur-sm text-sm lg:text-base"
+                className="mb-6 lg:mb-8 border-2 border-white bg-emerald-600 hover:bg-emerald-700 text-white backdrop-blur-sm text-sm lg:text-base"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Executives
@@ -266,8 +275,7 @@ const ExecutiveProfile = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <Badge 
-                  variant="secondary" 
-                  className="text-sm lg:text-lg px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-emerald-500 to-green-500 border-0 text-white backdrop-blur-sm"
+                  className="text-sm lg:text-lg px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-emerald-500 to-green-500 border-2 border-white text-white backdrop-blur-sm"
                 >
                   {executive.position}
                 </Badge>
@@ -300,9 +308,8 @@ const ExecutiveProfile = () => {
                 {executive.email && (
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
-                      variant="outline" 
                       size="lg" 
-                      className="w-full border-emerald-400/50 text-emerald-100 hover:bg-emerald-400/20 hover:border-emerald-400 backdrop-blur-sm text-sm lg:text-base"
+                      className="w-full border-2 border-white bg-emerald-600 hover:bg-emerald-700 text-white backdrop-blur-sm text-sm lg:text-base"
                     >
                       <Mail className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       Contact
@@ -312,9 +319,8 @@ const ExecutiveProfile = () => {
                 {executive.linkedin && (
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
-                      variant="outline" 
                       size="lg" 
-                      className="w-full border-teal-400/50 text-teal-100 hover:bg-teal-400/20 hover:border-teal-400 backdrop-blur-sm text-sm lg:text-base"
+                      className="w-full border-2 border-white bg-green-600 hover:bg-green-700 text-white backdrop-blur-sm text-sm lg:text-base"
                     >
                       <Linkedin className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       LinkedIn
@@ -340,7 +346,7 @@ const ExecutiveProfile = () => {
                     rotateY: { duration: 6, repeat: Infinity },
                     scale: { duration: 4, repeat: Infinity }
                   }}
-                  className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-3xl bg-gradient-to-br from-emerald-500/20 via-green-500/20 to-teal-500/20 backdrop-blur-xl flex items-center justify-center overflow-hidden border border-emerald-400/30 shadow-2xl"
+                  className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-3xl bg-gradient-to-br from-emerald-500/20 via-green-500/20 to-teal-500/20 backdrop-blur-xl flex items-center justify-center overflow-hidden border-2 border-white shadow-2xl"
                 >
                   {executive.image_url ? (
                     <img 
@@ -372,7 +378,7 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <Card className="border-emerald-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
+              <Card className="border-2 border-white bg-slate-800/40 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
                   <CardTitle className="text-2xl lg:text-3xl text-emerald-400 flex items-center gap-3">
                     <Zap className="h-6 w-6 lg:h-8 lg:w-8" />
@@ -390,7 +396,7 @@ const ExecutiveProfile = () => {
                       {executive.bio || `${executive.name} serves as ${executive.position} of NACOS, bringing valuable expertise and dedication to our organization's mission.`}
                     </motion.p>
                     
-                    <motion.div variants={fadeInUp} className="bg-gradient-to-r from-emerald-500/10 to-green-500/10 p-6 lg:p-8 rounded-2xl border border-emerald-400/20">
+                    <motion.div variants={fadeInUp} className="bg-gradient-to-r from-emerald-500/10 to-green-500/10 p-6 lg:p-8 rounded-2xl border-2 border-white">
                       <h3 className="text-xl lg:text-2xl font-semibold text-emerald-400 mb-4 flex items-center gap-2">
                         <Target className="h-5 w-5 lg:h-6 lg:w-6" />
                         Role & Responsibilities
@@ -401,7 +407,7 @@ const ExecutiveProfile = () => {
                     </motion.div>
                     
                     <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-4 lg:gap-6">
-                      <Card className="border-emerald-400/20 bg-emerald-500/10 backdrop-blur-sm">
+                      <Card className="border-2 border-white bg-emerald-500/10 backdrop-blur-sm">
                         <CardContent className="p-4 lg:p-6">
                           <Target className="h-6 w-6 lg:h-8 lg:w-8 text-emerald-400 mb-4" />
                           <h4 className="font-semibold text-emerald-400 mb-3 text-lg">Key Focus Areas</h4>
@@ -414,7 +420,7 @@ const ExecutiveProfile = () => {
                         </CardContent>
                       </Card>
                       
-                      <Card className="border-green-400/20 bg-green-500/10 backdrop-blur-sm">
+                      <Card className="border-2 border-white bg-green-500/10 backdrop-blur-sm">
                         <CardContent className="p-4 lg:p-6">
                           <Trophy className="h-6 w-6 lg:h-8 lg:w-8 text-green-400 mb-4" />
                           <h4 className="font-semibold text-green-400 mb-3 text-lg">Contributions</h4>
@@ -438,7 +444,7 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <Card className="border-emerald-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
+              <Card className="border-2 border-white bg-slate-800/40 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
                   <CardTitle className="text-xl lg:text-2xl text-emerald-400 flex items-center gap-3">
                     <Mail className="h-5 w-5 lg:h-6 lg:w-6" />
@@ -450,7 +456,7 @@ const ExecutiveProfile = () => {
                     {executive.email && (
                       <motion.div 
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-4 p-4 lg:p-6 bg-emerald-500/10 rounded-xl border border-emerald-400/20"
+                        className="flex items-center gap-4 p-4 lg:p-6 bg-emerald-500/10 rounded-xl border-2 border-white"
                       >
                         <Mail className="h-6 w-6 lg:h-8 lg:w-8 text-emerald-400" />
                         <div>
@@ -465,7 +471,7 @@ const ExecutiveProfile = () => {
                     {executive.linkedin && (
                       <motion.div 
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-4 p-4 lg:p-6 bg-teal-500/10 rounded-xl border border-teal-400/20"
+                        className="flex items-center gap-4 p-4 lg:p-6 bg-teal-500/10 rounded-xl border-2 border-white"
                       >
                         <Linkedin className="h-6 w-6 lg:h-8 lg:w-8 text-teal-400" />
                         <div>
@@ -494,7 +500,7 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <Card className="border-emerald-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
+              <Card className="border-2 border-white bg-slate-800/40 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
                   <CardTitle className="text-emerald-400 flex items-center gap-2">
                     <Users className="h-5 w-5" />
@@ -525,7 +531,7 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <Card className="border-green-400/20 bg-green-500/10 backdrop-blur-xl shadow-2xl">
+              <Card className="border-2 border-white bg-green-500/10 backdrop-blur-xl shadow-2xl">
                 <CardHeader>
                   <CardTitle className="text-green-400 flex items-center gap-2">
                     <Heart className="h-5 w-5" />
