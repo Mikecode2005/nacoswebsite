@@ -281,8 +281,8 @@ const Executives = () => {
               <CardHeader className="text-center">
                 <Link 
                   to={
-                    executive.position === 'President 👑' ? '/PresidentPage' :
-                    executive.position === 'Executive Chairman 🌟' ? '/ExecutiveChairmanPage' :
+                    executive.position === 'President 👑' ? '/president' :
+                    executive.position === 'Executive Chairman 🌟' ? '/executive-chairman' :
                     `/executives/${executive.id}`
                   }
                   className="block"
