@@ -1,5 +1,6 @@
 import { Monitor, Code, Database, Cpu, Globe, Zap, ArrowRight, Play, Terminal, Sparkles } from "lucide-react";
 import ConsoleAnimation from "./ConsoleAnimation";
+import GlitchText from "./GlitchText";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -7,6 +8,120 @@ import { useState } from "react";
 
 const HeroSection = () => {
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [introStage, setIntroStage] = useState(0);
+  const [showContent, setShowContent] = useState(false);
+
+  if (!showContent) {
+    return (
+      <section className="bg-black min-h-screen flex items-center relative overflow-hidden font-mono">
+        {/* Matrix-style background */}
+        <div className="absolute inset-0 opacity-30">
+          {[...Array(40)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-hero-accent text-xs"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `-10%`,
+                fontSize: `${Math.random() * 8 + 8}px`,
+              }}
+              animate={{
+                y: ['0vh', '110vh'],
+              }}
+              transition={{
+                duration: Math.random() * 4 + 3,
+                repeat: Infinity,
+                ease: "linear",
+                delay: Math.random() * 3,
+              }}
+            >
+              {Math.random().toString(36).substring(2, Math.random() * 10 + 5)}
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-hero-accent/5 to-transparent animate-pulse" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {introStage === 0 ? (
+            <motion.div
+              key="stage1"
+              className="text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <GlitchText
+                text="ARE YOU READY FOR THE FULL EXPERIENCE?"
+                className="text-2xl md:text-4xl lg:text-5xl text-hero-accent font-bold tracking-wider"
+                onComplete={() => setTimeout(() => setIntroStage(1), 1000)}
+              />
+            </motion.div>
+          ) : introStage === 1 ? (
+            <motion.div
+              key="stage2"
+              className="text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <GlitchText
+                text="INITIALIZING NACOS SYSTEMS..."
+                className="text-xl md:text-3xl text-hero-accent tracking-wider"
+                onComplete={() => setTimeout(() => setIntroStage(2), 1500)}
+                delay={500}
+              />
+              <motion.div
+                className="mt-8 flex gap-2 justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+              >
+                {[...Array(10)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="w-2 h-12 bg-hero-accent/40 rounded"
+                    animate={{
+                      scaleY: [0.3, 1, 0.3],
+                      opacity: [0.3, 1, 0.3],
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      repeat: Infinity,
+                      delay: i * 0.08,
+                    }}
+                  />
+                ))}
+              </motion.div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="stage3"
+              className="text-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              onAnimationComplete={() => setTimeout(() => setShowContent(true), 800)}
+            >
+              <motion.div
+                className="text-5xl md:text-7xl text-hero-accent font-bold tracking-wider"
+                animate={{
+                  textShadow: [
+                    "0 0 10px rgba(var(--hero-accent), 0.8)",
+                    "0 0 30px rgba(var(--hero-accent), 1)",
+                    "0 0 10px rgba(var(--hero-accent), 0.8)",
+                  ],
+                }}
+                transition={{ duration: 1.5, repeat: 3 }}
+              >
+                WELCOME
+              </motion.div>
+            </motion.div>
+          )}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-gradient-to-br from-primary via-primary/95 to-primary/90 min-h-screen flex items-center relative overflow-hidden">

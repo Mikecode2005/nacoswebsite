@@ -235,12 +235,36 @@ const ExecutiveProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-900 to-teal-900">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-primary to-slate-900 relative overflow-hidden">
+      {/* Enhanced Tech Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        {/* Matrix-style falling code */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-hero-accent/20 font-mono text-xs"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `-10%`,
+            }}
+            animate={{
+              y: ['0vh', '110vh'],
+            }}
+            transition={{
+              duration: Math.random() * 5 + 4,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 4,
+            }}
+          >
+            {['01', '10', '11', '{}', '<>', '[]'][Math.floor(Math.random() * 6)]}
+          </motion.div>
+        ))}
+        
+        {/* Glowing orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-hero-accent/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 right-1/3 w-72 h-72 bg-hero-accent/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Hero Section */}
@@ -253,10 +277,10 @@ const ExecutiveProfile = () => {
           >
             <Link to="/executives">
               <Button 
-                className="mb-6 lg:mb-8 border-2 border-white bg-emerald-600 hover:bg-emerald-700 text-white backdrop-blur-sm text-sm lg:text-base"
+                className="mb-6 lg:mb-8 border-2 border-hero-accent/50 bg-black/50 text-hero-accent hover:bg-hero-accent/10 backdrop-blur-sm text-sm lg:text-base font-mono shadow-[0_0_15px_rgba(var(--hero-accent),0.3)]"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Executives
+                {'<'} BACK_TO_EXECUTIVES
               </Button>
             </Link>
           </motion.div>
@@ -275,23 +299,26 @@ const ExecutiveProfile = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <Badge 
-                  className="text-sm lg:text-lg px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-emerald-500 to-green-500 border-0 text-white backdrop-blur-sm"
+                  className="text-sm lg:text-lg px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-hero-accent to-primary border-0 text-white backdrop-blur-sm font-mono shadow-[0_0_20px_rgba(var(--hero-accent),0.4)]"
                 >
                   {executive.position}
                 </Badge>
               </motion.div>
               
               <motion.h1 
-                className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 lg:mb-6 leading-tight bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent"
+                className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 lg:mb-6 leading-tight bg-gradient-to-r from-hero-accent via-white to-hero-accent bg-clip-text text-transparent font-orbitron"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
+                style={{
+                  textShadow: '0 0 30px rgba(var(--hero-accent), 0.3)'
+                }}
               >
                 {executive.name}
               </motion.h1>
               
               <motion.p 
-                className="text-base lg:text-xl text-emerald-100 leading-relaxed mb-6 lg:mb-8"
+                className="text-base lg:text-xl text-gray-300 leading-relaxed mb-6 lg:mb-8 border-l-4 border-hero-accent pl-4 font-exo"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
@@ -309,7 +336,7 @@ const ExecutiveProfile = () => {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
                       size="lg" 
-                      className="w-full border-2 border-white bg-emerald-600 hover:bg-emerald-700 text-white backdrop-blur-sm text-sm lg:text-base"
+                      className="w-full border-2 border-hero-accent/50 bg-hero-accent hover:bg-hero-accent/90 text-primary font-mono font-semibold text-sm lg:text-base shadow-[0_0_20px_rgba(var(--hero-accent),0.3)]"
                     >
                       <Mail className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       Email
@@ -320,7 +347,7 @@ const ExecutiveProfile = () => {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
                       size="lg" 
-                      className="w-full border-2 border-white bg-green-600 hover:bg-green-700 text-white backdrop-blur-sm text-sm lg:text-base"
+                      className="w-full border-2 border-hero-accent/50 bg-black/50 text-hero-accent hover:bg-hero-accent/10 font-mono font-semibold text-sm lg:text-base shadow-[0_0_15px_rgba(var(--hero-accent),0.2)]"
                     >
                       <MessageCircle className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       WhatsApp
@@ -339,28 +366,36 @@ const ExecutiveProfile = () => {
               <div className="relative">
                 <motion.div
                   animate={{ 
-                    rotateY: [0, 5, 0, -5, 0],
-                    scale: [1, 1.02, 1]
+                    boxShadow: [
+                      "0 0 20px rgba(var(--hero-accent), 0.4)",
+                      "0 0 40px rgba(var(--hero-accent), 0.6)",
+                      "0 0 20px rgba(var(--hero-accent), 0.4)",
+                    ]
                   }}
                   transition={{ 
-                    rotateY: { duration: 6, repeat: Infinity },
-                    scale: { duration: 4, repeat: Infinity }
+                    duration: 3,
+                    repeat: Infinity
                   }}
-                  className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-3xl bg-gradient-to-br from-emerald-500/20 via-green-500/20 to-teal-500/20 backdrop-blur-xl flex items-center justify-center overflow-hidden border border-emerald-400/30 shadow-2xl"
+                  className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-lg bg-gradient-to-br from-hero-accent/20 via-primary/20 to-hero-accent/10 backdrop-blur-xl flex items-center justify-center overflow-hidden border-2 border-hero-accent/50 shadow-2xl"
+                  whileHover={{ scale: 1.03 }}
                 >
                   {executive.image_url ? (
                     <img 
                       src={executive.image_url} 
                       alt={executive.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                     />
                   ) : (
                     <div className="text-center">
-                      <Users className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 text-emerald-400/60 mx-auto mb-4" />
-                      <span className="text-emerald-400/60 text-lg font-light">Profile Photo</span>
+                      <Users className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 text-hero-accent/60 mx-auto mb-4" />
+                      <span className="text-hero-accent/60 text-lg font-light font-mono">Profile Photo</span>
                     </div>
                   )}
+                  {/* Tech overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-hero-accent/10 to-transparent mix-blend-overlay" />
                 </motion.div>
+                {/* Glowing border effect */}
+                <div className="absolute inset-0 rounded-lg bg-hero-accent/20 blur-xl -z-10 animate-pulse" />
               </div>
             </motion.div>
           </div>
@@ -378,9 +413,9 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <Card className="border-emerald-400/20 bg-slate-800/40 backdrop-blur-xl shadow-2xl">
+              <Card className="border-2 border-hero-accent/30 bg-black/60 backdrop-blur-xl shadow-[0_0_40px_rgba(var(--hero-accent),0.2)]">
                 <CardHeader>
-                  <CardTitle className="text-2xl lg:text-3xl text-emerald-400 flex items-center gap-3">
+                  <CardTitle className="text-2xl lg:text-3xl text-hero-accent flex items-center gap-3 font-orbitron">
                     <Zap className="h-6 w-6 lg:h-8 lg:w-8" />
                     About {executive.name.split(' ')[0]}
                   </CardTitle>

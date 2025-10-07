@@ -147,21 +147,21 @@ const ExecutiveChairmanPage = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.5 }}
                 >
-                  > Scanning biometric data... ✓
+                  {'>'} Scanning biometric data... ✓
                 </motion.p>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 2 }}
                 >
-                  > Verifying security clearance... ✓
+                  {'>'} Verifying security clearance... ✓
                 </motion.p>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 2.5 }}
                 >
-                  > Loading executive profile... ✓
+                  {'>'} Loading executive profile... ✓
                 </motion.p>
               </motion.div>
             </motion.div>
@@ -276,7 +276,7 @@ const ExecutiveChairmanPage = () => {
             <Link to="/executives">
               <Button className="mb-6 mt-20 sm:mt-0 border-2 border-green-400/50 bg-black/50 text-green-400 hover:bg-green-400/10 backdrop-blur-sm text-sm sm:text-base font-mono">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                > BACK_TO_TERMINAL
+                {'>'} BACK_TO_TERMINAL
               </Button>
             </Link>
           </motion.div>
@@ -302,7 +302,7 @@ const ExecutiveChairmanPage = () => {
                     <Cpu className="h-8 w-8 sm:h-10 sm:w-10 text-green-400" />
                   </motion.div>
                   <Badge className="text-base sm:text-lg px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg font-mono tracking-wider">
-                    > EXECUTIVE_CHAIRMAN
+                    {'>'} EXECUTIVE_CHAIRMAN
                   </Badge>
                 </div>
               </motion.div>
@@ -322,7 +322,7 @@ const ExecutiveChairmanPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                > Architecting the future of NACOS through strategic innovation, 
+                {'>'} Architecting the future of NACOS through strategic innovation, 
                 technological excellence, and visionary leadership.
               </motion.p>
               
@@ -335,7 +335,7 @@ const ExecutiveChairmanPage = () => {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-mono font-semibold text-base sm:text-lg px-6 py-4 rounded-none border-2 border-green-400/50 shadow-[0_0_20px_rgba(74,222,128,0.3)]">
                     <Terminal className="h-5 w-5 mr-2" />
-                    > CONTACT_PROTOCOL
+                    {'>'} CONTACT_PROTOCOL
                   </Button>
                 </motion.div>
                 
@@ -343,7 +343,7 @@ const ExecutiveChairmanPage = () => {
                   <a href="https://wa.me/+2348057983551" target="_blank" rel="noopener noreferrer">
                     <Button size="lg" className="w-full sm:w-auto bg-black border-2 border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono font-semibold text-base sm:text-lg px-6 py-4 rounded-none shadow-[0_0_15px_rgba(74,222,128,0.2)]">
                       <Binary className="h-5 w-5 mr-2" />
-                      > DIRECT_MESSAGE
+                      {'>'} DIRECT_MESSAGE
                     </Button>
                   </a>
                 </motion.div>
@@ -398,7 +398,7 @@ const ExecutiveChairmanPage = () => {
             className="mb-12"
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
-              > SYSTEM_PORTFOLIO
+              {'>'} SYSTEM_PORTFOLIO
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {portfolioItems.map((item, index) => {
@@ -453,7 +453,7 @@ const ExecutiveChairmanPage = () => {
                   <Shield className="h-12 w-12 text-green-400 mx-auto mb-4" />
                 </motion.div>
                 <CardTitle className="text-2xl sm:text-3xl font-bold text-green-400 mb-3 tracking-wider">
-                  > MISSION_PROTOCOL
+                  {'>'} MISSION_PROTOCOL
                 </CardTitle>
                 <p className="text-base sm:text-lg text-green-200 max-w-3xl mx-auto leading-relaxed font-mono border-l-2 border-green-400 pl-4">
                   Transforming NACOS into a world-class technology community through strategic leadership, 
@@ -472,7 +472,7 @@ const ExecutiveChairmanPage = () => {
             className="mb-12"
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
-              > SYSTEM_ACHIEVEMENTS
+              {'>'} SYSTEM_ACHIEVEMENTS
             </h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -521,7 +521,7 @@ const ExecutiveChairmanPage = () => {
             className="mb-12"
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
-              > ACTIVE_INITIATIVES
+              {'>'} ACTIVE_INITIATIVES
             </h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -582,7 +582,7 @@ const ExecutiveChairmanPage = () => {
                 </motion.div>
                 
                 <h3 className="text-xl sm:text-2xl font-bold text-green-400 mb-4 tracking-wider">
-                  > CONNECT_PROTOCOL
+                  {'>'} CONNECT_PROTOCOL
                 </h3>
                 <p className="text-base sm:text-lg text-green-200 mb-6 max-w-2xl mx-auto leading-relaxed font-mono border-l-2 border-green-400 pl-4">
                   Ready to collaborate, share innovative ideas, or discuss strategic initiatives? 
@@ -596,7 +596,7 @@ const ExecutiveChairmanPage = () => {
                       className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-mono font-semibold text-base sm:text-lg px-8 py-4 rounded-none border-2 border-green-400/50 shadow-[0_0_20px_rgba(74,222,128,0.3)]"
                     >
                       <Terminal className="h-5 w-5 mr-2" />
-                      > chairman@nacos.jabu.edu.ng
+                      {'>'} chairman@nacos.jabu.edu.ng
                     </Button>
                   </motion.div>
                   
@@ -607,7 +607,7 @@ const ExecutiveChairmanPage = () => {
                         className="w-full sm:w-auto bg-black border-2 border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono font-semibold text-base sm:text-lg px-8 py-4 rounded-none shadow-[0_0_15px_rgba(74,222,128,0.2)]"
                       >
                         <Binary className="h-5 w-5 mr-2" />
-                        > DIRECT_MESSAGE
+                        {'>'} DIRECT_MESSAGE
                       </Button>
                     </a>
                   </motion.div>
