@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,46 +9,20 @@ import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import GlitchText from "@/components/GlitchText";
 
-interface Executive {
-  id: string;
-  name: string;
-  position: string;
-  bio: string;
-  email: string;
-  linkedin: string;
-  image_url: string;
-  order_index: number;
-}
-
 const ExecutiveChairmanPage = () => {
-  const [chairman, setChairman] = useState<Executive | null>(null);
-  const [loading, setLoading] = useState(true);
   const [introStage, setIntroStage] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    fetchChairman();
+    // Simulate loading time for the intro sequence
+    const timer = setTimeout(() => {
+      setIntroStage(0);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
-  const fetchChairman = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("executives")
-        .select("*")
-        .ilike("position", "%chairman%")
-        .single();
-
-      if (error) throw error;
-      setChairman(data);
-    } catch (error) {
-      console.error("Error fetching chairman:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // Enhanced intro sequence with more hacker vibes
-  if (loading || !showContent) {
+  if (!showContent) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden font-mono">
         {/* Enhanced Matrix-style background */}
@@ -82,30 +55,7 @@ const ExecutiveChairmanPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-400/5 to-transparent animate-pulse" />
 
         <AnimatePresence mode="wait">
-          {loading ? (
-            <motion.div
-              key="loading"
-              className="text-center z-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <motion.div 
-                className="w-16 h-16 border-4 border-green-400 border-t-transparent rounded-full mx-auto mb-4"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
-              <p className="text-green-400 text-lg tracking-wider">INITIALIZING SECURE CONNECTION...</p>
-              <motion.p 
-                className="text-green-400/60 text-sm mt-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                Establishing encrypted link to NACOS database...
-              </motion.p>
-            </motion.div>
-          ) : introStage === 0 ? (
+          {introStage === 0 ? (
             <motion.div
               key="stage1"
               className="text-center z-10 px-4"
@@ -363,7 +313,7 @@ const ExecutiveChairmanPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                {chairman ? chairman.name.toUpperCase() : "OGUNMOLA MICHAEL"}
+                OGUNMOLA MICHAEL
               </motion.h1>
               
               <motion.p 
@@ -419,11 +369,10 @@ const ExecutiveChairmanPage = () => {
                       "0 0 20px rgba(74,222,128,0.4)",
                     ]
                   }}
-                  transition={{ duration: 2, repeat: Infinity }}
                 >
                   <img 
                     src="/images/Michael2.jpg" 
-                    alt={chairman ? chairman.name : "Ogunmola Michael"}
+                    alt="Ogunmola Michael"
                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                   />
                   {/* Hacker-style overlay */}
