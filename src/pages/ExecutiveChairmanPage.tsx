@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Mail, MessageCircle, ArrowLeft, Star, Lightbulb, Network, Users, Trophy, Target, Zap, Code, Rocket, Cpu, Shield, Terminal, Binary } from "lucide-react";
+import { Mail, MessageCircle, ArrowLeft, Star, Lightbulb, Network, Users, Trophy, Target, Zap, Code, Rocket } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -48,38 +48,34 @@ const ExecutiveChairmanPage = () => {
     }
   };
 
-  // Enhanced intro sequence with more hacker vibes
+  // Intro sequence
   if (loading || !showContent) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden font-mono">
-        {/* Enhanced Matrix-style background */}
-        <div className="absolute inset-0 opacity-30">
-          {[...Array(50)].map((_, i) => (
+      <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+        {/* Matrix-style background */}
+        <div className="absolute inset-0 opacity-20">
+          {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute text-green-400 text-xs"
+              className="absolute text-green-400 font-mono text-xs"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `-10%`,
-                fontSize: `${Math.random() * 8 + 8}px`,
               }}
               animate={{
                 y: ['0vh', '110vh'],
               }}
               transition={{
-                duration: Math.random() * 4 + 3,
+                duration: Math.random() * 3 + 2,
                 repeat: Infinity,
                 ease: "linear",
-                delay: Math.random() * 3,
+                delay: Math.random() * 2,
               }}
             >
-              {Math.random().toString(36).substring(2, Math.random() * 10 + 5)}
+              {Math.random().toString(36).substring(2, 15)}
             </motion.div>
           ))}
         </div>
-
-        {/* Scanning lines effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-400/5 to-transparent animate-pulse" />
 
         <AnimatePresence mode="wait">
           {loading ? (
@@ -95,15 +91,7 @@ const ExecutiveChairmanPage = () => {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
               />
-              <p className="text-green-400 text-lg tracking-wider">INITIALIZING SECURE CONNECTION...</p>
-              <motion.p 
-                className="text-green-400/60 text-sm mt-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                Establishing encrypted link to NACOS database...
-              </motion.p>
+              <p className="text-green-400 font-mono text-lg">INITIALIZING...</p>
             </motion.div>
           ) : introStage === 0 ? (
             <motion.div
@@ -114,18 +102,10 @@ const ExecutiveChairmanPage = () => {
               exit={{ opacity: 0 }}
             >
               <GlitchText
-                text="SYSTEM READY FOR EXECUTIVE ACCESS"
-                className="text-2xl md:text-4xl text-green-400 font-bold tracking-wider"
-                onComplete={() => setTimeout(() => setIntroStage(1), 1000)}
+                text="ARE YOU READY FOR THE FULL EXPERIENCE?"
+                className="text-2xl md:text-4xl font-mono text-green-400"
+                onComplete={() => setIntroStage(1)}
               />
-              <motion.p 
-                className="text-green-400/60 text-sm mt-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2 }}
-              >
-                Warning: This terminal contains classified executive data
-              </motion.p>
             </motion.div>
           ) : introStage === 1 ? (
             <motion.div
@@ -137,8 +117,8 @@ const ExecutiveChairmanPage = () => {
             >
               <GlitchText
                 text="ACCESSING EXECUTIVE PROTOCOL..."
-                className="text-xl md:text-3xl text-green-400 tracking-wider"
-                onComplete={() => setTimeout(() => setIntroStage(2), 1500)}
+                className="text-xl md:text-3xl font-mono text-green-400"
+                onComplete={() => setIntroStage(2)}
                 delay={500}
               />
               <motion.div
@@ -147,111 +127,52 @@ const ExecutiveChairmanPage = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                {[...Array(12)].map((_, i) => (
+                {[...Array(10)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="w-2 h-12 bg-green-400/40 rounded"
+                    className="w-3 h-12 bg-green-400/30 rounded"
                     animate={{
                       scaleY: [0.3, 1, 0.3],
                       opacity: [0.3, 1, 0.3],
                     }}
                     transition={{
-                      duration: 1.2,
+                      duration: 1,
                       repeat: Infinity,
-                      delay: i * 0.08,
+                      delay: i * 0.1,
                     }}
                   />
                 ))}
               </motion.div>
-              <motion.p 
-                className="text-green-400/60 text-sm mt-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2 }}
-              >
-                Decrypting security layers... This may take a moment
-              </motion.p>
-            </motion.div>
-          ) : introStage === 2 ? (
-            <motion.div
-              key="stage3"
-              className="text-center z-10 px-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <GlitchText
-                text="VERIFYING IDENTITY CREDENTIALS..."
-                className="text-xl md:text-3xl text-green-400 tracking-wider"
-                onComplete={() => setTimeout(() => setIntroStage(3), 1200)}
-                delay={300}
-              />
-              <motion.div
-                className="mt-8 text-green-400 text-sm space-y-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.5 }}
-                >
-                  > Scanning biometric data... ✓
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 2 }}
-                >
-                  > Verifying security clearance... ✓
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 2.5 }}
-                >
-                  > Loading executive profile... ✓
-                </motion.p>
-              </motion.div>
             </motion.div>
           ) : (
             <motion.div
-              key="stage4"
+              key="stage3"
               className="text-center z-10 px-4"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.2 }}
-              onAnimationComplete={() => setTimeout(() => setShowContent(true), 800)}
+              onAnimationComplete={() => setTimeout(() => setShowContent(true), 500)}
             >
               <motion.div
-                className="text-5xl md:text-7xl text-green-400 font-bold tracking-wider"
+                className="text-6xl md:text-8xl font-mono text-green-400"
                 animate={{
                   textShadow: [
                     "0 0 10px #4ade80, 0 0 20px #4ade80",
-                    "0 0 20px #4ade80, 0 0 40px #4ade80, 0 0 60px #4ade80",
+                    "0 0 20px #4ade80, 0 0 40px #4ade80",
                     "0 0 10px #4ade80, 0 0 20px #4ade80",
                   ],
                 }}
-                transition={{ duration: 1.5, repeat: 3 }}
+                transition={{ duration: 1, repeat: 2 }}
               >
-                ACCESS GRANTED
+                GRANTED
               </motion.div>
               <motion.div
-                className="mt-6 text-green-400/60 text-sm"
+                className="mt-4 text-green-400/60 font-mono"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
+                transition={{ delay: 0.5 }}
               >
-                Welcome to the executive terminal, Chairman
-              </motion.div>
-              <motion.div
-                className="mt-4 text-green-400/40 text-xs"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
-              >
-                Initializing full interface...
+                Loading profile...
               </motion.div>
             </motion.div>
           )}
@@ -275,64 +196,60 @@ const ExecutiveChairmanPage = () => {
   ];
 
   const portfolioItems = [
-    { icon: Cpu, title: "System Architecture", desc: "Full Stack Developer", color: "from-green-500 to-emerald-600" },
-    { icon: Terminal, title: "Languages", desc: "JavaScript, Python, C++", color: "from-cyan-500 to-blue-600" },
-    { icon: Shield, title: "Security Clearance", desc: "Level 4 Executive Access", color: "from-purple-500 to-pink-600" },
-    { icon: Binary, title: "Experience", desc: "4 Years of Advanced Coding", color: "from-orange-500 to-red-600" },
-    { icon: Rocket, title: "Projects", desc: "10+ Major Deployments", color: "from-blue-500 to-indigo-600" }
+    { icon: Code, title: "Role", desc: "Full Stack Developer", color: "from-blue-500 to-indigo-600" },
+    { icon: Code, title: "Languages", desc: "JavaScript, Python", color: "from-purple-500 to-pink-500" },
+    { icon: Trophy, title: "Experience", desc: "4 Years of Coding", color: "from-green-500 to-emerald-500" },
+    { icon: Lightbulb, title: "Qualities", desc: "Visionary, Tech Giant in the Making", color: "from-orange-500 to-red-500" },
+    { icon: Rocket, title: "Projects", desc: "Worked on over 10 major projects", color: "from-cyan-500 to-blue-600" }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden font-mono">
-      {/* Enhanced Matrix Background */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(30)].map((_, i) => (
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 relative overflow-hidden">
+      <Header />
+      
+      {/* Animated Background (Simplified for Mobile) */}
+      <div className="absolute inset-0 hidden md:block">
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute text-green-400 text-xs"
+            className="absolute w-3 h-3 bg-blue-400/20 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
-              top: `-10%`,
-              fontSize: `${Math.random() * 6 + 6}px`,
+              top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: ['0vh', '110vh'],
+              y: [0, -50, 0],
+              opacity: [0, 0.8, 0],
             }}
             transition={{
-              duration: Math.random() * 5 + 4,
+              duration: Math.random() * 3 + 2,
               repeat: Infinity,
-              ease: "linear",
-              delay: Math.random() * 4,
+              delay: Math.random() * 1,
             }}
-          >
-            {Math.random().toString(36).substring(2, Math.random() * 8 + 3)}
-          </motion.div>
+          />
         ))}
       </div>
 
-      {/* Scanning overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-400/2 to-transparent animate-pulse" />
-
-      <Header />
-      
-      {/* Hero Section - Hacker Theme */}
+      {/* Hero Section */}
       <div className="relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="max
+
+-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <Link to="/executives">
-              <Button className="mb-6 mt-20 sm:mt-0 border-2 border-green-400/50 bg-black/50 text-green-400 hover:bg-green-400/10 backdrop-blur-sm text-sm sm:text-base font-mono">
+              <Button variant="outline" className="mb-6 mt-20 sm:mt-0 border-blue-300/30 text-white-200 hover:bg-blue-400/20 backdrop-blur-sm text-sm sm:text-base">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                > BACK_TO_TERMINAL
+                Back to Executives
               </Button>
             </Link>
           </motion.div>
           
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
-            {/* Left Content - Hacker Style */}
+            {/* Left Content */}
             <motion.div 
               className="text-white space-y-6"
               initial={{ opacity: 0, x: -30 }}
@@ -349,30 +266,30 @@ const ExecutiveChairmanPage = () => {
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                   >
-                    <Cpu className="h-8 w-8 sm:h-10 sm:w-10 text-green-400" />
+                    <Star className="h-8 w-8 sm:h-10 sm:w-10 text-blue-300" />
                   </motion.div>
-                  <Badge className="text-base sm:text-lg px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0 shadow-lg font-mono tracking-wider">
-                    > EXECUTIVE_CHAIRMAN
+                  <Badge className="text-base sm:text-lg px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 shadow-lg">
+                    Executive Chairman 🌟
                   </Badge>
                 </div>
               </motion.div>
               
               <motion.h1 
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 via-emerald-300 to-green-400 bg-clip-text text-transparent tracking-tighter"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold font-orbitron bg-gradient-to-r from-white via-blue-200 to-white bg-clip-text text-transparent"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                {chairman ? chairman.name.toUpperCase() : "OGUNMOLA MICHAEL"}
+                {chairman ? chairman.name : "Ogunmola Michael"}
               </motion.h1>
               
               <motion.p 
-                className="text-lg sm:text-xl text-green-200 leading-relaxed border-l-4 border-green-400 pl-4"
+                className="text-lg sm:text-xl text-blue-100 font-exo leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                > Architecting the future of NACOS through strategic innovation, 
+                Architecting the future of NACOS through strategic innovation, 
                 technological excellence, and visionary leadership.
               </motion.p>
               
@@ -383,24 +300,24 @@ const ExecutiveChairmanPage = () => {
                 transition={{ duration: 0.8 }}
               >
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-mono font-semibold text-base sm:text-lg px-6 py-4 rounded-none border-2 border-green-400/50 shadow-[0_0_20px_rgba(74,222,128,0.3)]">
-                    <Terminal className="h-5 w-5 mr-2" />
-                    > CONTACT_PROTOCOL
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-rajdhani font-semibold text-base sm:text-lg px-6 py-4 rounded-xl shadow-lg">
+                    <Mail className="h-5 w-5 mr-2" />
+                    Contact
                   </Button>
                 </motion.div>
                 
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <a href="https://wa.me/+2348057983551" target="_blank" rel="noopener noreferrer">
-                    <Button size="lg" className="w-full sm:w-auto bg-black border-2 border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono font-semibold text-base sm:text-lg px-6 py-4 rounded-none shadow-[0_0_15px_rgba(74,222,128,0.2)]">
-                      <Binary className="h-5 w-5 mr-2" />
-                      > DIRECT_MESSAGE
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto border-2 border-blue-300/50 text-blue-200 hover:bg-blue-400/20 backdrop-blur-sm font-rajdhani font-semibold text-base sm:text-lg px-6 py-4 rounded-xl">
+                      <MessageCircle className="h-5 w-5 mr-2" />
+                      WhatsApp
                     </Button>
                   </a>
                 </motion.div>
               </motion.div>
             </motion.div>
             
-            {/* Right - Enhanced Profile Image */}
+            {/* Right - Profile Image */}
             <motion.div 
               className="flex justify-center"
               initial={{ opacity: 0, x: 30 }}
@@ -409,36 +326,24 @@ const ExecutiveChairmanPage = () => {
             >
               <div className="relative w-full max-w-xs sm:max-w-sm">
                 <motion.div 
-                  className="w-full aspect-square rounded-lg bg-gradient-to-br from-green-400/20 to-emerald-400/10 backdrop-blur-xl border-2 border-green-400/50 shadow-[0_0_50px_rgba(74,222,128,0.4)] overflow-hidden"
+                  className="w-full aspect-square rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-xl border-2 border-blue-300/30 shadow-xl overflow-hidden"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.4 }}
-                  animate={{
-                    boxShadow: [
-                      "0 0 20px rgba(74,222,128,0.4)",
-                      "0 0 40px rgba(74,222,128,0.6)",
-                      "0 0 20px rgba(74,222,128,0.4)",
-                    ]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
                 >
                   <img 
-                    src="/images/Michael2.jpg" 
+                    src="images/Chairman.jpg" 
                     alt={chairman ? chairman.name : "Ogunmola Michael"}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover"
                   />
-                  {/* Hacker-style overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-transparent mix-blend-overlay" />
                 </motion.div>
-                {/* Glowing border effect */}
-                <div className="absolute inset-0 rounded-lg bg-green-400/20 blur-xl -z-10 animate-pulse" />
               </div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Content Sections - Hacker Theme */}
-      <div className="relative z-10 bg-gradient-to-br from-black/80 via-gray-900/80 to-black/80 backdrop-blur-lg">
+      {/* Content Sections */}
+      <div className="relative z-10 bg-gradient-to-br from-background via-blue-50/50 to-indigo-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           {/* Portfolio Section */}
           <motion.div
@@ -448,8 +353,8 @@ const ExecutiveChairmanPage = () => {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
-              > SYSTEM_PORTFOLIO
+            <h3 className="text-2xl sm:text-3xl font-orbitron font-bold text-center text-blue-800 mb-8">
+              Portfolio
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {portfolioItems.map((item, index) => {
@@ -461,22 +366,23 @@ const ExecutiveChairmanPage = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ scale: 1.03, y: -5 }}
+                    whileHover={{ scale: 1.03, rotateY: 5 }}
+                    style={{ transformStyle: "preserve-3d" }}
                   >
-                    <Card className="h-full bg-black/60 backdrop-blur-sm border-2 border-green-400/30 hover:border-green-400/60 hover:shadow-[0_0_30px_rgba(74,222,128,0.3)] transition-all duration-300 relative overflow-hidden group rounded-none">
+                    <Card className="h-full bg-gradient-to-br from-gray-900/95 to-blue-950/95 backdrop-blur-sm border-green-400/30 hover:border-green-400/60 hover:shadow-[0_0_30px_rgba(74,222,128,0.3)] transition-all duration-300 relative overflow-hidden group">
                       <div className="absolute inset-0 bg-gradient-to-br from-green-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <CardContent className="p-6 text-center relative z-10">
                         <motion.div 
-                          className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${item.color} flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.5)] rounded-none`}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.5)]`}
+                          whileHover={{ scale: 1.1, rotate: 360 }}
                           transition={{ duration: 0.4 }}
                         >
                           <Icon className="h-8 w-8 text-white" />
                         </motion.div>
-                        <h4 className="text-lg font-bold text-green-400 mb-2 tracking-wider">
+                        <h4 className="text-lg font-orbitron font-bold text-green-400 mb-2">
                           {item.title}
                         </h4>
-                        <p className="text-gray-300 text-sm sm:text-base font-mono">
+                        <p className="text-gray-300 font-mono text-sm sm:text-base">
                           {item.desc}
                         </p>
                       </CardContent>
@@ -495,18 +401,18 @@ const ExecutiveChairmanPage = () => {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <Card className="border-2 border-green-400/30 bg-black/60 backdrop-blur-xl shadow-[0_0_40px_rgba(74,222,128,0.2)] rounded-none">
+            <Card className="border-0 bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-xl shadow-lg">
               <CardHeader className="text-center py-8">
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <Shield className="h-12 w-12 text-green-400 mx-auto mb-4" />
+                  <Star className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                 </motion.div>
-                <CardTitle className="text-2xl sm:text-3xl font-bold text-green-400 mb-3 tracking-wider">
-                  > MISSION_PROTOCOL
+                <CardTitle className="text-2xl sm:text-3xl font-orbitron text-blue-800 mb-3">
+                  Vision & Innovation
                 </CardTitle>
-                <p className="text-base sm:text-lg text-green-200 max-w-3xl mx-auto leading-relaxed font-mono border-l-2 border-green-400 pl-4">
+                <p className="text-base sm:text-lg text-blue-600 max-w-3xl mx-auto font-exo leading-relaxed">
                   Transforming NACOS into a world-class technology community through strategic leadership, 
                   innovation, and commitment to student excellence.
                 </p>
@@ -522,8 +428,8 @@ const ExecutiveChairmanPage = () => {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
-              > SYSTEM_ACHIEVEMENTS
+            <h3 className="text-2xl sm:text-3xl font-orbitron font-bold text-center text-blue-800 mb-8">
+              Key Achievements
             </h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -536,23 +442,23 @@ const ExecutiveChairmanPage = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ scale: 1.03, y: -5 }}
+                    whileHover={{ scale: 1.03 }}
                   >
-                    <Card className="h-full bg-black/60 backdrop-blur-sm border-2 border-cyan-400/30 hover:border-cyan-400/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all duration-300 relative overflow-hidden group rounded-none">
+                    <Card className="h-full bg-gradient-to-br from-gray-900/95 to-blue-950/95 backdrop-blur-sm border-cyan-400/30 hover:border-cyan-400/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all duration-300 relative overflow-hidden group">
                       <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <CardContent className="p-6 text-center relative z-10">
                         <motion.div 
-                          className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.5)] rounded-none"
+                          className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.5)]"
                           whileHover={{ scale: 1.1 }}
                           transition={{ duration: 0.4 }}
                         >
                           <Icon className="h-8 w-8 text-white" />
                         </motion.div>
                         
-                        <h4 className="text-lg font-bold text-cyan-400 mb-2 tracking-wider">
+                        <h4 className="text-lg font-orbitron font-bold text-cyan-400 mb-2">
                           {achievement.title}
                         </h4>
-                        <p className="text-gray-300 text-sm sm:text-base font-mono">
+                        <p className="text-gray-300 font-mono text-sm sm:text-base">
                           {achievement.desc}
                         </p>
                       </CardContent>
@@ -571,8 +477,8 @@ const ExecutiveChairmanPage = () => {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
-              > ACTIVE_INITIATIVES
+            <h3 className="text-2xl sm:text-3xl font-orbitron font-bold text-center text-blue-800 mb-8">
+              Strategic Initiatives
             </h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -585,14 +491,14 @@ const ExecutiveChairmanPage = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ scale: 1.03, y: -5 }}
+                    whileHover={{ scale: 1.03 }}
                   >
-                    <Card className="bg-black/60 backdrop-blur-sm border-2 border-purple-400/30 hover:border-purple-400/60 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-300 relative overflow-hidden group rounded-none">
+                    <Card className="bg-gradient-to-br from-gray-900/95 to-purple-950/95 backdrop-blur-sm border-purple-400/30 hover:border-purple-400/60 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-300 relative overflow-hidden group">
                       <div className="absolute inset-0 bg-gradient-to-br from-purple-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <CardContent className="p-6 relative z-10">
                         <div className="flex items-center gap-4">
                           <motion.div 
-                            className={`w-12 h-12 bg-gradient-to-br ${initiative.color} flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.5)] rounded-none`}
+                            className={`w-12 h-12 rounded-xl bg-gradient-to-br ${initiative.color} flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.5)]`}
                             whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.4 }}
                           >
@@ -600,10 +506,10 @@ const ExecutiveChairmanPage = () => {
                           </motion.div>
                           
                           <div className="flex-1">
-                            <h4 className="text-lg font-bold text-purple-400 mb-1 tracking-wider">
+                            <h4 className="text-lg font-orbitron font-bold text-purple-400 mb-1">
                               {initiative.title}
                             </h4>
-                            <p className="text-gray-300 text-sm sm:text-base font-mono">
+                            <p className="text-gray-300 font-mono text-sm sm:text-base">
                               {initiative.desc}
                             </p>
                           </div>
@@ -623,19 +529,19 @@ const ExecutiveChairmanPage = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="bg-black/60 backdrop-blur-xl border-2 border-green-400/30 shadow-[0_0_40px_rgba(74,222,128,0.2)] rounded-none">
+            <Card className="bg-gradient-to-br from-white/90 to-blue-50/90 backdrop-blur-xl border-blue-200/50 shadow-lg">
               <CardContent className="p-8 text-center">
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   className="mb-6"
                 >
-                  <Network className="h-16 w-16 text-green-400 mx-auto" />
+                  <Network className="h-16 w-16 text-blue-600 mx-auto" />
                 </motion.div>
                 
-                <h3 className="text-xl sm:text-2xl font-bold text-green-400 mb-4 tracking-wider">
-                  > CONNECT_PROTOCOL
+                <h3 className="text-xl sm:text-2xl font-orbitron font-bold text-blue-800 mb-4">
+                  Connect with Me
                 </h3>
-                <p className="text-base sm:text-lg text-green-200 mb-6 max-w-2xl mx-auto leading-relaxed font-mono border-l-2 border-green-400 pl-4">
+                <p className="text-base sm:text-lg text-blue-600 mb-6 max-w-2xl mx-auto font-exo leading-relaxed">
                   Ready to collaborate, share innovative ideas, or discuss strategic initiatives? 
                   I'm here to connect with the NACOS community.
                 </p>
@@ -644,21 +550,22 @@ const ExecutiveChairmanPage = () => {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button 
                       size="lg"
-                      className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-mono font-semibold text-base sm:text-lg px-8 py-4 rounded-none border-2 border-green-400/50 shadow-[0_0_20px_rgba(74,222,128,0.3)]"
+                      className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-rajdhani font-semibold text-base sm:text-lg px-8 py-4 rounded-xl shadow-md"
                     >
-                      <Terminal className="h-5 w-5 mr-2" />
-                      > chairman@nacos.jabu.edu.ng
+                      <Mail className="h-5 w-5 mr-2" />
+                      chairman@nacos.jabu.edu.ng
                     </Button>
                   </motion.div>
                   
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <a href="https://wa.me/+2348057983551" target="_blank" rel="noopener noreferrer">
                       <Button 
+                        variant="outline"
                         size="lg"
-                        className="w-full sm:w-auto bg-black border-2 border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono font-semibold text-base sm:text-lg px-8 py-4 rounded-none shadow-[0_0_15px_rgba(74,222,128,0.2)]"
+                        className="w-full sm:w-auto border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-rajdhani font-semibold text-base sm:text-lg px-8 py-4 rounded-xl"
                       >
-                        <Binary className="h-5 w-5 mr-2" />
-                        > DIRECT_MESSAGE
+                        <MessageCircle className="h-5 w-5 mr-2" />
+                        WhatsApp
                       </Button>
                     </a>
                   </motion.div>
