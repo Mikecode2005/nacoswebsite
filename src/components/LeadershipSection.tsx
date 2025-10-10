@@ -131,11 +131,19 @@ const LeadershipSection = () => {
                     <CardHeader className="text-center relative z-10">
                       <motion.div 
                         className={`w-32 h-32 mx-auto mb-8 rounded-2xl bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-500 relative`}
+                        initial={{ opacity: 0, scale: 0.5, rotateY: -180 }}
+                        whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+                        transition={{ 
+                          duration: 0.8, 
+                          delay: index * 0.15,
+                          type: "spring",
+                          stiffness: 100
+                        }}
+                        viewport={{ once: true }}
                         whileHover={{ 
                           rotate: [0, 5, -5, 0],
                           scale: 1.1
                         }}
-                        transition={{ duration: 0.6 }}
                       >
                         <Icon className="h-16 w-16 text-white drop-shadow-2xl" />
                         
@@ -254,6 +262,7 @@ const LeadershipSection = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="flex justify-center"
               >
                 <Button 
                   asChild

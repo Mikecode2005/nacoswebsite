@@ -283,11 +283,11 @@ const AdminEventsManager = () => {
         ) : (
           <div className="grid gap-4">
             {events.map((event) => (
-              <Card key={event.id} className="border border-border/50 group hover:shadow-lg transition-all duration-300">
+              <Card key={event.id} className="border border-border/50 group hover:shadow-lg transition-all duration-300 overflow-hidden">
                 <CardContent className="p-4">
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="flex-1 min-w-0 overflow-hidden">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4 overflow-hidden">
                         {event.image_url && (
                           <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                             <img 
@@ -297,16 +297,16 @@ const AdminEventsManager = () => {
                             />
                           </div>
                         )}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-orbitron font-semibold text-lg truncate">{event.title}</h3>
-                          <p className="text-muted-foreground text-sm line-clamp-2">{event.description}</p>
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1">
+                        <div className="flex-1 min-w-0 overflow-hidden">
+                          <h3 className="font-orbitron font-semibold text-base sm:text-lg truncate">{event.title}</h3>
+                          <p className="text-muted-foreground text-xs sm:text-sm line-clamp-2 break-words">{event.description}</p>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2 text-xs sm:text-sm text-muted-foreground">
+                            <div className="flex items-center gap-1 min-w-0">
                               <Calendar className="h-3 w-3 flex-shrink-0" />
                               <span className="truncate">{format(new Date(event.event_date), 'MMM dd, yyyy')}</span>
                             </div>
                             {event.location && (
-                              <div className="flex items-center gap-1">
+                              <div className="flex items-center gap-1 min-w-0">
                                 <MapPin className="h-3 w-3 flex-shrink-0" />
                                 <span className="truncate">{event.location}</span>
                               </div>
