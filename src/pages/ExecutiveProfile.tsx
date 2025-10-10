@@ -22,12 +22,12 @@ interface Executive {
 const sampleExecutives: Executive[] = [
   {
     id: 'vice-president',
-    name: 'Temitope Adeyemi',
+    name: 'Fasuyi Oluwanifemi Joshua',
     position: 'Vice President ⚡',
     bio: 'Supporting the president in strategic planning and execution. Skilled in leadership and community building with a focus on tech education.',
     email: 'vice@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Joshua.jpg',
     order_index: 3
   },
   {
@@ -42,12 +42,12 @@ const sampleExecutives: Executive[] = [
   },
   {
     id: 'assistant-general-secretary',
-    name: 'Aisha Bello',
+    name: 'Wonderful',
     position: 'Assistant General Secretary 📋',
     bio: 'Assisting in administrative duties and record-keeping. Detail-oriented with strong organizational skills and tech proficiency.',
     email: 'asst-secretary@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Wonderful.jpg',
     order_index: 5
   },
   {
@@ -62,62 +62,62 @@ const sampleExecutives: Executive[] = [
   },
   {
     id: 'treasurer',
-    name: 'Fatima Ibrahim',
+    name: 'Oloyede Daniel',
     position: 'Treasurer 💳',
-    bio: 'Overseeing financial planning and budget management. Accounting expert with strong analytical skills.',
+    bio: 'A treasurer\'s duty goes beyond counting coins - it\'s about safeguarding your money and securing your trust.',
     email: 'treasurer@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Daniel.jpg',
     order_index: 7
   },
   {
     id: 'software-director',
-    name: 'Chinedu Okeke',
+    name: 'Bakare Idris',
     position: 'Software Director 💻',
     bio: 'Overseeing software development initiatives and hackathons. Full-stack developer passionate about open-source contributions.',
     email: 'software@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Idris.jpg',
     order_index: 8
   },
   {
     id: 'assistant-software-director',
-    name: 'Sarah Okonkwo',
+    name: 'Emmanuel',
     position: 'Assistant Software Director 🔧',
     bio: 'Supporting software projects and mentoring junior developers. Specializes in frontend technologies and agile methodologies.',
     email: 'asst-software@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Emmanuel.jpg',
     order_index: 9
   },
   {
     id: 'sports-director',
-    name: 'Zainab Ali',
+    name: 'Fatile Peter',
     position: 'Sports Director 🏃‍♂️',
     bio: 'Promoting physical wellness and team-building through sports events. Fitness enthusiast and data analyst.',
     email: 'sports@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Peter.jpg',
     order_index: 10
   },
   {
     id: 'assistant-sports-director',
-    name: 'Peter Adebayo',
+    name: 'Sayo',
     position: 'Assistant Sports Director ⚽',
     bio: 'Coordinating sports activities and tournaments. Passionate about sports tech and community health initiatives.',
     email: 'asst-sports@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Sayo.jpg',
     order_index: 11
   },
   {
     id: 'social-director',
-    name: 'Grace Okwu',
+    name: 'Okeya Toni',
     position: 'Social Director 🎉',
     bio: 'Creating memorable experiences and fostering community spirit. Event management and UX design specialist.',
     email: 'social@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Toni.jpg',
     order_index: 12
   },
   {
@@ -132,12 +132,12 @@ const sampleExecutives: Executive[] = [
   },
   {
     id: 'welfare-director',
-    name: 'Halima Yusuf',
+    name: 'Ajayi Temiloluwa',
     position: 'Welfare Director ❤️',
     bio: 'Ensuring member well-being and support systems. Counselor with background in health informatics.',
     email: 'welfare@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Prisca.jpg',
     order_index: 14
   },
   {
@@ -152,17 +152,17 @@ const sampleExecutives: Executive[] = [
   },
   {
     id: 'chief-whip',
-    name: 'Fatima Musa',
+    name: 'Akindileni Lovelyn',
     position: 'Chief Whip 🔗',
     bio: 'Ensuring discipline and unity within the executive team. Legal studies background with tech interests.',
     email: 'whip@nacos.jabu.edu.ng',
     whatsapp: 'https://wa.me/2341234567890',
-    image_url: '',
+    image_url: '/images/Lovelyn.jpg',
     order_index: 16
   },
   {
     id: 'media-director',
-    name: 'Ibironke Precious',
+    name: 'Ibironke Itunu',
     position: 'Media Director 📸',
     bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
     email: 'media@nacos.jabu.edu.ng',
