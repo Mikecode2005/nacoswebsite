@@ -59,67 +59,100 @@ const Lecturers = () => {
   const sampleLecturers = [
     {
       id: '1',
-      name: 'Dr. Adebayo Johnson',
+      name: 'Mr. Lawal',
       department: 'Computer Science',
-      specialization: 'Artificial Intelligence & Machine Learning 🤖',
-      bio: 'Leading researcher in AI with 15+ years experience. Published over 50 papers in top-tier journals and conferences.',
-      email: 'a.johnson@jabu.edu.ng',
-      office_location: 'CS Building, Room 301',
+      specialization: 'Mathematics & Numeric Computation 🧮',
+      bio: 'Head of Department with expertise in mathematical computation and numerical analysis. Dedicated to building strong foundational mathematics skills for computer science students.',
+      email: 'lawal@jabu.edu.ng',
+      office_location: 'CS Building, Room 101',
       image_url: '',
       created_at: '2024-01-01'
     },
     {
       id: '2',
-      name: 'Prof. Sarah Okonkwo',
-      department: 'Software Engineering',
-      specialization: 'Web Development & Cloud Computing ☁️',
-      bio: 'Expert in modern web technologies and cloud architecture. Former senior engineer at Google and Microsoft.',
-      email: 's.okonkwo@jabu.edu.ng',
-      office_location: 'CS Building, Room 205',
+      name: 'Dr. Olajide',
+      department: 'Computer Science',
+      specialization: 'Artificial Intelligence Mathematics 🤖',
+      bio: 'Specialist in mathematical foundations of AI and machine learning. Focuses on linear algebra, calculus, and statistical methods for intelligent systems.',
+      email: 'olajide@jabu.edu.ng',
+      office_location: 'CS Building, Room 202',
       image_url: '',
       created_at: '2024-01-01'
     },
     {
       id: '3',
-      name: 'Dr. Michael Chukwu',
-      department: 'Cybersecurity',
-      specialization: 'Network Security & Ethical Hacking 🔐',
-      bio: 'Cybersecurity consultant and researcher. Certified in multiple security frameworks and penetration testing.',
-      email: 'm.chukwu@jabu.edu.ng',
-      office_location: 'CS Building, Room 108',
+      name: 'Prof. Eludire',
+      department: 'Computer Science',
+      specialization: 'Database Systems 🗄️',
+      bio: 'Expert in database design, management, and optimization. Extensive experience in both relational and non-relational database systems.',
+      email: 'eludire@jabu.edu.ng',
+      office_location: 'CS Building, Room 303',
       image_url: '',
       created_at: '2024-01-01'
     },
     {
       id: '4',
-      name: 'Dr. Grace Ekene',
-      department: 'Data Science',
-      specialization: 'Big Data Analytics & Statistics 📊',
-      bio: 'Data science expert with focus on predictive modeling and business intelligence. PhD from Stanford University.',
-      email: 'g.ekene@jabu.edu.ng',
-      office_location: 'CS Building, Room 402',
+      name: 'Dr. Abe',
+      department: 'Computer Science',
+      specialization: 'Algorithms & Complexity 📊',
+      bio: 'Research-focused lecturer specializing in algorithm design, analysis, and computational complexity. Passionate about solving complex computational problems.',
+      email: 'abe@jabu.edu.ng',
+      office_location: 'CS Building, Room 404',
       image_url: '',
       created_at: '2024-01-01'
     },
     {
       id: '5',
-      name: 'Prof. David Okoro',
-      department: 'Mobile Development',
-      specialization: 'iOS & Android Development 📱',
-      bio: 'Mobile app development specialist. Led development of 10+ apps with millions of downloads on app stores.',
-      email: 'd.okoro@jabu.edu.ng',
-      office_location: 'CS Building, Room 310',
+      name: 'Dr. Fadare',
+      department: 'Computer Science',
+      specialization: 'Computer Architecture 💻',
+      bio: 'Expert in computer organization, architecture, and hardware design. Focuses on processor design, memory systems, and computer performance optimization.',
+      email: 'fadare@jabu.edu.ng',
+      office_location: 'CS Building, Room 105',
       image_url: '',
       created_at: '2024-01-01'
     },
     {
       id: '6',
-      name: 'Dr. Fatima Yusuf',
-      department: 'Database Systems',
-      specialization: 'Database Design & Management 🗄️',
-      bio: 'Database architect with expertise in both SQL and NoSQL systems. Oracle and MongoDB certified professional.',
-      email: 'f.yusuf@jabu.edu.ng',
-      office_location: 'CS Building, Room 215',
+      name: 'Dr. Filani',
+      department: 'Computer Science',
+      specialization: 'Python & Java Programming 🐍☕',
+      bio: 'Software development expert specializing in Python and Java programming languages. Focuses on object-oriented design, software engineering principles, and practical coding skills.',
+      email: 'filani@jabu.edu.ng',
+      office_location: 'CS Building, Room 206',
+      image_url: '',
+      created_at: '2024-01-01'
+    },
+    {
+      id: '7',
+      name: 'Mr. Olumide',
+      department: 'Computer Science',
+      specialization: 'Operating Systems 🖥️',
+      bio: 'Specialist in operating system concepts, process management, memory management, and file systems. Practical approach to understanding system-level programming.',
+      email: 'olumide@jabu.edu.ng',
+      office_location: 'CS Building, Room 307',
+      image_url: '',
+      created_at: '2024-01-01'
+    },
+    {
+      id: '8',
+      name: 'Mr. Adegoke',
+      department: 'Computer Science',
+      specialization: 'Data Analysis & Statistics 📈',
+      bio: 'Data analysis expert with focus on statistical methods, data visualization, and business intelligence. Strong background in data-driven decision making.',
+      email: 'adegoke@jabu.edu.ng',
+      office_location: 'CS Building, Room 408',
+      image_url: '',
+      created_at: '2024-01-01'
+    },
+    {
+      id: '9',
+      name: 'Mr. ThankGod',
+      department: 'Computer Science',
+      specialization: 'Computer Hardware 🔧',
+      bio: 'Hardware specialist with expertise in computer assembly, maintenance, and troubleshooting. Practical approach to understanding computer components and systems.',
+      email: 'thankgod@jabu.edu.ng',
+      office_location: 'Hardware Lab, Room 109',
       image_url: '',
       created_at: '2024-01-01'
     }
@@ -205,7 +238,7 @@ const Lecturers = () => {
           <Card className="text-center border-primary/20 bg-primary/5">
             <CardContent className="p-6">
               <BookOpen className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-primary">25+</h3>
+              <h3 className="text-2xl font-bold text-primary">20+</h3>
               <p className="text-muted-foreground">Courses Offered 📚</p>
             </CardContent>
           </Card>
@@ -213,7 +246,7 @@ const Lecturers = () => {
           <Card className="text-center border-accent/20 bg-accent/5">
             <CardContent className="p-6">
               <Award className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-accent">100+</h3>
+              <h3 className="text-2xl font-bold text-accent">50+</h3>
               <p className="text-muted-foreground">Research Papers 📄</p>
             </CardContent>
           </Card>
@@ -221,7 +254,7 @@ const Lecturers = () => {
           <Card className="text-center border-secondary/20 bg-secondary/5">
             <CardContent className="p-6">
               <GraduationCap className="h-12 w-12 text-secondary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-secondary">500+</h3>
+              <h3 className="text-2xl font-bold text-secondary">1000+</h3>
               <p className="text-muted-foreground">Students Mentored 👥</p>
             </CardContent>
           </Card>
@@ -235,21 +268,22 @@ const Lecturers = () => {
               Academic Excellence 🌟
             </h2>
             <p className="text-muted-foreground mb-6 max-w-3xl mx-auto">
-              Our lecturers bring together decades of industry experience and academic expertise. 
-              They are committed to nurturing the next generation of tech leaders through innovative teaching and cutting-edge research.
+              Our Computer Science department brings together experienced lecturers with diverse expertise in mathematics, 
+              programming, systems architecture, and data analysis. They are committed to providing quality education and 
+              practical skills for the next generation of technology professionals.
             </p>
             <div className="grid md:grid-cols-3 gap-4">
               <div className="bg-secondary/20 text-secondary px-4 py-3 rounded-lg">
                 <BookOpen className="h-5 w-5 mx-auto mb-2" />
-                <div className="font-medium">Research Excellence</div>
+                <div className="font-medium">Practical Teaching</div>
               </div>
               <div className="bg-primary/20 text-primary px-4 py-3 rounded-lg">
                 <Award className="h-5 w-5 mx-auto mb-2" />
-                <div className="font-medium">Industry Experience</div>
+                <div className="font-medium">Industry-Relevant Skills</div>
               </div>
               <div className="bg-accent/20 text-accent px-4 py-3 rounded-lg">
                 <GraduationCap className="h-5 w-5 mx-auto mb-2" />
-                <div className="font-medium">Student Mentorship</div>
+                <div className="font-medium">Student-Centered Approach</div>
               </div>
             </div>
           </CardContent>
