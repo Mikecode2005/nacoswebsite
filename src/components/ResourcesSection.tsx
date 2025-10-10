@@ -1,4 +1,4 @@
-import { Laptop, HelpCircle, Book, Globe, Code, Trophy, Crown, GraduationCap, Users } from "lucide-react";
+import { Laptop, HelpCircle, Book, Globe, Code, Trophy, Crown, GraduationCap, Users, Trash2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
@@ -124,6 +124,37 @@ const ResourcesSection = () => {
               </Card>
             </div>
           </div>
+        </div>
+
+        {/* Delete Button Section - Responsive */}
+        <div className="mt-8 flex justify-center">
+          <button className="
+            bg-destructive 
+            text-destructive-foreground 
+            hover:bg-destructive/90 
+            transition-colors 
+            duration-200 
+            rounded-lg 
+            font-medium
+            flex 
+            items-center 
+            justify-center
+            gap-2
+            sm:px-6 
+            sm:py-3 
+            sm:text-base
+            px-3 
+            py-3 
+            text-sm
+            w-full 
+            max-w-xs 
+            mx-auto
+            sm:w-auto
+          ">
+            <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="hidden sm:inline">Delete</span>
+            <span className="sm:hidden">Delete</span>
+          </button>
         </div>
       </div>
     </section>

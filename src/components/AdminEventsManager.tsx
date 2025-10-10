@@ -285,11 +285,11 @@ const AdminEventsManager = () => {
             {events.map((event) => (
               <Card key={event.id} className="border border-border/50 group hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                         {event.image_url && (
-                          <div className="relative w-20 h-20 rounded-lg overflow-hidden">
+                          <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                             <img 
                               src={event.image_url} 
                               alt={event.title}
@@ -297,38 +297,42 @@ const AdminEventsManager = () => {
                             />
                           </div>
                         )}
-                        <div className="flex-1">
-                          <h3 className="font-orbitron font-semibold text-lg">{event.title}</h3>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-orbitron font-semibold text-lg truncate">{event.title}</h3>
                           <p className="text-muted-foreground text-sm line-clamp-2">{event.description}</p>
-                          <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1">
-                              <Calendar className="h-3 w-3" />
-                              <span>{format(new Date(event.event_date), 'MMM dd, yyyy')}</span>
+                              <Calendar className="h-3 w-3 flex-shrink-0" />
+                              <span className="truncate">{format(new Date(event.event_date), 'MMM dd, yyyy')}</span>
                             </div>
                             {event.location && (
                               <div className="flex items-center gap-1">
-                                <MapPin className="h-3 w-3" />
-                                <span>{event.location}</span>
+                                <MapPin className="h-3 w-3 flex-shrink-0" />
+                                <span className="truncate">{event.location}</span>
                               </div>
                             )}
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="flex gap-2 ml-4">
+                    <div className="flex gap-2 justify-end sm:justify-start flex-shrink-0">
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => openEditDialog(event)}
+                        className="h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-3"
                       >
-                        <Edit3 className="h-3 w-3" />
+                        <Edit3 className="h-3 w-3 sm:mr-1" />
+                        <span className="hidden sm:inline">Edit</span>
                       </Button>
                       <Button
                         size="sm"
                         variant="destructive"
                         onClick={() => handleDelete(event.id)}
+                        className="h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-3"
                       >
-                        <Trash2 className="h-3 w-3" />
+                        <Trash2 className="h-3 w-3 sm:mr-1" />
+                        <span className="hidden sm:inline">Delete</span>
                       </Button>
                     </div>
                   </div>
