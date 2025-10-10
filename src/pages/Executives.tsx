@@ -13,7 +13,7 @@ interface Executive {
   position: string;
   bio: string;
   email: string;
-  whatsapp: string;
+  linkedin: string;
   image_url: string;
   order_index: number;
   created_at: string;
@@ -55,7 +55,7 @@ const Executives = () => {
       position: 'President 👑',
       bio: 'Leading NACOS with vision and passion for tech innovation. Computer Science final year student with expertise in full-stack development.',
       email: 'president@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: "/images/Duduyemi.jpg",
       order_index: 1,
       created_at: '2024-01-01'
@@ -66,7 +66,7 @@ const Executives = () => {
       position: 'Executive Chairman 🌟',
       bio: 'Passionate about fostering collaboration and growth within the tech community. Executive Chairman driving innovation and excellence.',
       email: 'chairman@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Michael2.jpg',
       order_index: 2,
       created_at: '2024-01-01'
@@ -77,7 +77,7 @@ const Executives = () => {
       position: 'Vice President ⚡',
       bio: 'Supporting the president in strategic planning and execution. Skilled in leadership and community building with a focus on tech education.',
       email: 'vice@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Joshua.jpg',
       order_index: 3,
       created_at: '2024-01-01'
@@ -88,7 +88,7 @@ const Executives = () => {
       position: 'General Secretary 📝',
       bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
       email: 'secretary@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Mavel.jpg',
       order_index: 4,
       created_at: '2024-01-01'
@@ -99,7 +99,7 @@ const Executives = () => {
       position: 'Assistant General Secretary 📋',
       bio: 'Assisting in administrative duties and record-keeping. Detail-oriented with strong organizational skills and tech proficiency.',
       email: 'asst-secretary@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Wonderful.jpg',
       order_index: 5,
       created_at: '2024-01-01'
@@ -110,7 +110,7 @@ const Executives = () => {
       position: 'Financial Secretary 💰',
       bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
       email: 'financial@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Isaac.jpg',
       order_index: 6,
       created_at: '2024-01-01'
@@ -121,7 +121,7 @@ const Executives = () => {
       position: 'Treasurer 💳',
       bio: 'A treasurer\'s duty goes beyond counting coins - it\'s about safeguarding your money and securing your trust.',
       email: 'treasurer@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Daniel.jpg',
       order_index: 7,
       created_at: '2024-01-01'
@@ -132,7 +132,7 @@ const Executives = () => {
       position: 'Software Director 💻',
       bio: 'Overseeing software development initiatives and hackathons. Full-stack developer passionate about open-source contributions.',
       email: 'software@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Idris.jpg',
       order_index: 8,
       created_at: '2024-01-01'
@@ -143,7 +143,7 @@ const Executives = () => {
       position: 'Assistant Software Director 🔧',
       bio: 'Supporting software projects and mentoring junior developers. Specializes in frontend technologies and agile methodologies.',
       email: 'asst-software@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Emmanuel.jpg',
       order_index: 9,
       created_at: '2024-01-01'
@@ -154,7 +154,7 @@ const Executives = () => {
       position: 'Sports Director 🏃‍♂️',
       bio: 'Promoting physical wellness and team-building through sports events. Fitness enthusiast and data analyst.',
       email: 'sports@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Peter.jpg',
       order_index: 10,
       created_at: '2024-01-01'
@@ -165,7 +165,7 @@ const Executives = () => {
       position: 'Assistant Sports Director ⚽',
       bio: 'Coordinating sports activities and tournaments. Passionate about sports tech and community health initiatives.',
       email: 'asst-sports@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Sayo.jpg',
       order_index: 11,
       created_at: '2024-01-01'
@@ -176,7 +176,7 @@ const Executives = () => {
       position: 'Social Director 🎉',
       bio: 'Creating memorable experiences and fostering community spirit. Event management and UX design specialist.',
       email: 'social@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Toni.jpg',
       order_index: 12,
       created_at: '2024-01-01'
@@ -187,7 +187,7 @@ const Executives = () => {
       position: 'Assistant Social Director 🎊',
       bio: 'Assisting in event planning and social media engagement. Creative mind with experience in digital marketing.',
       email: 'asst-social@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Abigail.jpg',
       order_index: 13,
       created_at: '2024-01-01'
@@ -198,7 +198,7 @@ const Executives = () => {
       position: 'Welfare Director ❤️',
       bio: 'Ensuring member well-being and support systems. Counselor with background in health informatics.',
       email: 'welfare@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Prisca.jpg',
       order_index: 14,
       created_at: '2024-01-01'
@@ -209,7 +209,7 @@ const Executives = () => {
       position: 'Assistant Welfare Director 🤝',
       bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
       email: 'asst-welfare@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Jemmy.jpg',
       order_index: 15,
       created_at: '2024-01-01'
@@ -220,7 +220,7 @@ const Executives = () => {
       position: 'Chief Whip 🔗',
       bio: 'Ensuring discipline and unity within the executive team. Legal studies background with tech interests.',
       email: 'whip@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Lovelyn.jpg',
       order_index: 16,
       created_at: '2024-01-01'
@@ -231,7 +231,7 @@ const Executives = () => {
       position: 'Media Director 📸',
       bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
       email: 'media@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Precious.jpg',
       order_index: 17,
       created_at: '2024-01-01'
@@ -242,7 +242,7 @@ const Executives = () => {
       position: 'Public Relations Officer 📢',
       bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
       email: 'pro@nacos.jabu.edu.ng',
-      whatsapp: 'https://wa.me/2341234567890',
+      linkedin: 'https://linkedin.com/in/nacos',
       image_url: '/images/Wendy.jpg',
       order_index: 18,
       created_at: '2024-01-01'
@@ -330,15 +330,15 @@ const Executives = () => {
                       <Mail className="h-5 w-5 text-primary" />
                     </a>
                   )}
-                  {executive.whatsapp && (
+                  {executive.linkedin && (
                     <a
-                      href={executive.whatsapp}
+                      href={executive.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center w-10 h-10 bg-green-500/20 rounded-full hover:bg-green-500/30 transition-colors"
-                      title="Chat on WhatsApp"
+                      className="flex items-center justify-center w-10 h-10 bg-blue-500/20 rounded-full hover:bg-blue-500/30 transition-colors"
+                      title="Connect on LinkedIn"
                     >
-                      <MessageCircle className="h-5 w-5 text-green-500" />
+                      <MessageCircle className="h-5 w-5 text-blue-500" />
                     </a>
                   )}
                 </div>

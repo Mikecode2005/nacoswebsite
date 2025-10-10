@@ -428,16 +428,16 @@ const Resources = () => {
                         )}
                       </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       {resource.file_url && (
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => window.open(resource.file_url, '_blank')}
-                          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto"
                         >
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Open
+                          <ExternalLink className="h-4 w-4 sm:mr-2" />
+                          <span className="hidden sm:inline">Open</span>
                         </Button>
                       )}
                       {userRole === 'admin' && (
@@ -448,10 +448,10 @@ const Resources = () => {
                             setResourceToDelete(resource.id);
                             setDeleteDialogOpen(true);
                           }}
-                          className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                          className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground w-full sm:w-auto"
                         >
-                          <Trash2 className="h-4 w-4 mr-2" />
-                          Delete
+                          <Trash2 className="h-4 w-4 sm:mr-2" />
+                          <span className="hidden sm:inline">Delete</span>
                         </Button>
                       )}
                     </div>

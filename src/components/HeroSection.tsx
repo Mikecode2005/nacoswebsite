@@ -66,7 +66,7 @@ const HeroSection = () => {
               exit={{ opacity: 0 }}
             >
               <GlitchText
-                text="INITIALIZING NACOS SYSTEMS..."
+                text="INITIALIZING..."
                 className="text-xl md:text-3xl text-hero-accent tracking-wider"
                 onComplete={() => setTimeout(() => setIntroStage(2), 1500)}
                 delay={500}
@@ -235,7 +235,7 @@ const HeroSection = () => {
             
             {/* Subtitle with enhanced animation */}
             <motion.h2 
-              className="text-2xl sm:text-3xl lg:text-4xl mb-6 opacity-90 font-exo font-light"
+              className="text-2xl sm:text-3xl lg:text-4xl mb-6 opacity-90 font-orbitron font-semibold"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: animationComplete ? 1 : 0, y: animationComplete ? 0 : 20 }}
               transition={{ duration: 1, delay: 0.5 }}
@@ -334,7 +334,7 @@ const HeroSection = () => {
 
           {/* Enhanced Right Illustration */}
           <motion.div 
-            className="flex justify-center lg:justify-end"
+            className="hidden md:flex justify-center lg:justify-end"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
