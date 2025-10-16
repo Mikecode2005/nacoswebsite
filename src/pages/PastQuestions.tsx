@@ -418,62 +418,64 @@ const PastQuestions = () => {
             {filteredQuestions.length > 0 ? (
               filteredQuestions.map((question) => (
               <Card key={question.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-xl text-primary mb-2">
-                        {question.title}
-                      </CardTitle>
-                      <div className="flex items-center text-sm text-muted-foreground space-x-4">
-                        <span className="bg-accent/20 text-accent px-2 py-1 rounded">
-                          {question.subject}
-                        </span>
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-1" />
-                          {question.year}
-                        </div>
-                        {question.level && (
-                          <span className="bg-primary/20 text-primary px-2 py-1 rounded">
-                            {question.level} Level
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      {question.file_url && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => window.open(question.file_url, '_blank')}
-                          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                        >
-                          <Download className="h-4 w-4 mr-2" />
-                          Download
-                        </Button>
-                      )}
-                      {(userRole === 'admin' || userRole === 'lecturer') && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setQuestionToDelete(question.id);
-                            setDeleteDialogOpen(true);
-                          }}
-                          className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
-                        >
-                          <Trash2 className="h-4 w-4 mr-2" />
-                          Delete
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </CardHeader>
-                {question.description && (
-                  <CardContent>
-                    <p className="text-muted-foreground">{question.description}</p>
-                  </CardContent>
-                )}
-              </Card>
+  <CardHeader>
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+      <div className="flex-1">
+        <CardTitle className="text-lg sm:text-xl text-primary mb-2">
+          {question.title}
+        </CardTitle>
+        <div className="flex flex-wrap items-center text-sm text-muted-foreground gap-2">
+          <span className="bg-accent/20 text-accent px-2 py-1 rounded text-xs">
+            {question.subject}
+          </span>
+          <div className="flex items-center">
+            <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+            {question.year}
+          </div>
+          {question.level && (
+            <span className="bg-primary/20 text-primary px-2 py-1 rounded text-xs">
+              {question.level} Level
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="flex sm:flex-col gap-2 self-end sm:self-auto">
+        {question.file_url && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => window.open(question.file_url, '_blank')}
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground flex-1 sm:flex-none"
+          >
+            <Download className="h-4 w-4 sm:mr-2" />
+            <span className="hidden sm:inline">Download</span>
+            <span className="sm:hidden">DL</span>
+          </Button>
+        )}
+        {(userRole === 'admin' || userRole === 'lecturer') && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setQuestionToDelete(question.id);
+              setDeleteDialogOpen(true);
+            }}
+            className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground flex-1 sm:flex-none"
+          >
+            <Trash2 className="h-4 w-4 sm:mr-2" />
+            <span className="hidden sm:inline">Delete</span>
+            <span className="sm:hidden">Del</span>
+          </Button>
+        )}
+      </div>
+    </div>
+  </CardHeader>
+  {question.description && (
+    <CardContent>
+      <p className="text-muted-foreground text-sm sm:text-base">{question.description}</p>
+    </CardContent>
+  )}
+</Card>
               ))
             ) : (
               <Card className="text-center py-12 border-primary/20">
