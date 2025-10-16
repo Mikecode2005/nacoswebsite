@@ -27,6 +27,7 @@ import TechGiants from "./pages/TechGiants";
 import Complaints from "./pages/Complaints";
 import Gallery from "./pages/Gallery";
 import Resources from "./pages/Resources";
+import PastTutors from "./pages/PastTutors";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/complaints" element={<Complaints />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/resources" element={<Resources />} />
+            <Route path="/past-tutors" element={<PastTutors />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
