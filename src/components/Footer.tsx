@@ -69,10 +69,10 @@ const Footer = () => {
           <p className="text-primary-foreground/60 text-sm mt-2">
             Made by{" "}
             <Link 
-              to="/executive-chairman" 
+              to="/" 
               className="font-bold text-hero-accent hover:text-hero-accent/80 transition-colors"
             >
-              ECM
+              Nacos
             </Link>
           </p>
         </div>
