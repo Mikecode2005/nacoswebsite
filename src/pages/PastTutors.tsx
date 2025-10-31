@@ -29,7 +29,7 @@ const PastTutors = () => {
         "Numerical Computing",
         "Mathematical Modeling"
       ],
-      website: "https://popjmaths.com",
+      website: "https://www.popjmath.com/",
       strengths: [
         "Conceptual Clarity",
         "Problem-Solving Techniques",
