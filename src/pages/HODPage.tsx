@@ -64,10 +64,10 @@ const HODPage = () => {
         <div className="relative overflow-hidden bg-gradient-to-r from-green-700 via-secondary to-primary">
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative max-w-7xl mx-auto px-6 py-20">
-            <Link to="/executives">
-              <Button variant="outline" className="mb-8 border-white/20 text-white hover:bg-white/10">
+            <Link to="/lecturers">
+              <Button variant="outline" className="mb-8 border-white/20 text-black hover:bg-white/10">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Executives
+                Back to Lecturers
               </Button>
             </Link>
             
