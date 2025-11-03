@@ -16,7 +16,7 @@ const ExecutiveChairmanPage = () => {
     // Shorter loading time - only 2 seconds total
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 2000);
+    }, 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -75,8 +75,8 @@ const ExecutiveChairmanPage = () => {
   const achievements = [
     { icon: Rocket, title: "Platform Innovation", desc: "Led development of NACOS digital ecosystem" },
     { icon: Users, title: "Community Growth", desc: "Expanded membership by 300% in 2 years" },
-    { icon: Trophy, title: "Industry Partnerships", desc: "Established 15+ tech company collaborations" },
-    { icon: Target, title: "Strategic Vision", desc: "Implemented 5-year growth roadmap" }
+    { icon: Trophy, title: "Industry Partnerships", desc: "Established 5+ tech company collaborations" },
+    { icon: Target, title: "Strategic Vision", desc: "Implemented 4-year growth roadmap" }
   ];
 
   const initiatives = [
@@ -248,8 +248,237 @@ const ExecutiveChairmanPage = () => {
         </div>
       </div>
 
-      {/* Rest of the content remains the same */}
-      {/* ... (keep all the other sections exactly as they were) ... */}
+      {/* Content Sections - Hacker Theme */}
+      <div className="relative z-10 bg-gradient-to-br from-black/80 via-gray-900/80 to-black/80 backdrop-blur-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          {/* Portfolio Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
+              {'>'} SYSTEM_PORTFOLIO
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {portfolioItems.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.03, y: -5 }}
+                  >
+                    <Card className="h-full bg-black/60 backdrop-blur-sm border-2 border-green-400/30 hover:border-green-400/60 hover:shadow-[0_0_30px_rgba(74,222,128,0.3)] transition-all duration-300 relative overflow-hidden group rounded-none">
+                      <div className="absolute inset-0 bg-gradient-to-br from-green-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <CardContent className="p-6 text-center relative z-10">
+                        <motion.div 
+                          className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${item.color} flex items-center justify-center shadow-[0_0_20px_rgba(74,222,128,0.5)] rounded-none`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          transition={{ duration: 0.4 }}
+                        >
+                          <Icon className="h-8 w-8 text-white" />
+                        </motion.div>
+                        <h4 className="text-lg font-bold text-green-400 mb-2 tracking-wider">
+                          {item.title}
+                        </h4>
+                        <p className="text-gray-300 text-sm sm:text-base font-mono">
+                          {item.desc}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Vision & Leadership */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <Card className="border-2 border-green-400/30 bg-black/60 backdrop-blur-xl shadow-[0_0_40px_rgba(74,222,128,0.2)] rounded-none">
+              <CardHeader className="text-center py-8">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <Shield className="h-12 w-12 text-green-400 mx-auto mb-4" />
+                </motion.div>
+                <CardTitle className="text-2xl sm:text-3xl font-bold text-green-400 mb-3 tracking-wider">
+                  {'>'} MISSION_PROTOCOL
+                </CardTitle>
+                <p className="text-base sm:text-lg text-green-200 max-w-3xl mx-auto leading-relaxed font-mono border-l-2 border-green-400 pl-4">
+                  Transforming NACOS into a world-class technology community through strategic leadership, 
+                  innovation, and commitment to student excellence.
+                </p>
+              </CardHeader>
+            </Card>
+          </motion.div>
+
+          {/* Achievements Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
+              {'>'} SYSTEM_ACHIEVEMENTS
+            </h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {achievements.map((achievement, index) => {
+                const Icon = achievement.icon;
+                return (
+                  <motion.div
+                    key={achievement.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.03, y: -5 }}
+                  >
+                    <Card className="h-full bg-black/60 backdrop-blur-sm border-2 border-cyan-400/30 hover:border-cyan-400/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all duration-300 relative overflow-hidden group rounded-none">
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <CardContent className="p-6 text-center relative z-10">
+                        <motion.div 
+                          className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.5)] rounded-none"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.4 }}
+                        >
+                          <Icon className="h-8 w-8 text-white" />
+                        </motion.div>
+                        
+                        <h4 className="text-lg font-bold text-cyan-400 mb-2 tracking-wider">
+                          {achievement.title}
+                        </h4>
+                        <p className="text-gray-300 text-sm sm:text-base font-mono">
+                          {achievement.desc}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Strategic Initiatives */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h3 className="text-2xl sm:text-3xl font-bold text-center text-green-400 mb-8 tracking-wider border-b-2 border-green-400/50 pb-2">
+              {'>'} ACTIVE_INITIATIVES
+            </h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {initiatives.map((initiative, index) => {
+                const Icon = initiative.icon;
+                return (
+                  <motion.div
+                    key={initiative.title}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.03, y: -5 }}
+                  >
+                    <Card className="bg-black/60 backdrop-blur-sm border-2 border-purple-400/30 hover:border-purple-400/60 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-300 relative overflow-hidden group rounded-none">
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <CardContent className="p-6 relative z-10">
+                        <div className="flex items-center gap-4">
+                          <motion.div 
+                            className={`w-12 h-12 bg-gradient-to-br ${initiative.color} flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.5)] rounded-none`}
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.4 }}
+                          >
+                            <Icon className="h-6 w-6 text-white" />
+                          </motion.div>
+                          
+                          <div className="flex-1">
+                            <h4 className="text-lg font-bold text-purple-400 mb-1 tracking-wider">
+                              {initiative.title}
+                            </h4>
+                            <p className="text-gray-300 text-sm sm:text-base font-mono">
+                              {initiative.desc}
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Contact & Connect Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Card className="bg-black/60 backdrop-blur-xl border-2 border-green-400/30 shadow-[0_0_40px_rgba(74,222,128,0.2)] rounded-none">
+              <CardContent className="p-8 text-center">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="mb-6"
+                >
+                  <Network className="h-16 w-16 text-green-400 mx-auto" />
+                </motion.div>
+                
+                <h3 className="text-xl sm:text-2xl font-bold text-green-400 mb-4 tracking-wider">
+                  {'>'} CONNECT_PROTOCOL
+                </h3>
+                <p className="text-base sm:text-lg text-green-200 mb-6 max-w-2xl mx-auto leading-relaxed font-mono border-l-2 border-green-400 pl-4">
+                  Ready to collaborate, share innovative ideas, or discuss strategic initiatives? 
+                  I'm here to connect with the NACOS community.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button 
+                      size="lg"
+                      className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-mono font-semibold text-base sm:text-lg px-8 py-4 rounded-none border-2 border-green-400/50 shadow-[0_0_20px_rgba(74,222,128,0.3)]"
+                    >
+                      <Terminal className="h-5 w-5 mr-2" />
+                      {'>'} chairman@nacos.jabu.edu.ng
+                    </Button>
+                  </motion.div>
+                  
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <a href="https://wa.me/+2348057983551" target="_blank" rel="noopener noreferrer">
+                      <Button 
+                        size="lg"
+                        className="w-full sm:w-auto bg-black border-2 border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono font-semibold text-base sm:text-lg px-8 py-4 rounded-none shadow-[0_0_15px_rgba(74,222,128,0.2)]"
+                      >
+                        <Binary className="h-5 w-5 mr-2" />
+                        {'>'} DIRECT_MESSAGE
+                      </Button>
+                    </a>
+                  </motion.div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
       
       <Footer />
     </div>
