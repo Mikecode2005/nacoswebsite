@@ -1,4 +1,4 @@
-import { Crown, Star, GraduationCap, Users, ArrowRight, Mail, Linkedin } from "lucide-react";
+import { Crown, Star, GraduationCap, Users, ArrowRight, Mail, Linkedin, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -13,12 +13,9 @@ const LeadershipSection = () => {
       description: 'Leading the Computer Science department with excellence and industry experience.',
       route: '/hod',
       icon: GraduationCap,
-      gradient: 'from-green-500 to-emerald-600',
-      bgGradient: 'from-green-50 to-emerald-50',
-      borderColor: 'border-green-200',
-      textColor: 'text-green-700',
-      iconBg: 'bg-green-100',
-      email: 'hod@nacos.jabu.edu.ng'
+      email: 'lawal.jabu.edu.ng',
+      linkedin: '#',
+      image_url: '/images/HOD.jpg'
     },
     {
       id: 'president',
@@ -27,12 +24,9 @@ const LeadershipSection = () => {
       description: 'Leading NACOS with vision and passion for tech innovation and student excellence.',
       route: '/president',
       icon: Crown,
-      gradient: 'from-yellow-500 to-orange-500',
-      bgGradient: 'from-yellow-50 to-orange-50',
-      borderColor: 'border-yellow-200',
-      textColor: 'text-yellow-700',
-      iconBg: 'bg-yellow-100',
-      email: 'president@nacos.jabu.edu.ng'
+      email: 'omoniyiolalekan@nacos.jabu.edu.ng',
+      linkedin: '#',
+      image_url: '/images/Duduyemi.jpg'
     },
     {
       id: 'chairman',
@@ -41,242 +35,126 @@ const LeadershipSection = () => {
       description: 'Driving strategic vision and fostering innovation within the NACOS community.',
       route: '/executive-chairman',
       icon: Star,
-      gradient: 'from-blue-500 to-indigo-600',
-      bgGradient: 'from-blue-50 to-indigo-50',
-      borderColor: 'border-blue-200',
-      textColor: 'text-blue-700',
-      iconBg: 'bg-blue-100',
-      email: 'chairman@nacos.jabu.edu.ng'
+      email: 'chairman@nacos.jabu.edu.ng',
+      linkedin: '#',
+      image_url: '/images/Michael2.jpg'
     }
   ];
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-background via-primary/5 to-accent/10 relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-24 h-24 border-2 border-accent rounded-lg rotate-45 animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border-2 border-secondary rounded-full animate-spin"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
+    <section className="py-16 px-4 bg-gradient-to-br from-background to-primary/5">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          <motion.h2 
-            className="text-5xl font-bold font-orbitron mb-6 text-primary"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            Our Leadership Team
-          </motion.h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-exo leading-relaxed">
+          <div className="flex items-center justify-center mb-4">
+            <Users className="h-12 w-12 text-primary mr-3" />
+            <h2 className="text-4xl font-bold font-orbitron text-primary">
+              Our Leadership Team
+            </h2>
+          </div>
+          <p className="text-muted-foreground font-exo text-lg max-w-2xl mx-auto">
             Meet the visionary leaders driving NACOS to new heights of excellence and innovation
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          {leaders.map((leader, index) => {
-            const Icon = leader.icon;
-            return (
-              <motion.div
-                key={leader.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-              >
-                <motion.div
-                  whileHover={{ 
-                    scale: 1.05,
-                    rotateY: 5,
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                  className="h-full"
-                >
-                  <Card className={`${leader.borderColor} bg-gradient-to-br ${leader.bgGradient} hover:shadow-2xl transition-all duration-500 relative overflow-hidden group h-full cursor-pointer`}>
-                    {/* Animated Background Pattern */}
-                    <div className="absolute inset-0 opacity-20">
-                      <motion.div 
-                        className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${leader.gradient} rounded-full transform translate-x-20 -translate-y-20`}
-                        animate={{ 
-                          scale: [1, 1.2, 1],
-                          rotate: [0, 180, 360]
-                        }}
-                        transition={{ 
-                          duration: 8,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                      <motion.div 
-                        className={`absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br ${leader.gradient} rounded-lg transform -translate-x-16 translate-y-16 rotate-45`}
-                        animate={{ 
-                          scale: [1, 1.1, 1],
-                          rotate: [45, 225, 45]
-                        }}
-                        transition={{ 
-                          duration: 6,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: 1
-                        }}
-                      />
-                    </div>
-
-                    <CardHeader className="text-center relative z-10">
-                      <motion.div 
-                        className={`w-32 h-32 mx-auto mb-8 rounded-2xl bg-gradient-to-br ${leader.gradient} flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-500 relative`}
-                        initial={{ opacity: 0, scale: 0.5, rotateY: -180 }}
-                        whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-                        transition={{ 
-                          duration: 0.8, 
-                          delay: index * 0.15,
-                          type: "spring",
-                          stiffness: 100
-                        }}
-                        viewport={{ once: true }}
-                        whileHover={{ 
-                          rotate: [0, 5, -5, 0],
-                          scale: 1.1
-                        }}
-                      >
-                        <Icon className="h-16 w-16 text-white drop-shadow-2xl" />
-                        
-                        {/* Floating particles around icon */}
-                        <div className="absolute inset-0">
-                          {[...Array(6)].map((_, i) => (
-                            <motion.div
-                              key={i}
-                              className="absolute w-2 h-2 bg-white/60 rounded-full"
-                              style={{
-                                left: `${20 + Math.cos(i * 60 * Math.PI / 180) * 40}%`,
-                                top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 40}%`,
-                              }}
-                              animate={{
-                                scale: [0, 1, 0],
-                                opacity: [0, 1, 0],
-                              }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                delay: i * 0.3,
-                              }}
-                            />
-                          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+          {leaders.map((leader, index) => (
+            <motion.div
+              key={leader.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <Card className="h-full bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 hover:shadow-xl transition-all duration-300 group overflow-hidden">
+                
+                <CardHeader className="text-center pb-2">
+                  <div className="relative">
+                    {/* Image Container */}
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
+                      {leader.image_url ? (
+                        <img
+                          src={leader.image_url}
+                          alt={leader.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-blue-400/20 flex items-center justify-center">
+                          <leader.icon className="h-12 w-12 text-primary" />
                         </div>
-                      </motion.div>
-                      
-                      <CardTitle className={`text-3xl font-orbitron ${leader.textColor} mb-4 group-hover:scale-105 transition-transform duration-300`}>
-                        {leader.name}
-                      </CardTitle>
-                      
-                      <motion.div 
-                        className={`inline-block px-6 py-3 bg-gradient-to-r ${leader.gradient} text-white rounded-full text-lg font-rajdhani font-semibold shadow-lg`}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        {leader.position}
-                      </motion.div>
-                    </CardHeader>
-
-                    <CardContent className="text-center space-y-6 relative z-10">
-                      <p className={`${leader.textColor} font-exo text-lg leading-relaxed`}>
-                        {leader.description}
-                      </p>
-
-                      {/* Contact Info */}
-                      <div className="flex justify-center space-x-4">
-                        <motion.div
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          className={`p-3 ${leader.iconBg} rounded-full`}
-                        >
-                          <Mail className={`h-5 w-5 ${leader.textColor}`} />
-                        </motion.div>
-                        <motion.div
-                          whileHover={{ scale: 1.1, rotate: -5 }}
-                          className={`p-3 ${leader.iconBg} rounded-full`}
-                        >
-                          <Linkedin className={`h-5 w-5 ${leader.textColor}`} />
-                        </motion.div>
-                      </div>
-
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Button 
-                          asChild
-                          className={`w-full bg-gradient-to-r ${leader.gradient} hover:shadow-xl text-white font-rajdhani font-semibold text-lg py-6 rounded-xl transition-all duration-300 relative z-50`}
-                        >
-                          <Link to={leader.route}>
-                            Meet {leader.position.split(' ')[0]}
-                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                          </Link>
-                        </Button>
-                      </motion.div>
-                    </CardContent>
-
-                    {/* Hover Glow Effect */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${leader.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-lg`}></div>
-                  </Card>
-                </motion.div>
-              </motion.div>
-            );
-          })}
+                      )}
+                    </div>
+                    
+                    {/* Position Badge */}
+                    <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                      #{index + 1}
+                    </div>
+                  </div>
+                  
+                  <CardTitle className="font-orbitron text-xl group-hover:text-primary transition-colors duration-300 mb-2">
+                    {leader.name}
+                  </CardTitle>
+                  <p className="text-primary font-rajdhani font-semibold text-lg">{leader.position}</p>
+                </CardHeader>
+                
+                <CardContent className="space-y-4">
+                  <div className="text-center">
+                    <p className="text-muted-foreground font-exo text-sm leading-relaxed">
+                      {leader.description}
+                    </p>
+                  </div>
+                  
+                  {/* Contact Info */}
+                  <div className="flex justify-center space-x-4">
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="p-2 bg-primary/10 rounded-full cursor-pointer"
+                    >
+                      <Mail className="h-4 w-4 text-primary" />
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="p-2 bg-primary/10 rounded-full cursor-pointer"
+                    >
+                      <Linkedin className="h-4 w-4 text-primary" />
+                    </motion.div>
+                  </div>
+                  
+                  <div className="text-center space-y-3">
+                    <Button 
+                      asChild
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani font-semibold"
+                    >
+                      <Link to={leader.route}>
+                        Meet {leader.position.split(' ')[0]}
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </div>
 
-        {/* General Executives Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
-          <Card className="border-primary/20 bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 relative overflow-hidden">
-            {/* Background Animation */}
-            <div className="absolute inset-0">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-secondary animate-pulse"></div>
-              <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-l from-primary via-accent to-secondary animate-pulse"></div>
-            </div>
-
-            <CardContent className="p-12 relative z-10">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="mb-8"
-              >
-                <Users className="h-16 w-16 text-primary mx-auto mb-6" />
-              </motion.div>
-              
-              <h3 className="text-3xl font-bold text-primary mb-4 font-orbitron">
-                Meet Our Executive Team
-              </h3>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto font-exo">
-                Discover the passionate individuals who make NACOS a thriving community of tech innovators and leaders
-              </p>
-              
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex justify-center"
-              >
-                <Button 
-                  asChild
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani font-semibold text-xl px-12 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300"
-                >
-                  <Link to="/executives">
-                    Explore All Executives
-                    <ArrowRight className="ml-3 h-6 w-6" />
-                  </Link>
-                </Button>
-              </motion.div>
-            </CardContent>
-          </Card>
+          <Button 
+            asChild 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <Link to="/executives">
+              Explore All Executives
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
