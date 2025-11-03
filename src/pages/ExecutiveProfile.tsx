@@ -26,7 +26,7 @@ const sampleExecutives: Executive[] = [
     position: 'Vice President ⚡',
     bio: 'Supporting the president in strategic planning and execution. Skilled in leadership and community building with a focus on tech education.',
     email: 'vice@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2349023676717',
+    whatsapp: 'https://wa.me/2349023676717',
     image_url: '/images/Joshua.jpg',
     order_index: 3
   },
@@ -36,7 +36,7 @@ const sampleExecutives: Executive[] = [
     position: 'General Secretary 📝',
     bio: 'Organizing and coordinating all NACOS activities with precision. Expert in project management and software engineering.',
     email: 'secretary@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2349052648598',
+    whatsapp: 'https://wa.me/2349052648598',
     image_url: '/images/Mavel.jpg',
     order_index: 4
   },
@@ -46,7 +46,7 @@ const sampleExecutives: Executive[] = [
     position: 'Assistant General Secretary 📋',
     bio: 'Assisting in administrative duties and record-keeping. Detail-oriented with strong organizational skills and tech proficiency.',
     email: 'asst-secretary@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2347066233133',
+    whatsapp: 'https://wa.me/2347066233133',
     image_url: '/images/Wonderful.jpg',
     order_index: 5
   },
@@ -56,7 +56,7 @@ const sampleExecutives: Executive[] = [
     position: 'Financial Secretary 💰',
     bio: 'Managing financial resources and ensuring transparency in all transactions. FinTech enthusiast and blockchain developer.',
     email: 'financial@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2348165404079',
+    whatsapp: 'https://wa.me/2348165404079',
     image_url: '/images/Isaac.jpg',
     order_index: 6
   },
@@ -66,7 +66,7 @@ const sampleExecutives: Executive[] = [
     position: 'Treasurer 💳',
     bio: 'A treasurer\'s duty goes beyond counting coins - it\'s about safeguarding your money and securing your trust.',
     email: 'treasurer@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2349130632107',
+    whatsapp: 'https://wa.me/2349130632107',
     image_url: '/images/Daniel.jpg',
     order_index: 7
   },
@@ -76,7 +76,7 @@ const sampleExecutives: Executive[] = [
     position: 'Software Director 💻',
     bio: 'Overseeing software development initiatives and hackathons. Full-stack developer passionate about open-source contributions.',
     email: 'software@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2348109750586',
+    whatsapp: 'https://wa.me/2348109750586',
     image_url: '/images/Idris.jpg',
     order_index: 8
   },
@@ -86,7 +86,7 @@ const sampleExecutives: Executive[] = [
     position: 'Assistant Software Director 🔧',
     bio: 'Supporting software projects and mentoring junior developers. Specializes in frontend technologies and agile methodologies.',
     email: 'asst-software@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2348105974559',
+    whatsapp: 'https://wa.me/2348105974559',
     image_url: '/images/Emmanuel.jpg',
     order_index: 9
   },
@@ -96,7 +96,7 @@ const sampleExecutives: Executive[] = [
     position: 'Sports Director 🏃‍♂️',
     bio: 'Promoting physical wellness and team-building through sports events. Fitness enthusiast and data analyst.',
     email: 'sports@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2349153866417',
+    whatsapp: 'https://wa.me/2349153866417',
     image_url: '/images/Peter.jpg',
     order_index: 10
   },
@@ -106,7 +106,7 @@ const sampleExecutives: Executive[] = [
     position: 'Assistant Sports Director ⚽',
     bio: 'Coordinating sports activities and tournaments. Passionate about sports tech and community health initiatives.',
     email: 'asst-sports@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2341234567890',
+    whatsapp: 'https://wa.me/2341234567890',
     image_url: '/images/Sayo.jpg',
     order_index: 11
   },
@@ -116,7 +116,7 @@ const sampleExecutives: Executive[] = [
     position: 'Social Director 🎉',
     bio: 'Creating memorable experiences and fostering community spirit. Event management and UX design specialist.',
     email: 'social@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2348123401559',
+    whatsapp: 'https://wa.me/2348123401559',
     image_url: '/images/Toni.jpg',
     order_index: 12
   },
@@ -126,7 +126,7 @@ const sampleExecutives: Executive[] = [
     position: 'Assistant Social Director 🎊',
     bio: 'Assisting in event planning and social media engagement. Creative mind with experience in digital marketing.',
     email: 'asst-social@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2349132041854',
+    whatsapp: 'https://wa.me/2349132041854',
     image_url: '/images/Abigail.jpg',
     order_index: 13
   },
@@ -136,7 +136,7 @@ const sampleExecutives: Executive[] = [
     position: 'Welfare Director ❤️',
     bio: 'Ensuring member well-being and support systems. Counselor with background in health informatics.',
     email: 'welfare@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2349034832416',
+    whatsapp: 'https://wa.me/2349034832416',
     image_url: '/images/Prisca.jpg',
     order_index: 14
   },
@@ -146,7 +146,7 @@ const sampleExecutives: Executive[] = [
     position: 'Assistant Welfare Director 🤝',
     bio: 'Supporting welfare programs and member outreach. Community organizer skilled in conflict resolution.',
     email: 'asst-welfare@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2347049791487',
+    whatsapp: 'https://wa.me/2347049791487',
     image_url: '/images/Jemmy.jpg',
     order_index: 15
   },
@@ -156,7 +156,7 @@ const sampleExecutives: Executive[] = [
     position: 'Chief Whip 🔗',
     bio: 'Ensuring discipline and unity within the executive team. Legal studies background with tech interests.',
     email: 'whip@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2348110370937',
+    whatsapp: 'https://wa.me/2348110370937',
     image_url: '/images/Lovelyn.jpg',
     order_index: 16
   },
@@ -166,7 +166,7 @@ const sampleExecutives: Executive[] = [
     position: 'Media Director 📸',
     bio: 'Managing media coverage and publicity for NACOS events. Multimedia specialist and video editor.',
     email: 'media@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2349031708433',
+    whatsapp: 'https://wa.me/2349031708433',
     image_url: '/images/Precious.jpg',
     order_index: 17
   },
@@ -176,7 +176,7 @@ const sampleExecutives: Executive[] = [
     position: 'Public Relations Officer 📢',
     bio: 'Building bridges between NACOS and the broader tech community. Social media strategist and content creator.',
     email: 'pro@nacos.jabu.edu.ng',
-    whatsapp: 'https://wa.me/+2348139707757',
+    whatsapp: 'https://wa.me/2348139707757',
     image_url: '/images/Wendy.jpg',
     order_index: 18
   }
@@ -199,6 +199,16 @@ const ExecutiveProfile = () => {
 
     return () => clearTimeout(timer);
   }, [id]);
+
+  // Function to handle WhatsApp click
+  const handleWhatsAppClick = (whatsappUrl: string) => {
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  // Function to handle Email click
+  const handleEmailClick = (email: string) => {
+    window.location.href = `mailto:${email}`;
+  };
 
   if (loading) {
     return (
@@ -242,7 +252,7 @@ const ExecutiveProfile = () => {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute text-hero-accent/20 font-mono text-xs"
+            className="absolute text-emerald-400/20 font-mono text-xs"
             style={{
               left: `${Math.random() * 100}%`,
               top: `-10%`,
@@ -262,9 +272,9 @@ const ExecutiveProfile = () => {
         ))}
         
         {/* Glowing orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-hero-accent/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 right-1/3 w-72 h-72 bg-hero-accent/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/2 right-1/3 w-72 h-72 bg-emerald-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Hero Section */}
@@ -277,7 +287,7 @@ const ExecutiveProfile = () => {
           >
             <Link to="/executives">
               <Button 
-                className="mb-6 lg:mb-8 border-2 border-hero-accent/50 bg-black/50 text-hero-accent hover:bg-hero-accent/10 backdrop-blur-sm text-sm lg:text-base font-mono shadow-[0_0_15px_rgba(var(--hero-accent),0.3)]"
+                className="mb-6 lg:mb-8 border-2 border-emerald-400/50 bg-black/50 text-emerald-400 hover:bg-emerald-400/10 backdrop-blur-sm text-sm lg:text-base font-mono shadow-[0_0_15px_rgba(16,185,129,0.3)]"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 {'<'} BACK_TO_EXECUTIVES
@@ -299,26 +309,26 @@ const ExecutiveProfile = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <Badge 
-                  className="text-sm lg:text-lg px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-hero-accent to-primary border-0 text-white backdrop-blur-sm font-mono shadow-[0_0_20px_rgba(var(--hero-accent),0.4)]"
+                  className="text-sm lg:text-lg px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-emerald-500 to-green-500 border-0 text-white backdrop-blur-sm font-mono shadow-[0_0_20px_rgba(16,185,129,0.4)]"
                 >
                   {executive.position}
                 </Badge>
               </motion.div>
               
               <motion.h1 
-                className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 lg:mb-6 leading-tight bg-gradient-to-r from-hero-accent via-white to-hero-accent bg-clip-text text-transparent font-orbitron"
+                className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 lg:mb-6 leading-tight bg-gradient-to-r from-emerald-400 via-white to-emerald-400 bg-clip-text text-transparent font-orbitron"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
                 style={{
-                  textShadow: '0 0 30px rgba(var(--hero-accent), 0.3)'
+                  textShadow: '0 0 30px rgba(16,185,129,0.3)'
                 }}
               >
                 {executive.name}
               </motion.h1>
               
               <motion.p 
-                className="text-base lg:text-xl text-gray-300 leading-relaxed mb-6 lg:mb-8 border-l-4 border-hero-accent pl-4 font-exo"
+                className="text-base lg:text-xl text-gray-300 leading-relaxed mb-6 lg:mb-8 border-l-4 border-emerald-400 pl-4 font-exo"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
@@ -336,7 +346,8 @@ const ExecutiveProfile = () => {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
                       size="lg" 
-                      className="w-full border-2 border-hero-accent/50 bg-hero-accent hover:bg-hero-accent/90 text-primary font-mono font-semibold text-sm lg:text-base shadow-[0_0_20px_rgba(var(--hero-accent),0.3)]"
+                      className="w-full border-2 border-emerald-400/50 bg-emerald-500 hover:bg-emerald-600 text-white font-mono font-semibold text-sm lg:text-base shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                      onClick={() => handleEmailClick(executive.email)}
                     >
                       <Mail className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       Email
@@ -347,7 +358,8 @@ const ExecutiveProfile = () => {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1">
                     <Button 
                       size="lg" 
-                      className="w-full border-2 border-hero-accent/50 bg-black/50 text-hero-accent hover:bg-hero-accent/10 font-mono font-semibold text-sm lg:text-base shadow-[0_0_15px_rgba(var(--hero-accent),0.2)]"
+                      className="w-full border-2 border-emerald-400/50 bg-black/50 text-emerald-400 hover:bg-emerald-400/10 font-mono font-semibold text-sm lg:text-base shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+                      onClick={() => handleWhatsAppClick(executive.whatsapp)}
                     >
                       <MessageCircle className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                       WhatsApp
@@ -367,16 +379,16 @@ const ExecutiveProfile = () => {
                 <motion.div
                   animate={{ 
                     boxShadow: [
-                      "0 0 20px rgba(var(--hero-accent), 0.4)",
-                      "0 0 40px rgba(var(--hero-accent), 0.6)",
-                      "0 0 20px rgba(var(--hero-accent), 0.4)",
+                      "0 0 20px rgba(16,185,129,0.4)",
+                      "0 0 40px rgba(16,185,129,0.6)",
+                      "0 0 20px rgba(16,185,129,0.4)",
                     ]
                   }}
                   transition={{ 
                     duration: 3,
                     repeat: Infinity
                   }}
-                  className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-lg bg-gradient-to-br from-hero-accent/20 via-primary/20 to-hero-accent/10 backdrop-blur-xl flex items-center justify-center overflow-hidden border-2 border-hero-accent/50 shadow-2xl"
+                  className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-lg bg-gradient-to-br from-emerald-400/20 via-primary/20 to-emerald-400/10 backdrop-blur-xl flex items-center justify-center overflow-hidden border-2 border-emerald-400/50 shadow-2xl"
                   whileHover={{ scale: 1.03 }}
                 >
                   {executive.image_url ? (
@@ -387,15 +399,15 @@ const ExecutiveProfile = () => {
                     />
                   ) : (
                     <div className="text-center">
-                      <Users className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 text-hero-accent/60 mx-auto mb-4" />
-                      <span className="text-hero-accent/60 text-lg font-light font-mono">Profile Photo</span>
+                      <Users className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 text-emerald-400/60 mx-auto mb-4" />
+                      <span className="text-emerald-400/60 text-lg font-light font-mono">Profile Photo</span>
                     </div>
                   )}
                   {/* Tech overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-hero-accent/10 to-transparent mix-blend-overlay" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 to-transparent mix-blend-overlay" />
                 </motion.div>
                 {/* Glowing border effect */}
-                <div className="absolute inset-0 rounded-lg bg-hero-accent/20 blur-xl -z-10 animate-pulse" />
+                <div className="absolute inset-0 rounded-lg bg-emerald-400/20 blur-xl -z-10 animate-pulse" />
               </div>
             </motion.div>
           </div>
@@ -413,9 +425,9 @@ const ExecutiveProfile = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <Card className="border-2 border-hero-accent/30 bg-black/60 backdrop-blur-xl shadow-[0_0_40px_rgba(var(--hero-accent),0.2)]">
+              <Card className="border-2 border-emerald-400/30 bg-black/60 backdrop-blur-xl shadow-[0_0_40px_rgba(16,185,129,0.2)]">
                 <CardHeader>
-                  <CardTitle className="text-2xl lg:text-3xl text-hero-accent flex items-center gap-3 font-orbitron">
+                  <CardTitle className="text-2xl lg:text-3xl text-emerald-400 flex items-center gap-3 font-orbitron">
                     <Zap className="h-6 w-6 lg:h-8 lg:w-8" />
                     About {executive.name.split(' ')[0]}
                   </CardTitle>
@@ -491,14 +503,15 @@ const ExecutiveProfile = () => {
                     {executive.email && (
                       <motion.div 
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-4 p-4 lg:p-6 bg-emerald-500/10 rounded-xl border border-emerald-400/20"
+                        className="flex items-center gap-4 p-4 lg:p-6 bg-emerald-500/10 rounded-xl border border-emerald-400/20 cursor-pointer"
+                        onClick={() => handleEmailClick(executive.email)}
                       >
                         <Mail className="h-6 w-6 lg:h-8 lg:w-8 text-emerald-400" />
                         <div>
                           <p className="font-medium text-emerald-400 text-lg">Email</p>
-                          <a href={`mailto:${executive.email}`} className="text-emerald-100 hover:text-emerald-300 transition-colors break-all">
+                          <p className="text-emerald-100 hover:text-emerald-300 transition-colors break-all">
                             {executive.email}
-                          </a>
+                          </p>
                         </div>
                       </motion.div>
                     )}
@@ -506,19 +519,15 @@ const ExecutiveProfile = () => {
                     {executive.whatsapp && (
                       <motion.div 
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-4 p-4 lg:p-6 bg-green-500/10 rounded-xl border border-green-400/20"
+                        className="flex items-center gap-4 p-4 lg:p-6 bg-green-500/10 rounded-xl border border-green-400/20 cursor-pointer"
+                        onClick={() => handleWhatsAppClick(executive.whatsapp)}
                       >
                         <MessageCircle className="h-6 w-6 lg:h-8 lg:w-8 text-green-400" />
                         <div>
                           <p className="font-medium text-green-400 text-lg">WhatsApp</p>
-                          <a 
-                            href={executive.whatsapp} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-green-100 hover:text-green-300 transition-colors break-all"
-                          >
+                          <p className="text-green-100 hover:text-green-300 transition-colors break-all">
                             Chat on WhatsApp
-                          </a>
+                          </p>
                         </div>
                       </motion.div>
                     )}
