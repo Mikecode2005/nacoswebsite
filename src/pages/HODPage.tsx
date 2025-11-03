@@ -146,8 +146,8 @@ const HODPage = () => {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <p className="text-lg leading-relaxed text-gray-700">
-                    With a PhD in Computer Science and specialization in AI and Machine Learning, 
-                    Dr. Kolawole leads the department with a perfect blend of academic rigor and 
+                    With a Top degree in Computer Science and specialization in AI and Machine Learning, 
+                    Mr Lawal leads the department with a perfect blend of academic rigor and 
                     industry relevance. His vision is to produce graduates who are not just 
                     academically sound but industry-ready and innovation-driven.
                   </p>
@@ -285,17 +285,17 @@ const HODPage = () => {
                 <CardContent className="space-y-4">
                   <div>
                     <p className="font-medium text-green-700">Qualification</p>
-                    <p className="text-green-600">PhD in Computer Science</p>
+                    <p className="text-green-600">Masters in Computer Science</p>
                   </div>
                   
                   <div>
                     <p className="font-medium text-green-700">Specialization</p>
-                    <p className="text-green-600">AI & Machine Learning</p>
+                    <p className="text-green-600">Numerical Computing</p>
                   </div>
                   
                   <div>
                     <p className="font-medium text-green-700">Office Hours</p>
-                    <p className="text-green-600">Mon-Fri, 9:00 AM - 5:00 PM</p>
+                    <p className="text-green-600">Mon-Fri, 9:00 AM - 4:00 PM</p>
                   </div>
                   
                   <div>
