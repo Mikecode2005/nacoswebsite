@@ -81,7 +81,7 @@ const HODPage = () => {
                 </div>
                 
                 <h1 className="text-6xl font-bold mb-6 leading-tight">
-                  {hod ? hod.name : "Dr. Adebayo Kolawole"}
+                  {hod ? hod.name : "Mr Lawal"}
                 </h1>
                 
                 <p className="text-xl text-white/90 leading-relaxed mb-8">
@@ -115,11 +115,12 @@ const HODPage = () => {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="text-center">
-                        <GraduationCap className="h-24 w-24 text-green-300/80 mx-auto mb-4" />
-                        <span className="text-white/60 text-lg">HOD's Photo</span>
-                      </div>
-                    )}
+                      <img 
+                                              src="/images/HOD.jpg" 
+                                              alt="MR LAWAL"
+                                              className="w-full h-full object-cover"
+                                            />
+                                          )}
                   </div>
                   <div className="absolute -top-4 -right-4 w-20 h-20 bg-green-400 rounded-full flex items-center justify-center border-4 border-white">
                     <GraduationCap className="h-10 w-10 text-green-900" />
