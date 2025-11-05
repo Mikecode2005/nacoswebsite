@@ -1,82 +1,35 @@
-import { useEffect, useState } from "react";
-import { Crown, Trophy, Star, Medal, Users, GraduationCap } from "lucide-react";
+import { Crown, Users, GraduationCap, Clock, Sparkles, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { supabase } from "@/integrations/supabase/client";
-
-interface HallOfFameMember {
-  id: string;
-  name: string;
-  achievement: string;
-  category: string;
-  gpa?: string;
-  year: string;
-  project?: string;
-  department?: string;
-  specialization?: string;
-  image_url?: string;
-  bio?: string;
-  rank_position: number;
-}
 
 const HallOfFame = () => {
-  const [students, setStudents] = useState<HallOfFameMember[]>([]);
-  const [lecturers, setLecturers] = useState<HallOfFameMember[]>([]);
-  const [loading, setLoading] = useState(true);
+  const ComingSoonCard = ({ title, description, icon: Icon }: { title: string; description: string; icon: React.ElementType }) => (
+    <Card className="relative overflow-hidden border-2 border-dashed border-primary/30 hover:border-primary/50 transition-all duration-500 group">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-center space-x-3">
+          <div className="p-3 rounded-full bg-primary/10 border border-primary/20 group-hover:scale-110 transition-transform duration-300">
+            <Icon className="h-8 w-8 text-primary/60" />
+          </div>
+        </div>
+      </CardHeader>
 
-  useEffect(() => {
-    fetchHallOfFameData();
-  }, []);
-
-  const fetchHallOfFameData = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('hall_of_fame')
-        .select('*')
-        .order('rank_position', { ascending: true });
-
-      if (error) throw error;
-
-      const studentsData = data?.filter(member => member.category === 'student') || [];
-      const lecturersData = data?.filter(member => member.category === 'lecturer') || [];
-
-      setStudents(studentsData);
-      setLecturers(lecturersData);
-    } catch (error) {
-      console.error('Error fetching hall of fame data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getRankIcon = (rank: number) => {
-    switch (rank) {
-      case 1:
-        return <Crown className="h-6 w-6 text-yellow-500" />;
-      case 2:
-        return <Trophy className="h-6 w-6 text-gray-400" />;
-      case 3:
-        return <Medal className="h-6 w-6 text-amber-600" />;
-      default:
-        return <Star className="h-6 w-6 text-primary" />;
-    }
-  };
-
-  const getRankColor = (rank: number) => {
-    switch (rank) {
-      case 1:
-        return "bg-gradient-to-br from-yellow-500 to-orange-500";
-      case 2:
-        return "bg-gradient-to-br from-gray-400 to-gray-600";
-      case 3:
-        return "bg-gradient-to-br from-amber-600 to-orange-700";
-      default:
-        return "bg-gradient-to-br from-primary/20 to-primary/30";
-    }
-  };
+      <CardContent className="text-center">
+        <CardTitle className="text-xl text-primary mb-3 font-orbitron">{title}</CardTitle>
+        <p className="text-muted-foreground font-exo mb-4">{description}</p>
+        
+        <div className="flex items-center justify-center space-x-2 text-primary/60">
+          <Clock className="h-4 w-4 animate-pulse" />
+          <span className="text-sm font-rajdhani font-semibold">Coming Soon</span>
+          <Sparkles className="h-4 w-4 animate-pulse" />
+        </div>
+      </CardContent>
+    </Card>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -88,8 +41,8 @@ const HallOfFame = () => {
             <h1 className="text-4xl font-bold text-primary">Hall of Fame</h1>
           </div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Celebrating our exceptional students who have demonstrated outstanding academic excellence, 
-            innovation, and leadership in Computer Science.
+            Get ready to witness excellence! Our Hall of Fame is preparing to showcase the extraordinary achievements 
+            of our brightest students and most distinguished lecturers.
           </p>
         </div>
 
@@ -97,146 +50,85 @@ const HallOfFame = () => {
           <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="students" className="flex items-center space-x-2">
               <GraduationCap className="h-4 w-4" />
-              <span>Students</span>
+              <span>Top Students</span>
             </TabsTrigger>
             <TabsTrigger value="lecturers" className="flex items-center space-x-2">
               <Users className="h-4 w-4" />
-              <span>Lecturers</span>
+              <span>Distinguished Lecturers</span>
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="students">
-            <div className="grid gap-6">
-              {loading ? (
-                <div className="flex justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                </div>
-              ) : students.length > 0 ? (
-                students.map((student) => (
-                  <Card 
-                    key={student.id} 
-                    className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
-                      student.rank_position <= 3 ? 'border-2 border-primary/30' : ''
-                    }`}
-                  >
-                    <div className={`absolute top-0 left-0 w-full h-2 ${getRankColor(student.rank_position)}`} />
-                    
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className={`p-3 rounded-full ${getRankColor(student.rank_position)}`}>
-                            {getRankIcon(student.rank_position)}
-                          </div>
-                          <div>
-                            <CardTitle className="text-xl text-primary font-orbitron">{student.name}</CardTitle>
-                            <p className="text-muted-foreground font-exo">Class of {student.year}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <Badge variant={student.rank_position <= 3 ? "default" : "secondary"} className="text-lg px-3 py-1 font-rajdhani">
-                            #{student.rank_position}
-                          </Badge>
-                        </div>
-                      </div>
-                    </CardHeader>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <ComingSoonCard
+                title="Academic Excellence"
+                description="Celebrating students with outstanding academic performance and remarkable CGPA achievements"
+                icon={GraduationCap}
+              />
+              
+              <ComingSoonCard
+                title="Innovation Leaders"
+                description="Spotlighting students who have created groundbreaking projects and technological innovations"
+                icon={Target}
+              />
+              
+              <ComingSoonCard
+                title="Research Pioneers"
+                description="Recognizing students who have contributed significantly to research and development"
+                icon={Sparkles}
+              />
+            </div>
 
-                    <CardContent>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <h4 className="font-semibold text-primary mb-2 font-rajdhani">Achievement</h4>
-                          <p className="text-muted-foreground mb-3 font-exo">{student.achievement}</p>
-                          
-                          {student.project && (
-                            <>
-                              <h4 className="font-semibold text-primary mb-2 font-rajdhani">Final Year Project</h4>
-                              <p className="text-muted-foreground font-exo">{student.project}</p>
-                            </>
-                          )}
-                        </div>
-                        
-                        <div className="flex items-center justify-center">
-                          <div className="text-center p-6 bg-primary/5 rounded-lg border border-primary/20">
-                            <div className="text-3xl font-bold text-primary mb-1 font-orbitron">{student.gpa}</div>
-                            <div className="text-sm text-muted-foreground font-exo">CGPA</div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
-                <Card className="text-center py-12">
-                  <CardContent>
-                    <GraduationCap className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-primary mb-2 font-rajdhani">No Students Yet</h3>
-                    <p className="text-muted-foreground font-exo">Outstanding students will be added to the hall of fame.</p>
-                  </CardContent>
-                </Card>
-              )}
+            <div className="mt-12 text-center">
+              <Card className="max-w-2xl mx-auto bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+                <CardContent className="p-8">
+                  <div className="flex items-center justify-center mb-4">
+                    <Clock className="h-8 w-8 text-primary mr-3 animate-pulse" />
+                    <h3 className="text-2xl font-bold text-primary">First Edition Coming Soon</h3>
+                  </div>
+                  <p className="text-muted-foreground text-lg">
+                    We're curating the inaugural Hall of Fame to celebrate our department's finest achievements. 
+                    Stay tuned for the big reveal!
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 
           <TabsContent value="lecturers">
-            <div className="grid gap-6">
-              {loading ? (
-                <div className="flex justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                </div>
-              ) : lecturers.length > 0 ? (
-                lecturers.map((lecturer) => (
-                  <Card 
-                    key={lecturer.id} 
-                    className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
-                      lecturer.rank_position <= 3 ? 'border-2 border-primary/30' : ''
-                    }`}
-                  >
-                    <div className={`absolute top-0 left-0 w-full h-2 ${getRankColor(lecturer.rank_position)}`} />
-                    
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className={`p-3 rounded-full ${getRankColor(lecturer.rank_position)}`}>
-                            {getRankIcon(lecturer.rank_position)}
-                          </div>
-                          <div>
-                            <CardTitle className="text-xl text-primary font-orbitron">{lecturer.name}</CardTitle>
-                            <p className="text-muted-foreground font-exo">
-                              {lecturer.department} {lecturer.specialization && `• ${lecturer.specialization}`}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <Badge variant={lecturer.rank_position <= 3 ? "default" : "secondary"} className="text-lg px-3 py-1 font-rajdhani">
-                            #{lecturer.rank_position}
-                          </Badge>
-                        </div>
-                      </div>
-                    </CardHeader>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <ComingSoonCard
+                title="Teaching Excellence"
+                description="Honoring lecturers who have demonstrated exceptional teaching methodologies and student mentorship"
+                icon={Users}
+              />
+              
+              <ComingSoonCard
+                title="Research Contributions"
+                description="Recognizing faculty members with significant research publications and academic contributions"
+                icon={Target}
+              />
+              
+              <ComingSoonCard
+                title="Industry Impact"
+                description="Celebrating lecturers who have made substantial impact in the industry and community"
+                icon={Sparkles}
+              />
+            </div>
 
-                    <CardContent>
-                      <div>
-                        <h4 className="font-semibold text-primary mb-2 font-rajdhani">Achievement</h4>
-                        <p className="text-muted-foreground mb-3 font-exo">{lecturer.achievement}</p>
-                        
-                        {lecturer.bio && (
-                          <>
-                            <h4 className="font-semibold text-primary mb-2 font-rajdhani">Biography</h4>
-                            <p className="text-muted-foreground font-exo">{lecturer.bio}</p>
-                          </>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
-                <Card className="text-center py-12">
-                  <CardContent>
-                    <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-primary mb-2 font-rajdhani">No Lecturers Yet</h3>
-                    <p className="text-muted-foreground font-exo">Distinguished lecturers will be added to the hall of fame.</p>
-                  </CardContent>
-                </Card>
-              )}
+            <div className="mt-12 text-center">
+              <Card className="max-w-2xl mx-auto bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+                <CardContent className="p-8">
+                  <div className="flex items-center justify-center mb-4">
+                    <Clock className="h-8 w-8 text-primary mr-3 animate-pulse" />
+                    <h3 className="text-2xl font-bold text-primary">Faculty Recognition Coming Soon</h3>
+                  </div>
+                  <p className="text-muted-foreground text-lg">
+                    We're preparing to honor our distinguished lecturers and their incredible contributions 
+                    to computer science education and research.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
         </Tabs>
@@ -244,11 +136,17 @@ const HallOfFame = () => {
         <div className="mt-16 text-center">
           <Card className="max-w-2xl mx-auto bg-primary/5 border-primary/20">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-primary mb-4">Join the Hall of Fame</h3>
-              <p className="text-muted-foreground">
-                Work hard, innovate, and excel in your studies to be recognized among our top performers. 
-                The Hall of Fame is updated annually to celebrate our most outstanding students.
+              <div className="flex items-center justify-center mb-4">
+                <Sparkles className="h-8 w-8 text-primary mr-3" />
+                <h3 className="text-2xl font-bold text-primary">Be Part of History</h3>
+              </div>
+              <p className="text-muted-foreground text-lg mb-4">
+                This is your chance to be among the first to be featured in our Hall of Fame. 
+                Excel in your studies, innovate, and make your mark!
               </p>
+              <Badge variant="secondary" className="px-4 py-2 text-sm">
+                Launching Soon • Stay Tuned
+              </Badge>
             </CardContent>
           </Card>
         </div>
