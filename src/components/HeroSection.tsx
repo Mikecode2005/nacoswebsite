@@ -296,40 +296,6 @@ const HeroSection = () => {
                 </Button>
               </motion.div>
             </motion.div>
-
-            {/* Enhanced Tech Stack Icons */}
-            <motion.div 
-              className="flex space-x-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: animationComplete ? 1 : 0, y: animationComplete ? 0 : 30 }}
-              transition={{ duration: 1, delay: 1.4 }}
-            >
-              {[
-                { Icon: Code, label: "Programming", color: "from-blue-400 to-blue-600" },
-                { Icon: Database, label: "Databases", color: "from-green-400 to-green-600" },
-                { Icon: Cpu, label: "Algorithms", color: "from-purple-400 to-purple-600" },
-                { Icon: Globe, label: "Web Dev", color: "from-orange-400 to-orange-600" }
-              ].map(({ Icon, label, color }, index) => (
-                <motion.div
-                  key={label}
-                  className="flex flex-col items-center group cursor-pointer"
-                  whileHover={{ 
-                    scale: 1.15,
-                    rotateY: 15,
-                    z: 50
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 1.6 + index * 0.1 }}
-                >
-                  <div className={`w-16 h-16 bg-gradient-to-br ${color} rounded-xl flex items-center justify-center mb-2 group-hover:shadow-2xl transition-all duration-300 border border-white/20`}>
-                    <Icon className="h-8 w-8 text-white drop-shadow-lg" />
-                  </div>
-                  <span className="text-xs text-hero-accent/80 font-exo font-medium">{label}</span>
-                </motion.div>
-              ))}
-            </motion.div>
           </motion.div>
 
           {/* Enhanced Right Illustration */}

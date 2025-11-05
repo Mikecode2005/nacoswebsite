@@ -53,7 +53,7 @@ const DepartmentSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl font-bold font-orbitron mb-6 text-primary">
-            Our Departments
+            Our Sub Departments
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-exo leading-relaxed">
             Explore our specialized departments designed to prepare you for the future of technology
