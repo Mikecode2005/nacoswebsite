@@ -20,7 +20,7 @@ const TechGiants = () => {
       projects: 40,
       awards: 3,
       business: "Cpaws Studio (Web3 Creative Studio)",
-      portfolio: "https://www.cpawstudio.com"
+      portfolio: "https://www.cpawsstudio.com"
     },
     {
       id: 2,
