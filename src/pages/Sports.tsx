@@ -340,7 +340,7 @@ const Sports = () => {
                 📧 sports@nacos.jabu.edu.ng
               </div>
               <div className="bg-primary/20 text-primary px-4 py-2 rounded-lg">
-                📱 WhatsApp: +234 123 456 7890
+                📱 WhatsApp: +234 915 386 6417
               </div>
             </div>
           </CardContent>
