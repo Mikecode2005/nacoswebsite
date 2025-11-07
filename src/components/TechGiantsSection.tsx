@@ -18,7 +18,7 @@ const TechGiantsSection = () => {
       years_experience: 4,
       specialties: ["Web Development", "Branding & Graphic Design", "Video Editing", "Web3 Technologies"],
       business: "Cpaws Studio (Web3 Creative Studio)",
-      portfolio: "https://www.cpawstudio.com"
+      portfolio: "https://www.cpawsstudio.com"
     },
     {
       id: 2,
