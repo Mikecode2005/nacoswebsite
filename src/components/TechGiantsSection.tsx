@@ -30,7 +30,7 @@ const TechGiantsSection = () => {
       achievements: "Visual Storyteller",
       years_experience: 2,
       specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding"],
-      business: "Graphic Design / Java"
+      business: "Graphic Design / Java",
       portfolio: "https://www.instagram.com/arnolden_dev"
     },
     {
