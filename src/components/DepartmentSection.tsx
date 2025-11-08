@@ -12,11 +12,11 @@ const DepartmentSection = () => {
       description: 'Master the art of extracting insights from data using cutting-edge tools and techniques.',
       route: '/data-analysis',
       icon: BarChart3,
-      gradient: 'from-purple-500 to-pink-600',
-      bgGradient: 'from-purple-50 to-pink-50',
-      borderColor: 'border-purple-200',
-      textColor: 'text-purple-700',
-      iconBg: 'bg-purple-100',
+      gradient: 'from-emerald-500 to-green-600',
+      bgGradient: 'from-emerald-50 to-green-50',
+      borderColor: 'border-emerald-200',
+      textColor: 'text-emerald-700',
+      iconBg: 'bg-emerald-100',
       stats: { students: '30+', courses: '25+', placement: '95%' },
       tools: ['Python', 'R', 'SQL', 'Tableau']
     },
@@ -26,22 +26,22 @@ const DepartmentSection = () => {
       description: 'Protect digital assets and learn ethical hacking in our comprehensive security program.',
       route: '/cyber-security',
       icon: Shield,
-      gradient: 'from-red-500 to-rose-600',
-      bgGradient: 'from-red-50 to-rose-50',
-      borderColor: 'border-red-200',
-      textColor: 'text-red-700',
-      iconBg: 'bg-red-100',
+      gradient: 'from-green-500 to-emerald-600',
+      bgGradient: 'from-green-50 to-emerald-50',
+      borderColor: 'border-green-200',
+      textColor: 'text-green-700',
+      iconBg: 'bg-green-100',
       stats: { students: '20+', courses: '20+', placement: '98%' },
       tools: ['Kali Linux', 'Wireshark', 'Metasploit', 'Burp Suite']
     }
   ];
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-primary/5 to-background relative overflow-hidden">
+    <section className="py-20 px-4 bg-gradient-to-br from-emerald-50 to-background relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-40 h-40 border border-primary rounded-full"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 border border-accent rounded-lg rotate-45"></div>
+        <div className="absolute top-10 left-10 w-40 h-40 border border-emerald-400 rounded-full"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 border border-green-400 rounded-lg rotate-45"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -52,10 +52,10 @@ const DepartmentSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-bold font-orbitron mb-6 text-primary">
+          <h2 className="text-5xl font-bold font-orbitron mb-6 text-emerald-700">
             Our Sub Departments
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-exo leading-relaxed">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-exo leading-relaxed">
             Explore our specialized departments designed to prepare you for the future of technology
           </p>
         </motion.div>
@@ -91,7 +91,7 @@ const DepartmentSection = () => {
                       {dept.name}
                     </CardTitle>
                     
-                    <p className="text-muted-foreground font-exo leading-relaxed">
+                    <p className="text-gray-600 font-exo leading-relaxed">
                       {dept.description}
                     </p>
                   </CardHeader>
@@ -103,21 +103,21 @@ const DepartmentSection = () => {
                         <div className={`text-lg font-orbitron font-bold ${dept.textColor}`}>
                           {dept.stats.students}
                         </div>
-                        <div className="text-xs text-muted-foreground font-rajdhani">Students</div>
+                        <div className="text-xs text-gray-500 font-rajdhani">Students</div>
                       </div>
                       
                       <div className="text-center p-3 bg-white/80 rounded-lg shadow-sm">
                         <div className={`text-lg font-orbitron font-bold ${dept.textColor}`}>
                           {dept.stats.courses}
                         </div>
-                        <div className="text-xs text-muted-foreground font-rajdhani">Courses</div>
+                        <div className="text-xs text-gray-500 font-rajdhani">Courses</div>
                       </div>
                       
                       <div className="text-center p-3 bg-white/80 rounded-lg shadow-sm">
                         <div className={`text-lg font-orbitron font-bold ${dept.textColor}`}>
                           {dept.stats.placement}
                         </div>
-                        <div className="text-xs text-muted-foreground font-rajdhani">Placement</div>
+                        <div className="text-xs text-gray-500 font-rajdhani">Placement</div>
                       </div>
                     </div>
 

@@ -57,7 +57,7 @@ const LeadershipSection = () => {
             </h2>
           </div>
           <p className="text-muted-foreground font-exo text-lg max-w-2xl mx-auto">
-            Meet the visionary leaders driving NACOS to new heights of excellence and innovation
+            Meet the visionary leaders driving JABU NACOS to new heights of excellence and innovation
           </p>
         </motion.div>
 
