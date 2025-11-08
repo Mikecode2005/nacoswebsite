@@ -29,7 +29,7 @@ const TechGiantsSection = () => {
       image_url: "/images/Arnold.jpg",
       achievements: "Visual Storyteller",
       years_experience: 2,
-      specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding"],
+      specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding", "Coding"],
       business: "Graphic Design / Java",
       portfolio: "https://www.instagram.com/arnolden_dev"
     },
