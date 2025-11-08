@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { User } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { User, ArrowLeft, Home } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -105,7 +105,22 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10 flex items-center justify-center p-4 relative">
+      {/* Back to Home Button */}
+      <Link 
+        to="/" 
+        className="absolute top-6 left-6 z-10"
+      >
+        <Button 
+          variant="outline" 
+          className="border-primary/30 hover:bg-primary/10 text-primary font-semibold"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          <Home className="h-4 w-4 mr-2" />
+          Back to Home
+        </Button>
+      </Link>
+
       <Card className="w-full max-w-md border-primary/20 shadow-xl">
         <CardHeader className="text-center">
           <div className="w-16 h-16 bg-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
