@@ -43,30 +43,30 @@ const EventsCarousel = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   if (events.length === 0) {
     return (
-      <Card className="bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 max-w-4xl mx-auto">
-        <CardContent className="flex items-center justify-center h-96">
-          <p className="text-emerald-700 font-exo text-lg">No upcoming events at the moment.</p>
+      <Card className="bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50">
+        <CardContent className="flex items-center justify-center h-64">
+          <p className="text-muted-foreground font-exo">No upcoming events at the moment.</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Carousel className="w-full max-w-6xl mx-auto">
+    <Carousel className="w-full max-w-5xl mx-auto">
       <CarouselContent>
         {events.map((event) => (
-          <CarouselItem key={event.id} className="md:basis-1/2 lg:basis-1/2 xl:basis-1/2">
-            <Card className="overflow-hidden bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-200 hover:shadow-xl transition-all duration-300 group h-full">
-              <CardContent className="p-0 h-full flex flex-col">
-                <div className="relative overflow-hidden h-80 flex-1">
+          <CarouselItem key={event.id} className="md:basis-1/2 lg:basis-1/3">
+            <Card className="overflow-hidden bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 hover:shadow-lg transition-all duration-300 group">
+              <CardContent className="p-0">
+                <div className="relative overflow-hidden h-64">
                   {event.image_url ? (
                     <img 
                       src={event.image_url} 
@@ -74,37 +74,37 @@ const EventsCarousel = () => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-emerald-200 to-green-200 flex items-center justify-center">
-                      <Calendar className="h-20 w-20 text-emerald-600" />
+                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-blue-400/20 flex items-center justify-center">
+                      <Calendar className="h-16 w-16 text-primary/40" />
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <div className="h-full flex flex-col justify-end">
-                      <h3 className="font-orbitron font-bold text-2xl mb-3 text-white">{event.title}</h3>
-                      <p className="text-base text-gray-200 mb-4 font-exo line-clamp-4">{event.description}</p>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Calendar className="h-4 w-4" />
-                          <span className="font-rajdhani font-medium">
-                            {format(new Date(event.event_date), 'MMMM dd, yyyy • h:mm a')}
+                      <h3 className="font-orbitron font-bold text-xl mb-2">{event.title}</h3>
+                      <p className="text-sm text-gray-200 mb-3 font-exo line-clamp-3">{event.description}</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-xs">
+                          <Calendar className="h-3 w-3" />
+                          <span className="font-rajdhani">
+                            {format(new Date(event.event_date), 'MMM dd, yyyy')}
                           </span>
                         </div>
                         {event.location && (
-                          <div className="flex items-center gap-2 text-sm">
-                            <MapPin className="h-4 w-4" />
-                            <span className="font-rajdhani font-medium">{event.location}</span>
+                          <div className="flex items-center gap-2 text-xs">
+                            <MapPin className="h-3 w-3" />
+                            <span className="font-rajdhani">{event.location}</span>
                           </div>
                         )}
                         {event.registration_link && (
                           <Button 
                             asChild 
-                            size="lg"
-                            className="mt-3 bg-emerald-500 hover:bg-emerald-600 backdrop-blur-sm border border-emerald-400 text-white font-rajdhani font-semibold"
+                            size="sm"
+                            className="mt-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 text-white font-rajdhani"
                           >
                             <a href={event.registration_link} target="_blank" rel="noopener noreferrer">
                               Register Now
-                              <ExternalLink className="ml-2 h-4 w-4" />
+                              <ExternalLink className="ml-1 h-3 w-3" />
                             </a>
                           </Button>
                         )}
@@ -112,32 +112,13 @@ const EventsCarousel = () => {
                     </div>
                   </div>
                 </div>
-                
-                {/* Visible info when not hovering */}
-                <div className="p-6 bg-white/90 backdrop-blur-sm">
-                  <h3 className="font-orbitron font-bold text-xl text-emerald-800 mb-2 line-clamp-1">
-                    {event.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm text-emerald-600 mb-2">
-                    <Calendar className="h-4 w-4" />
-                    <span className="font-rajdhani">
-                      {format(new Date(event.event_date), 'MMM dd, yyyy')}
-                    </span>
-                  </div>
-                  {event.location && (
-                    <div className="flex items-center gap-2 text-sm text-emerald-600">
-                      <MapPin className="h-4 w-4" />
-                      <span className="font-rajdhani line-clamp-1">{event.location}</span>
-                    </div>
-                  )}
-                </div>
               </CardContent>
             </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="ml-4" />
-      <CarouselNext className="mr-4" />
+      <CarouselPrevious />
+      <CarouselNext />
     </Carousel>
   );
 };
