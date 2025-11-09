@@ -11,12 +11,18 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === 'development' &&
-    componentTagger(),
+    mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+
+  // THESE 4 LINES FIX 404s ON VERCEL FOREVER
+  base: "/",                    // Critical: tells Vite root is "/"
+  build: {
+    outDir: "dist",             // Vercel looks here
+    emptyOutDir: true,
   },
 }));
