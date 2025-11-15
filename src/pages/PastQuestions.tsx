@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Plus, Download, Calendar, Upload, Search, Filter, Trash2 } from "lucide-react";
+import { BookOpen, Plus, Download, Calendar, Upload, Search, Filter, Trash2, ArrowRight } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -218,9 +218,22 @@ const PastQuestions = () => {
           <h1 className="text-4xl font-bold text-primary mb-4">
             Past Questions 📚
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
             Access previous exam materials and practice questions to ace your studies! 🎯
           </p>
+          
+          {/* Resources Button */}
+          <div className="flex justify-center">
+            <Button
+              onClick={() => navigate("/resources")}
+              variant="outline"
+              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+            >
+              <BookOpen className="h-5 w-5 mr-2" />
+              Check Resources for Most Questions
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </Button>
+          </div>
         </div>
 
         {/* Search and Filter */}

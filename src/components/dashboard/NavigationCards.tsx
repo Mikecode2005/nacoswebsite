@@ -24,10 +24,10 @@ const NavigationCards = ({ userRole }: NavigationCardsProps) => {
 
   const baseCards = [
     {
-      title: "Tech Blog",
-      description: "Share knowledge & insights",
+      title: "Resources",
+      description: "Access PDF and Questions",
       icon: BookOpen,
-      route: "/blog",
+      route: "/resources",
       color: "primary",
       gradient: "from-primary/10 to-primary/20"
     },
