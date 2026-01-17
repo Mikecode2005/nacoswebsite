@@ -9,8 +9,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { BookOpen, Plus, Calendar, User, Edit3, Settings, Trash2 } from "lucide-react";
+import { 
+  BookOpen, Plus, Calendar, User, Edit3, Settings, Trash2, 
+  Heart, MessageCircle, Share2, Send, X 
+} from "lucide-react";
 import ProfileEdit from "@/components/ProfileEdit";
+
+interface BlogComment {
+  id: string;
+  blog_post_id: string;
+  user_id: string;
+  content: string;
+  created_at: string;
+  profiles?: {
+    display_name: string | null;
+  } | null;
+}
 
 interface BlogPost {
   id: string;
@@ -22,6 +36,9 @@ interface BlogPost {
   profiles?: {
     display_name: string | null;
   } | null;
+  likes_count: number;
+  user_has_liked: boolean;
+  comments: BlogComment[];
 }
 
 const Blog = () => {
@@ -35,20 +52,18 @@ const Blog = () => {
   const [submitting, setSubmitting] = useState(false);
   const [expandedPosts, setExpandedPosts] = useState<Set<string>>(new Set());
   const [isEditingProfile, setIsEditingProfile] = useState(false);
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/auth");
-    }
-  }, [user, loading, navigate]);
+  const [commentingPostId, setCommentingPostId] = useState<string | null>(null);
+  const [commentContent, setCommentContent] = useState("");
+  const [submittingComment, setSubmittingComment] = useState(false);
+  const [showCommentsFor, setShowCommentsFor] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [user]);
 
   const fetchPosts = async () => {
     try {
-      // First get all blog posts
+      // Get all blog posts
       const { data: postsData, error: postsError } = await supabase
         .from("blog_posts")
         .select("*")
@@ -57,22 +72,52 @@ const Blog = () => {
 
       if (postsError) throw postsError;
 
-      // Then get all profiles for the authors
+      // Get all profiles for the authors
       const authorIds = postsData?.map(post => post.author_id) || [];
-      const { data: profilesData, error: profilesError } = await supabase
+      const { data: profilesData } = await supabase
         .from("profiles")
         .select("user_id, display_name")
         .in("user_id", authorIds);
 
-      if (profilesError) throw profilesError;
+      // Get likes count for each post
+      const postIds = postsData?.map(post => post.id) || [];
+      const { data: likesData } = await supabase
+        .from("blog_likes")
+        .select("blog_post_id, user_id")
+        .in("blog_post_id", postIds);
 
-      // Combine the data
-      const postsWithProfiles = postsData?.map(post => ({
-        ...post,
-        profiles: profilesData?.find(profile => profile.user_id === post.author_id) || null
-      })) || [];
+      // Get comments for each post
+      const { data: commentsData } = await supabase
+        .from("blog_comments")
+        .select("*")
+        .in("blog_post_id", postIds)
+        .order("created_at", { ascending: true });
 
-      setPosts(postsWithProfiles);
+      // Get profiles for comment authors
+      const commentAuthorIds = commentsData?.map(c => c.user_id) || [];
+      const { data: commentProfilesData } = await supabase
+        .from("profiles")
+        .select("user_id, display_name")
+        .in("user_id", commentAuthorIds);
+
+      // Combine data
+      const postsWithDetails = postsData?.map(post => {
+        const postLikes = likesData?.filter(l => l.blog_post_id === post.id) || [];
+        const postComments = commentsData?.filter(c => c.blog_post_id === post.id) || [];
+        
+        return {
+          ...post,
+          profiles: profilesData?.find(p => p.user_id === post.author_id) || null,
+          likes_count: postLikes.length,
+          user_has_liked: user ? postLikes.some(l => l.user_id === user.id) : false,
+          comments: postComments.map(comment => ({
+            ...comment,
+            profiles: commentProfilesData?.find(p => p.user_id === comment.user_id) || null
+          }))
+        };
+      }) || [];
+
+      setPosts(postsWithDetails);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
@@ -88,8 +133,22 @@ const Blog = () => {
     setExpandedPosts(newExpanded);
   };
 
+  const toggleShowComments = (postId: string) => {
+    const newShow = new Set(showCommentsFor);
+    if (newShow.has(postId)) {
+      newShow.delete(postId);
+    } else {
+      newShow.add(postId);
+    }
+    setShowCommentsFor(newShow);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
     setSubmitting(true);
 
     try {
@@ -125,7 +184,6 @@ const Blog = () => {
   };
 
   const handleDelete = async (postId: string, authorId: string) => {
-    // Check if user is admin or the author
     if (user?.id !== authorId && userRole !== 'admin' && userRole !== 'superadmin') {
       toast({
         title: "Unauthorized",
@@ -162,13 +220,148 @@ const Blog = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
+  const handleLike = async (postId: string) => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please login to like posts.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    const post = posts.find(p => p.id === postId);
+    if (!post) return;
+
+    try {
+      if (post.user_has_liked) {
+        // Unlike
+        await supabase
+          .from("blog_likes")
+          .delete()
+          .eq("blog_post_id", postId)
+          .eq("user_id", user.id);
+      } else {
+        // Like
+        await supabase
+          .from("blog_likes")
+          .insert({
+            blog_post_id: postId,
+            user_id: user.id
+          });
+      }
+      fetchPosts();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAddComment = async (postId: string) => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please login to comment.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    if (!commentContent.trim()) return;
+
+    setSubmittingComment(true);
+    try {
+      const { error } = await supabase
+        .from("blog_comments")
+        .insert({
+          blog_post_id: postId,
+          user_id: user.id,
+          content: commentContent.trim()
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Comment Added! 💬",
+        description: "Your comment has been posted.",
+      });
+
+      setCommentContent("");
+      setCommentingPostId(null);
+      fetchPosts();
+    } catch (error: any) {
+      toast({
+        title: "Failed to Comment",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setSubmittingComment(false);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string, commentUserId: string) => {
+    if (user?.id !== commentUserId && userRole !== 'admin' && userRole !== 'superadmin') {
+      toast({
+        title: "Unauthorized",
+        description: "You can only delete your own comments.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from("blog_comments")
+        .delete()
+        .eq("id", commentId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Comment Deleted",
+        description: "Your comment has been removed.",
+      });
+
+      fetchPosts();
+    } catch (error: any) {
+      toast({
+        title: "Delete Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleShare = async (post: BlogPost) => {
+    const shareUrl = `${window.location.origin}/blog`;
+    const shareText = `Check out this blog post: "${post.title}" on NACOS Blog`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: post.title,
+          text: shareText,
+          url: shareUrl,
+        });
+      } catch (error) {
+        // User cancelled or error occurred
+        console.log("Share cancelled or failed");
+      }
+    } else {
+      // Fallback: copy to clipboard
+      await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+      toast({
+        title: "Link Copied! 📋",
+        description: "Blog link copied to clipboard.",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -207,6 +400,23 @@ const Blog = () => {
                 Update Profile 👤
               </Button>
             </div>
+          </div>
+        )}
+
+        {/* Login prompt for non-authenticated users */}
+        {!user && !loading && (
+          <div className="text-center mb-12">
+            <Card className="inline-block border-primary/20 bg-primary/5 p-6">
+              <p className="text-muted-foreground mb-4">
+                Want to write a blog post or engage with the community?
+              </p>
+              <Button
+                onClick={() => navigate("/auth")}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              >
+                Login to Contribute 🔐
+              </Button>
+            </Card>
           </div>
         )}
 
@@ -324,6 +534,118 @@ const Blog = () => {
                     >
                       {expandedPosts.has(post.id) ? "Show Less" : "Read More"}
                     </Button>
+                  )}
+
+                  {/* Like, Comment, Share Actions */}
+                  <div className="flex items-center gap-4 mt-6 pt-4 border-t border-primary/10">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleLike(post.id)}
+                      className={`flex items-center gap-2 ${post.user_has_liked ? 'text-red-500' : 'text-muted-foreground'}`}
+                    >
+                      <Heart className={`h-5 w-5 ${post.user_has_liked ? 'fill-current' : ''}`} />
+                      <span>{post.likes_count}</span>
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleShowComments(post.id)}
+                      className="flex items-center gap-2 text-muted-foreground"
+                    >
+                      <MessageCircle className="h-5 w-5" />
+                      <span>{post.comments.length}</span>
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleShare(post)}
+                      className="flex items-center gap-2 text-muted-foreground"
+                    >
+                      <Share2 className="h-5 w-5" />
+                      <span className="hidden sm:inline">Share</span>
+                    </Button>
+                  </div>
+
+                  {/* Comments Section */}
+                  {showCommentsFor.has(post.id) && (
+                    <div className="mt-4 pt-4 border-t border-primary/10">
+                      <h4 className="font-semibold text-primary mb-4">
+                        Comments ({post.comments.length})
+                      </h4>
+
+                      {/* Comment Input */}
+                      {user ? (
+                        <div className="flex gap-2 mb-4">
+                          <Input
+                            placeholder="Write a comment..."
+                            value={commentingPostId === post.id ? commentContent : ""}
+                            onChange={(e) => {
+                              setCommentingPostId(post.id);
+                              setCommentContent(e.target.value);
+                            }}
+                            onFocus={() => setCommentingPostId(post.id)}
+                            className="flex-1 border-primary/30"
+                          />
+                          <Button
+                            size="sm"
+                            onClick={() => handleAddComment(post.id)}
+                            disabled={submittingComment || !commentContent.trim()}
+                            className="bg-primary hover:bg-primary/90"
+                          >
+                            <Send className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <p className="text-sm text-muted-foreground mb-4">
+                          <Button variant="link" onClick={() => navigate("/auth")} className="p-0 h-auto">
+                            Login
+                          </Button>
+                          {" "}to leave a comment.
+                        </p>
+                      )}
+
+                      {/* Comments List */}
+                      <div className="space-y-3 max-h-64 overflow-y-auto">
+                        {post.comments.length > 0 ? (
+                          post.comments.map((comment) => (
+                            <div key={comment.id} className="bg-background/50 p-3 rounded-lg">
+                              <div className="flex justify-between items-start">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 text-sm">
+                                    <span className="font-medium text-primary">
+                                      {comment.profiles?.display_name || "Anonymous"}
+                                    </span>
+                                    <span className="text-muted-foreground text-xs">
+                                      {new Date(comment.created_at).toLocaleDateString()}
+                                    </span>
+                                  </div>
+                                  <p className="text-sm text-muted-foreground mt-1">
+                                    {comment.content}
+                                  </p>
+                                </div>
+                                {user && (user.id === comment.user_id || userRole === 'admin' || userRole === 'superadmin') && (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => handleDeleteComment(comment.id, comment.user_id)}
+                                    className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                                  >
+                                    <X className="h-3 w-3" />
+                                  </Button>
+                                )}
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-sm text-muted-foreground text-center py-4">
+                            No comments yet. Be the first to comment!
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   )}
                 </CardContent>
               </Card>
