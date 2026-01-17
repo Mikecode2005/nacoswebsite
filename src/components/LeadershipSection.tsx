@@ -8,7 +8,7 @@ const LeadershipSection = () => {
   const leaders = [
     {
       id: 'hod',
-      name: 'Mr Lawal',
+      name: 'Dr O.O Lawal',
       position: 'Head of Department',
       description: 'Leading the Computer Science department with excellence and industry experience.',
       route: '/hod',
