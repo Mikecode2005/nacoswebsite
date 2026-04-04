@@ -1,23 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Building2, Award, Users, Trophy, ExternalLink } from "lucide-react";
+import { ArrowRight, Trophy, Users, ExternalLink, Sparkles, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const TechGiantsSection = () => {
-  // Hardcoded alumni data
   const alumniGiants = [
     {
       id: 1,
       name: "Ebenezer Abegunde",
       position: "Founder & Creative Director",
       company: "Cpaws Studio",
-      bio: "Exceptional alumnus who excelled in multiple digital creative fields. Built a successful Web3 creative studio that combines cutting-edge technology with stunning visual design.",
-      image_url: "/images/Cpaws1.jpg",
-      achievements: "Web3 Creative Pioneer",
+      bio: "Exceptional alumnus who built a successful Web3 creative studio.",
+      image_url: "/images/Cpaws2.jpg",
       years_experience: 4,
-      specialties: ["Web Development", "Branding & Graphic Design", "Video Editing", "Web3 Technologies"],
-      business: "Cpaws Studio (Web3 Creative Studio)",
       portfolio: "https://www.cpawsstudio.com"
     },
     {
@@ -25,25 +21,19 @@ const TechGiantsSection = () => {
       name: "Eniola Arnold",
       position: "Graphic Artist/Designer",
       company: "GrayPlug",
-      bio: "Passionate about blending clean layouts with emotional storytelling. Brings creativity from Instagram portfolio (@arnolden_dev), exploring mood, typography, and visual identity.",
+      bio: "Passionate about blending clean layouts with emotional storytelling.",
       image_url: "/images/Arnold.jpg",
-      achievements: "Visual Storyteller",
       years_experience: 2,
-      specialties: ["Graphic Design", "Typography", "Visual Identity and branding", "Coding"],
-      business: "Graphic Design / Java",
       portfolio: "https://www.instagram.com/arnolden_dev"
     },
     {
       id: 3,
-      name: "Omolayo Ayokanmi (BeeTechHub)",
+      name: "Omolayo Ayokanmi",
       position: "Full-Stack Developer",
       company: "BeeTechHub",
-      bio: "Forward-thinking full-stack developer with a strong foundation in HTML, TailwindCSS, JavaScript, PHP, SQL, Python, and Django. Builds smart, user-friendly web applications.",
-      image_url: "/images/BJ.jpg",
-      achievements: "Tech Innovator",
+      bio: "Forward-thinking full-stack developer building smart applications.",
+      image_url: "/images/BJ2.jpg",
       years_experience: 3,
-      specialties: ["Full-Stack Development", "Python/Django", "JavaScript", "PHP", "SQL"],
-      business: "BeeTechHub",
       portfolio: "https://omolayoayokanmi.com.ng/"
     }
   ];
@@ -57,106 +47,67 @@ const TechGiantsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="flex items-center justify-center mb-4">
-            <Trophy className="h-12 w-12 text-primary mr-3" />
-            <h2 className="text-4xl font-bold font-orbitron text-primary">
-              Alumni Tech Giants
-            </h2>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="h-6 w-6 text-accent" />
+            <span className="text-accent font-rajdhani font-semibold text-sm uppercase tracking-wider">Alumni Success</span>
+            <Sparkles className="h-6 w-6 text-accent" />
           </div>
-          <p className="text-muted-foreground font-exo text-lg max-w-2xl mx-auto">
-            Celebrating our exceptional alumni who are making waves in the tech industry and inspiring the next generation
+          <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-primary mb-4">
+            Alumni Tech Giants
+          </h2>
+          <p className="text-muted-foreground font-exo max-w-2xl mx-auto">
+            Celebrating our exceptional alumni who are making waves in the tech industry
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
           {alumniGiants.map((alumni, index) => (
             <motion.div
               key={alumni.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
             >
-              <Card className="h-full bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 hover:shadow-xl transition-all duration-300 group overflow-hidden">
+              <Card className="h-full border-border/30 bg-gradient-to-br from-card to-accent/5 hover:border-accent/50 hover:shadow-2xl transition-all duration-300 overflow-hidden">
+                <div className={`h-2 bg-gradient-to-r ${index === 0 ? 'from-yellow-500 to-amber-400' : 'from-accent to-primary'}`} />
+                
+                <CardHeader className="text-center pb-2">
+                  {/* Big Image */}
+                  <div className="relative mx-auto mb-4">
+                    <div className={`w-40 h-40 mx-auto rounded-full overflow-hidden border-4 ${index === 0 ? 'border-yellow-500' : 'border-accent'} shadow-lg`}>
+                      <img src={alumni.image_url} alt={alumni.name} className="w-full h-full object-cover" />
+                    </div>
+                    <span className={`absolute -bottom-1 -right-1 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${index === 0 ? 'bg-yellow-500 text-yellow-900' : 'bg-accent text-primary'}`}>
+                      #{index + 1}
+                    </span>
+                  </div>
                   
-                  <CardHeader className="text-center pb-2">
-                    <div className="relative">
-                      <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
-                        {alumni.image_url ? (
-                          <img
-                            src={alumni.image_url} 
-                            alt={alumni.name}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-blue-400/20 flex items-center justify-center">
-                            <Users className="h-12 w-12 text-primary" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                        #{index + 1}
-                      </div>
-                    </div>
-                    
-                    <CardTitle className="font-orbitron text-xl group-hover:text-primary transition-colors duration-300 mb-2">
-                      {alumni.name}
-                    </CardTitle>
-                    <p className="text-primary font-rajdhani font-semibold text-lg">{alumni.position}</p>
-                    <p className="text-accent font-rajdhani font-medium">{alumni.company}</p>
-                    {alumni.business && (
-                      <p className="text-sm text-muted-foreground font-medium mt-1">{alumni.business}</p>
-                    )}
-                  </CardHeader>
+                  <CardTitle className="text-xl font-orbitron text-primary">{alumni.name}</CardTitle>
+                  <p className="text-base font-medium text-accent">{alumni.position}</p>
+                  <p className="text-sm text-muted-foreground">{alumni.company}</p>
+                </CardHeader>
+                
+                <CardContent className="pt-0">
+                  <p className="text-sm text-muted-foreground text-center mb-4 line-clamp-3">{alumni.bio}</p>
                   
-                  <CardContent className="space-y-4">
-                    <div className="text-center">
-                      <p className="text-muted-foreground font-exo text-sm leading-relaxed">
-                        {alumni.bio}
-                      </p>
-                    </div>
-                    
-                    {alumni.specialties && alumni.specialties.length > 0 && (
-                      <div className="bg-primary/10 rounded-lg p-3">
-                        <div className="flex items-center justify-center mb-2">
-                          <Award className="h-4 w-4 text-primary mr-2" />
-                          <span className="font-rajdhani font-semibold text-primary text-sm">Specialties</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1 justify-center">
-                          {alumni.specialties.slice(0, 3).map((specialty, idx) => (
-                            <span key={idx} className="text-xs bg-primary/20 text-primary rounded-full px-2 py-1">
-                              {specialty}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    
-                    {alumni.years_experience && alumni.years_experience > 0 && (
-                      <div className="flex items-center justify-center text-sm text-muted-foreground">
-                        <Building2 className="h-4 w-4 mr-2 text-accent" />
-                        <span className="font-rajdhani">{alumni.years_experience}+ years experience</span>
-                      </div>
-                    )}
-                    
-                    <div className="text-center">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="w-full"
-                        onClick={() => {
-                          if (alumni.portfolio) {
-                            window.open(alumni.portfolio, '_blank', 'noopener,noreferrer');
-                          }
-                        }}
-                      >
-                        <ExternalLink className="h-3 w-3 mr-1" />
-                        {alumni.id === 1 ? "View Website" : 
-                         alumni.id === 2 ? "View Instagram" : 
-                         "View Portfolio"}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                  <div className="flex items-center justify-center text-sm text-muted-foreground mb-4">
+                    <span className="font-rajdhani font-bold text-accent text-lg">{alumni.years_experience}+</span>
+                    <span className="ml-2">years experience</span>
+                  </div>
+                  
+                  {alumni.portfolio && (
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-accent/30 text-accent hover:bg-accent/10 text-base py-6"
+                      onClick={() => window.open(alumni.portfolio, '_blank')}
+                    >
+                      <ExternalLink className="h-5 w-5 mr-2" />
+                      {index === 0 ? "View Website" : index === 1 ? "View Instagram" : "View Portfolio"}
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
@@ -164,16 +115,16 @@ const TechGiantsSection = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center"
+          transition={{ delay: 0.4 }}
+          className="flex justify-center"
         >
           <Button 
             asChild 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-rajdhani font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-accent hover:bg-accent/90 text-primary font-rajdhani font-semibold text-lg px-10 py-6"
           >
             <Link to="/tech-giants">
               Explore All Alumni
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
         </motion.div>

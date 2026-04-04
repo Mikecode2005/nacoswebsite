@@ -4,14 +4,16 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import AdCarousel from "@/components/AdCarousel";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   BookOpen, Plus, Calendar, User, Edit3, Settings, Trash2, 
-  Heart, MessageCircle, Share2, Send, X 
+  Heart, MessageCircle, Share2, Send, X, Sparkles, Search, ArrowRight
 } from "lucide-react";
 import ProfileEdit from "@/components/ProfileEdit";
 
@@ -63,7 +65,6 @@ const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      // Get all blog posts
       const { data: postsData, error: postsError } = await supabase
         .from("blog_posts")
         .select("*")
@@ -72,35 +73,30 @@ const Blog = () => {
 
       if (postsError) throw postsError;
 
-      // Get all profiles for the authors
       const authorIds = postsData?.map(post => post.author_id) || [];
       const { data: profilesData } = await supabase
         .from("profiles")
         .select("user_id, display_name")
         .in("user_id", authorIds);
 
-      // Get likes count for each post
       const postIds = postsData?.map(post => post.id) || [];
       const { data: likesData } = await supabase
         .from("blog_likes")
         .select("blog_post_id, user_id")
         .in("blog_post_id", postIds);
 
-      // Get comments for each post
       const { data: commentsData } = await supabase
         .from("blog_comments")
         .select("*")
         .in("blog_post_id", postIds)
         .order("created_at", { ascending: true });
 
-      // Get profiles for comment authors
       const commentAuthorIds = commentsData?.map(c => c.user_id) || [];
       const { data: commentProfilesData } = await supabase
         .from("profiles")
         .select("user_id, display_name")
         .in("user_id", commentAuthorIds);
 
-      // Combine data
       const postsWithDetails = postsData?.map(post => {
         const postLikes = likesData?.filter(l => l.blog_post_id === post.id) || [];
         const postComments = commentsData?.filter(c => c.blog_post_id === post.id) || [];
@@ -164,7 +160,7 @@ const Blog = () => {
       if (error) throw error;
 
       toast({
-        title: "Blog Post Published! 🎉",
+        title: "Blog Post Published! ",
         description: "Your tech insights are now live!",
       });
 
@@ -174,7 +170,7 @@ const Blog = () => {
       fetchPosts();
     } catch (error: any) {
       toast({
-        title: "Failed to Publish 😞",
+        title: "Failed to Publish ",
         description: error.message,
         variant: "destructive",
       });
@@ -206,14 +202,14 @@ const Blog = () => {
       if (error) throw error;
 
       toast({
-        title: "Post Deleted! 🗑️",
+        title: "Post Deleted! ",
         description: "The blog post has been removed.",
       });
 
       fetchPosts();
     } catch (error: any) {
       toast({
-        title: "Delete Failed 😞",
+        title: "Delete Failed ",
         description: error.message,
         variant: "destructive",
       });
@@ -236,14 +232,12 @@ const Blog = () => {
 
     try {
       if (post.user_has_liked) {
-        // Unlike
         await supabase
           .from("blog_likes")
           .delete()
           .eq("blog_post_id", postId)
           .eq("user_id", user.id);
       } else {
-        // Like
         await supabase
           .from("blog_likes")
           .insert({
@@ -287,7 +281,7 @@ const Blog = () => {
       if (error) throw error;
 
       toast({
-        title: "Comment Added! 💬",
+        title: "Comment Added!",
         description: "Your comment has been posted.",
       });
 
@@ -350,14 +344,12 @@ const Blog = () => {
           url: shareUrl,
         });
       } catch (error) {
-        // User cancelled or error occurred
         console.log("Share cancelled or failed");
       }
     } else {
-      // Fallback: copy to clipboard
       await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
       toast({
-        title: "Link Copied! 📋",
+        title: "Link Copied!",
         description: "Blog link copied to clipboard.",
       });
     }
@@ -368,296 +360,355 @@ const Blog = () => {
       <Header />
       
       <main className="container mx-auto px-4 py-24">
+        {/* Ad Carousel */}
+        <AdCarousel />
+
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-primary mb-4">
-            Tech Blog 📝
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="h-5 w-5 text-accent" />
+            <span className="text-accent font-rajdhani font-semibold text-sm uppercase tracking-wider">Community Insights</span>
+            <Sparkles className="h-5 w-5 text-accent" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold font-orbitron text-primary mb-4">
+            Tech Blog
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-exo">
             Share your coding adventures, tech discoveries, and programming wisdom with the NACOS community! 🚀
           </p>
-        </div>
+        </motion.div>
 
         {/* Action Buttons */}
         {user && !isWriting && !isEditingProfile && (
-          <div className="text-center mb-12 space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-center mb-12 space-y-4"
+          >
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button
                 onClick={() => setIsWriting(true)}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
+                className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-primary-foreground w-full sm:w-auto"
                 size="lg"
               >
                 <Plus className="h-5 w-5 mr-2" />
-                Write a New Post ✨
+                Write a New Post
               </Button>
               <Button
                 onClick={() => setIsEditingProfile(true)}
                 variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto"
+                className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto"
                 size="lg"
               >
                 <Settings className="h-5 w-5 mr-2" />
-                Update Profile 👤
+                Update Profile
               </Button>
             </div>
-          </div>
+          </motion.div>
         )}
 
-        {/* Login prompt for non-authenticated users */}
+        {/* Login prompt */}
         {!user && !loading && (
-          <div className="text-center mb-12">
-            <Card className="inline-block border-primary/20 bg-primary/5 p-6">
-              <p className="text-muted-foreground mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-center mb-12"
+          >
+            <Card className="inline-block border-accent/20 bg-gradient-to-br from-accent/10 to-primary/5 p-8">
+              <BookOpen className="h-12 w-12 text-accent mx-auto mb-4" />
+              <p className="text-muted-foreground mb-4 font-exo">
                 Want to write a blog post or engage with the community?
               </p>
               <Button
                 onClick={() => navigate("/auth")}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-primary-foreground"
               >
-                Login to Contribute 🔐
+                Login to Contribute
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Card>
-          </div>
+          </motion.div>
         )}
 
         {/* Profile Edit Form */}
         {isEditingProfile && (
-          <div className="mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12"
+          >
             <ProfileEdit onClose={() => setIsEditingProfile(false)} />
-          </div>
+          </motion.div>
         )}
 
         {/* Write Post Form */}
-        {isWriting && (
-          <Card className="mb-12 border-primary/20 bg-primary/5">
-            <CardHeader>
-              <CardTitle className="flex items-center text-primary">
-                <Edit3 className="h-5 w-5 mr-2" />
-                Share Your Tech Story 🎯
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="text-sm font-medium text-primary mb-2 block">
-                    Post Title 📰
-                  </label>
-                  <Input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="e.g., My Journey Learning React Hooks 🎣"
-                    required
-                    className="border-primary/30 focus:border-primary"
-                  />
-                </div>
-                
-                <div>
-                  <label className="text-sm font-medium text-primary mb-2 block">
-                    Your Content 📖
-                  </label>
-                  <Textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="Share your experiences, tutorials, code snippets, or tech insights..."
-                    rows={8}
-                    required
-                    className="border-primary/30 focus:border-primary"
-                  />
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    type="submit"
-                    disabled={submitting}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
-                  >
-                    {submitting ? "Publishing..." : "Publish Post 🚀"}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIsWriting(false)}
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto"
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Blog Posts */}
-        <div className="grid gap-8">
-          {posts.length > 0 ? (
-            posts.map((post) => (
-              <Card key={post.id} className="border-primary/20 bg-primary/5 hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <CardTitle className="text-xl text-primary hover:text-accent transition-colors">
-                        {post.title}
-                      </CardTitle>
-                      <div className="flex items-center text-sm text-muted-foreground space-x-4 mt-2">
-                        <div className="flex items-center">
-                          <User className="h-4 w-4 mr-1" />
-                          {post.profiles?.display_name || "Anonymous User"}
-                        </div>
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-1" />
-                          {new Date(post.created_at).toLocaleDateString()}
-                        </div>
-                      </div>
+        <AnimatePresence>
+          {isWriting && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mb-12"
+            >
+              <Card className="border-accent/20 bg-gradient-to-br from-card to-accent/5">
+                <CardContent className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2 mb-6">
+                    <Edit3 className="h-5 w-5 text-accent" />
+                    <h2 className="text-xl font-orbitron font-bold text-primary">Share Your Tech Story</h2>
+                  </div>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label className="text-sm font-medium text-primary mb-2 block">
+                        Post Title
+                      </label>
+                      <Input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="e.g., My Journey Learning React Hooks 🎣"
+                        required
+                        className="border-accent/30 focus:border-accent bg-background/50"
+                      />
                     </div>
-                    {user && (user.id === post.author_id || userRole === 'admin' || userRole === 'superadmin') && (
+                    
+                    <div>
+                      <label className="text-sm font-medium text-primary mb-2 block">
+                        Your Content
+                      </label>
+                      <Textarea
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        placeholder="Share your experiences, tutorials, code snippets, or tech insights..."
+                        rows={8}
+                        required
+                        className="border-accent/30 focus:border-accent bg-background/50"
+                      />
+                    </div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4">
                       <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDelete(post.id, post.author_id)}
+                        type="submit"
+                        disabled={submitting}
+                        className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-primary-foreground w-full sm:w-auto"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        {submitting ? "Publishing..." : "Publish Post 🚀"}
                       </Button>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground whitespace-pre-wrap">
-                    {expandedPosts.has(post.id) || post.content.length <= 300
-                      ? post.content
-                      : `${post.content.substring(0, 300)}...`}
-                  </p>
-                  {post.content.length > 300 && (
-                    <Button
-                      variant="link"
-                      className="text-primary hover:text-primary/80 p-0 h-auto mt-2"
-                      onClick={() => toggleExpandPost(post.id)}
-                    >
-                      {expandedPosts.has(post.id) ? "Show Less" : "Read More"}
-                    </Button>
-                  )}
-
-                  {/* Like, Comment, Share Actions */}
-                  <div className="flex items-center gap-4 mt-6 pt-4 border-t border-primary/10">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleLike(post.id)}
-                      className={`flex items-center gap-2 ${post.user_has_liked ? 'text-red-500' : 'text-muted-foreground'}`}
-                    >
-                      <Heart className={`h-5 w-5 ${post.user_has_liked ? 'fill-current' : ''}`} />
-                      <span>{post.likes_count}</span>
-                    </Button>
-
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => toggleShowComments(post.id)}
-                      className="flex items-center gap-2 text-muted-foreground"
-                    >
-                      <MessageCircle className="h-5 w-5" />
-                      <span>{post.comments.length}</span>
-                    </Button>
-
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleShare(post)}
-                      className="flex items-center gap-2 text-muted-foreground"
-                    >
-                      <Share2 className="h-5 w-5" />
-                      <span className="hidden sm:inline">Share</span>
-                    </Button>
-                  </div>
-
-                  {/* Comments Section */}
-                  {showCommentsFor.has(post.id) && (
-                    <div className="mt-4 pt-4 border-t border-primary/10">
-                      <h4 className="font-semibold text-primary mb-4">
-                        Comments ({post.comments.length})
-                      </h4>
-
-                      {/* Comment Input */}
-                      {user ? (
-                        <div className="flex gap-2 mb-4">
-                          <Input
-                            placeholder="Write a comment..."
-                            value={commentingPostId === post.id ? commentContent : ""}
-                            onChange={(e) => {
-                              setCommentingPostId(post.id);
-                              setCommentContent(e.target.value);
-                            }}
-                            onFocus={() => setCommentingPostId(post.id)}
-                            className="flex-1 border-primary/30"
-                          />
-                          <Button
-                            size="sm"
-                            onClick={() => handleAddComment(post.id)}
-                            disabled={submittingComment || !commentContent.trim()}
-                            className="bg-primary hover:bg-primary/90"
-                          >
-                            <Send className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <p className="text-sm text-muted-foreground mb-4">
-                          <Button variant="link" onClick={() => navigate("/auth")} className="p-0 h-auto">
-                            Login
-                          </Button>
-                          {" "}to leave a comment.
-                        </p>
-                      )}
-
-                      {/* Comments List */}
-                      <div className="space-y-3 max-h-64 overflow-y-auto">
-                        {post.comments.length > 0 ? (
-                          post.comments.map((comment) => (
-                            <div key={comment.id} className="bg-background/50 p-3 rounded-lg">
-                              <div className="flex justify-between items-start">
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2 text-sm">
-                                    <span className="font-medium text-primary">
-                                      {comment.profiles?.display_name || "Anonymous"}
-                                    </span>
-                                    <span className="text-muted-foreground text-xs">
-                                      {new Date(comment.created_at).toLocaleDateString()}
-                                    </span>
-                                  </div>
-                                  <p className="text-sm text-muted-foreground mt-1">
-                                    {comment.content}
-                                  </p>
-                                </div>
-                                {user && (user.id === comment.user_id || userRole === 'admin' || userRole === 'superadmin') && (
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => handleDeleteComment(comment.id, comment.user_id)}
-                                    className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
-                                  >
-                                    <X className="h-3 w-3" />
-                                  </Button>
-                                )}
-                              </div>
-                            </div>
-                          ))
-                        ) : (
-                          <p className="text-sm text-muted-foreground text-center py-4">
-                            No comments yet. Be the first to comment!
-                          </p>
-                        )}
-                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setIsWriting(false)}
+                        className="border-accent/30 text-primary hover:bg-accent/10 w-full sm:w-auto"
+                      >
+                        Cancel
+                      </Button>
                     </div>
-                  )}
+                  </form>
                 </CardContent>
               </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Blog Posts */}
+        <div className="grid gap-6 md:gap-8 max-w-3xl mx-auto">
+          {posts.length > 0 ? (
+            posts.map((post, index) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="border-border/50 bg-gradient-to-br from-card to-accent/5 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  {/* Top Accent */}
+                  <div className="h-1 bg-gradient-to-r from-accent to-primary" />
+                  
+                  <CardContent className="p-6 sm:p-8">
+                    {/* Header */}
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center">
+                          <User className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <div className="font-semibold text-foreground">
+                            {post.profiles?.display_name || "Anonymous User"}
+                          </div>
+                          <div className="flex items-center text-xs text-muted-foreground">
+                            <Calendar className="h-3 w-3 mr-1" />
+                            {new Date(post.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
+                      </div>
+                      {user && (user.id === post.author_id || userRole === 'admin' || userRole === 'superadmin') && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDelete(post.id, post.author_id)}
+                          className="text-muted-foreground hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h2 className="text-xl sm:text-2xl font-orbitron font-bold text-primary mb-3 hover:text-accent transition-colors cursor-pointer">
+                      {post.title}
+                    </h2>
+
+                    {/* Content */}
+                    <p className="text-muted-foreground font-exo leading-relaxed whitespace-pre-wrap mb-4">
+                      {expandedPosts.has(post.id) || post.content.length <= 300
+                        ? post.content
+                        : `${post.content.substring(0, 300)}...`}
+                    </p>
+                    
+                    {post.content.length > 300 && (
+                      <Button
+                        variant="link"
+                        className="text-accent hover:text-accent/80 p-0 h-auto mb-4"
+                        onClick={() => toggleExpandPost(post.id)}
+                      >
+                        {expandedPosts.has(post.id) ? "Show Less" : "Read More"}
+                      </Button>
+                    )}
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-4 pt-4 border-t border-border/30">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleLike(post.id)}
+                        className={`flex items-center gap-2 ${post.user_has_liked ? 'text-red-500' : 'text-muted-foreground'}`}
+                      >
+                        <Heart className={`h-5 w-5 ${post.user_has_liked ? 'fill-current' : ''}`} />
+                        <span>{post.likes_count}</span>
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleShowComments(post.id)}
+                        className="flex items-center gap-2 text-muted-foreground"
+                      >
+                        <MessageCircle className="h-5 w-5" />
+                        <span>{post.comments.length}</span>
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleShare(post)}
+                        className="flex items-center gap-2 text-muted-foreground"
+                      >
+                        <Share2 className="h-5 w-5" />
+                        <span className="hidden sm:inline">Share</span>
+                      </Button>
+                    </div>
+
+                    {/* Comments Section */}
+                    <AnimatePresence>
+                      {showCommentsFor.has(post.id) && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-4 pt-4 border-t border-border/30"
+                        >
+                          <h4 className="font-semibold text-primary mb-4">
+                            Comments ({post.comments.length})
+                          </h4>
+
+                          {/* Comment Input */}
+                          {user ? (
+                            <div className="flex gap-2 mb-4">
+                              <Input
+                                placeholder="Write a comment..."
+                                value={commentingPostId === post.id ? commentContent : ""}
+                                onChange={(e) => {
+                                  setCommentingPostId(post.id);
+                                  setCommentContent(e.target.value);
+                                }}
+                                onFocus={() => setCommentingPostId(post.id)}
+                                className="flex-1 border-border/50"
+                              />
+                              <Button
+                                size="sm"
+                                onClick={() => handleAddComment(post.id)}
+                                disabled={submittingComment || !commentContent.trim()}
+                                className="bg-accent hover:bg-accent/90"
+                              >
+                                <Send className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          ) : (
+                            <p className="text-sm text-muted-foreground mb-4">
+                              <Button variant="link" onClick={() => navigate("/auth")} className="p-0 h-auto text-accent">
+                                Login
+                              </Button>
+                              {" "}to leave a comment.
+                            </p>
+                          )}
+
+                          {/* Comments List */}
+                          <div className="space-y-3 max-h-64 overflow-y-auto">
+                            {post.comments.length > 0 ? (
+                              post.comments.map((comment) => (
+                                <div key={comment.id} className="bg-background/50 p-3 rounded-lg">
+                                  <div className="flex justify-between items-start">
+                                    <div className="flex-1">
+                                      <div className="flex items-center gap-2 text-sm">
+                                        <span className="font-medium text-primary">
+                                          {comment.profiles?.display_name || "Anonymous"}
+                                        </span>
+                                        <span className="text-muted-foreground text-xs">
+                                          {new Date(comment.created_at).toLocaleDateString()}
+                                        </span>
+                                      </div>
+                                      <p className="text-sm text-muted-foreground mt-1">
+                                        {comment.content}
+                                      </p>
+                                    </div>
+                                    {user && (user.id === comment.user_id || userRole === 'admin' || userRole === 'superadmin') && (
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => handleDeleteComment(comment.id, comment.user_id)}
+                                        className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                                      >
+                                        <X className="h-3 w-3" />
+                                      </Button>
+                                    )}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-sm text-muted-foreground text-center py-4">
+                                No comments yet. Be the first to comment!
+                              </p>
+                            )}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))
           ) : (
-            <Card className="text-center py-12 border-primary/20">
+            <Card className="text-center py-16 border-accent/20 bg-gradient-to-br from-card to-accent/5">
               <CardContent>
-                <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-primary mb-2">
-                  No Posts Yet 📝
+                <BookOpen className="h-20 w-20 text-accent/30 mx-auto mb-6" />
+                <h3 className="text-2xl font-orbitron font-bold text-primary mb-3">
+                  No Posts Yet
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground font-exo max-w-md mx-auto">
                   Be the first to share your tech journey with the community! 🌟
                 </p>
               </CardContent>

@@ -1,9 +1,12 @@
-import { Users, Briefcase, Trophy, Star, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Trophy, Sparkles, ExternalLink, Code, Palette, Database, Rocket, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const TechGiants = () => {
   const techGiants = [
@@ -12,14 +15,9 @@ const TechGiants = () => {
       name: "Ebenezer Abegunde",
       position: "Founder & Creative Director",
       company: "Cpaws Studio",
-      achievement: "Web3 Creative Pioneer",
-      image: "/images/Cpaws2.jpg",
       bio: "Exceptional alumnus who excelled in multiple digital creative fields. Built a successful Web3 creative studio that combines cutting-edge technology with stunning visual design.",
       specialties: ["Web Development", "Branding & Graphic Design", "Video Editing", "Web3 Technologies"],
-      yearsOfExperience: 4,
-      projects: 40,
-      awards: 3,
-      business: "Cpaws Studio (Web3 Creative Studio)",
+      years: 4,
       portfolio: "https://www.cpawsstudio.com"
     },
     {
@@ -27,13 +25,9 @@ const TechGiants = () => {
       name: "Eniola Arnold",
       position: "Graphic Artist/Designer",
       company: "GrayPlug",
-      achievement: "Visual Storyteller",
-      image: "/images/Arnold.jpg",
       bio: "Passionate about blending clean layouts with emotional storytelling. Brings creativity from Instagram portfolio (@arnolden_dev), exploring mood, typography, and visual identity.",
-      specialties: ["Graphic Design", "Typography", "Visual Identity", "Branding"],
-      yearsOfExperience: 4,
-      projects: 25,
-      awards: 2,
+      specialties: ["Graphic Design", "Typography", "Visual Identity and branding", "Coding"],
+      years: 2,
       portfolio: "https://www.instagram.com/arnolden_dev"
     },
     {
@@ -41,185 +35,148 @@ const TechGiants = () => {
       name: "Omolayo Ayokanmi (BeeTechHub)",
       position: "Full-Stack Developer",
       company: "BeeTechHub",
-      achievement: "Tech Innovator",
-      image: "/images/BJ2.jpg",
       bio: "Forward-thinking full-stack developer with a strong foundation in HTML, TailwindCSS, JavaScript, PHP, SQL, Python, and Django. Builds smart, user-friendly web applications that combine traditional best practices with cutting-edge technology.",
       specialties: ["Full-Stack Development", "Python/Django", "JavaScript", "PHP", "SQL"],
-      yearsOfExperience: 4,
-      projects: 30,
-      awards: 3,
+      years: 3,
       portfolio: "https://omolayoayokanmi.com.ng/"
-    },
-    {
-      id: 4,
-      name: "Benjamin",
-      position: "Tech Professional",
-      company: "Information coming soon",
-      achievement: "Tech Leader",
-      image: "/placeholder.svg",
-      bio: "Details about Benjamin's achievements and career path will be added soon.",
-      specialties: ["Skills to be updated"],
-      yearsOfExperience: 0,
-      projects: 0,
-      awards: 0,
-      business: "Information coming soon"
     }
   ];
+
+  const getSpecialtyIcon = (specialty: string) => {
+    if (specialty.toLowerCase().includes('web')) return Code;
+    if (specialty.toLowerCase().includes('design') || specialty.toLowerCase().includes('graphic')) return Palette;
+    if (specialty.toLowerCase().includes('data') || specialty.toLowerCase().includes('sql')) return Database;
+    return Rocket;
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <Trophy className="h-12 w-12 text-primary mr-3" />
-            <h1 className="text-4xl font-bold text-primary">Alumni Tech Giants</h1>
+      <div className="container mx-auto px-4 py-24">
+        {/* Header */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="h-5 w-5 text-accent" />
+            <span className="text-accent font-rajdhani font-semibold text-sm uppercase tracking-wider">Alumni Success Stories</span>
+            <Sparkles className="h-5 w-5 text-accent" />
           </div>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Celebrating our exceptional alumni who have made remarkable achievements in the tech industry 
-            and continue to inspire current students with their success stories.
+          <h1 className="text-4xl md:text-5xl font-bold font-orbitron text-primary mb-4">
+            Alumni Tech Giants
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-exo">
+            Celebrating our exceptional alumni who are making waves in the tech industry and inspiring the next generation
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-8 max-w-6xl mx-auto">
+        {/* Alumni Cards - Bigger */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto mb-16">
           {techGiants.map((giant, index) => (
-            <Card key={giant.id} className="overflow-hidden hover:shadow-xl transition-all duration-300">
-              {/* Mobile: Stack layout, Desktop: Side by side */}
-              <div className="flex flex-col md:flex-row">
-                {/* Image Section - Full width on mobile, 1/3 on desktop */}
-                <div className="w-full md:w-1/3">
-                  <div className="h-64 md:h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
-                    {giant.image === "/placeholder.svg" ? (
-                      <div className="w-32 h-32 bg-primary/30 rounded-full flex items-center justify-center">
-                        <Users className="h-16 w-16 text-primary" />
-                      </div>
-                    ) : (
-                      <img 
-                        src={giant.image} 
-                        alt={giant.name}
-                        className="w-full h-full object-contain md:object-cover"
-                      />
-                    )}
-                    <Badge 
-                      variant="secondary" 
-                      className="absolute top-4 right-4 bg-primary/90 text-primary-foreground"
-                    >
-                      #{index + 1}
-                    </Badge>
-                  </div>
-                </div>
+            <motion.div
+              key={giant.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + index * 0.1 }}
+              whileHover={{ y: -10 }}
+            >
+              <Card className="h-full border-border/30 bg-gradient-to-br from-card to-accent/5 hover:border-accent/50 hover:shadow-2xl transition-all duration-300 overflow-hidden">
+                <div className="h-3 bg-gradient-to-r from-accent via-primary to-secondary" />
                 
-                {/* Content Section - Full width on mobile, 2/3 on desktop */}
-                <div className="w-full md:w-2/3 p-6">
-                  <CardHeader className="px-0 pt-0">
-                    <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
-                      <div>
-                        <CardTitle className="text-2xl text-primary mb-1">{giant.name}</CardTitle>
-                        <p className="text-lg font-semibold text-muted-foreground">{giant.position}</p>
-                        <p className="text-sm text-muted-foreground">{giant.company}</p>
-                        {giant.business && giant.business !== "Information coming soon" && (
-                          <p className="text-sm text-accent font-medium mt-1">{giant.business}</p>
-                        )}
+                <CardContent className="p-8">
+                  {/* Big Image */}
+                  <div className="flex justify-center mb-6">
+                    <div className="relative">
+                      <div className={`w-48 h-48 rounded-full overflow-hidden border-4 ${
+                        index === 0 ? 'border-yellow-500' : 'border-accent'
+                      } shadow-2xl`}>
+                        <img 
+                          src={`/images/${index === 0 ? 'Cpaws2' : index === 1 ? 'Arnold' : 'BJ2'}.jpg`} 
+                          alt={giant.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <Badge variant="default" className="text-sm w-fit">
-                        {giant.achievement}
+                      <Badge className={`absolute -bottom-2 -right-2 text-base px-4 py-2 ${
+                        index === 0 ? 'bg-yellow-500 text-yellow-900' : 'bg-accent text-primary'
+                      }`}>
+                        #{giant.id}
                       </Badge>
                     </div>
-                  </CardHeader>
+                  </div>
 
-                  <CardContent className="px-0">
-                    <p className="text-muted-foreground mb-4">{giant.bio}</p>
-                    
-                    <div className="grid md:grid-cols-2 gap-4 mb-6">
-                      <div>
-                        <h4 className="font-semibold text-primary mb-2 flex items-center">
-                          <Star className="h-4 w-4 mr-1" />
-                          Specialties
-                        </h4>
-                        <div className="flex flex-wrap gap-1">
-                          {giant.specialties.map((specialty, idx) => (
-                            <Badge key={idx} variant="outline" className="text-xs">
-                              {specialty}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      {giant.yearsOfExperience > 0 && (
-                        <div className="grid grid-cols-3 gap-4 text-center">
-                          <div className="bg-primary/5 p-3 rounded-lg">
-                            <div className="text-lg font-bold text-primary">{giant.yearsOfExperience}+</div>
-                            <div className="text-xs text-muted-foreground">Years Exp</div>
-                          </div>
-                          <div className="bg-accent/5 p-3 rounded-lg">
-                            <div className="text-lg font-bold text-accent">{giant.projects}+</div>
-                            <div className="text-xs text-muted-foreground">Projects</div>
-                          </div>
-                          <div className="bg-secondary/20 p-3 rounded-lg">
-                            <div className="text-lg font-bold text-secondary-foreground">{giant.awards}</div>
-                            <div className="text-xs text-muted-foreground">Awards</div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                  {/* Info */}
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-bold font-orbitron text-primary mb-2">{giant.name}</h3>
+                    <p className="text-lg font-medium text-accent">{giant.position}</p>
+                    <p className="text-base text-muted-foreground mt-2">{giant.company}</p>
+                    {index === 0 && <p className="text-sm text-muted-foreground">{giant.company} (Web3 Creative Studio)</p>}
+                    {index === 1 && <p className="text-sm text-muted-foreground">Graphic Design / Java</p>}
+                  </div>
 
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                      {giant.yearsOfExperience > 0 ? (
-                        <div className="flex items-center space-x-3">
-                          <Briefcase className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm text-muted-foreground">
-                            {giant.yearsOfExperience} years in industry
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="text-sm text-muted-foreground">
-                          Information coming soon
-                        </div>
-                      )}
-                      
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        disabled={giant.id > 3}
-                        className="w-full md:w-auto"
-                        onClick={() => {
-                          if (giant.portfolio) {
-                            window.open(giant.portfolio, '_blank', 'noopener,noreferrer');
-                          }
-                        }}
-                      >
-                        <ExternalLink className="h-4 w-4 mr-1" />
-                        {giant.id === 1 ? "View Website" : 
-                         giant.id === 2 ? "View Instagram" : 
-                         giant.id === 3 ? "View Portfolio" : "Coming Soon"}
-                      </Button>
+                  <p className="text-base text-muted-foreground text-center mb-6 leading-relaxed">{giant.bio}</p>
+
+                  {/* Specialties */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-center mb-3">
+                      <Badge variant="outline" className="text-sm px-4 py-1">Specialties</Badge>
                     </div>
-                  </CardContent>
-                </div>
-              </div>
-            </Card>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {giant.specialties.slice(0, 3).map((specialty, idx) => {
+                        const Icon = getSpecialtyIcon(specialty);
+                        return (
+                          <Badge key={idx} variant="outline" className="text-sm bg-background/50 px-3 py-1">
+                            <Icon className="h-4 w-4 mr-1" />
+                            {specialty}
+                          </Badge>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Years */}
+                  <div className="flex items-center justify-center text-lg text-muted-foreground mb-6">
+                    <span className="font-bold text-accent text-2xl">{giant.years}+</span>
+                    <span className="ml-3">years experience</span>
+                  </div>
+                  
+                  {/* CTA */}
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-accent/30 text-accent hover:bg-accent/10 text-lg py-6"
+                    onClick={() => window.open(giant.portfolio, '_blank')}
+                  >
+                    <ExternalLink className="h-5 w-5 mr-2" />
+                    {giant.id === 1 ? "View Website" : giant.id === 2 ? "View Instagram" : "View Portfolio"}
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <Card className="max-w-2xl mx-auto bg-primary/5 border-primary/20">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-primary mb-4">Join Our Legacy</h3>
-              <p className="text-muted-foreground mb-4">
+        {/* CTA */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+          <Card className="max-w-3xl mx-auto border-border/30 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10">
+            <CardContent className="p-10 text-center">
+              <Rocket className="h-16 w-16 text-accent mx-auto mb-6" />
+              <h3 className="text-3xl font-bold font-orbitron text-primary mb-4">Join Our Legacy</h3>
+              <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">
                 Be inspired by our alumni success stories and start your own journey in tech. 
                 Your name could be featured here next!
               </p>
-              <div className="flex flex-col md:flex-row justify-center gap-4">
-                <Button variant="outline" className="w-full md:w-auto">
-                  Student Resources
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Button variant="outline" className="border-primary/30 text-lg px-8 py-6" asChild>
+                  <Link to="/resources">
+                    <ArrowRight className="h-5 w-5 mr-2" />
+                    Explore Courses
+                  </Link>
                 </Button>
-                <Button className="w-full md:w-auto">
+                <Button className="bg-accent text-primary hover:bg-accent/90 text-lg px-8 py-6">
+                  <Sparkles className="h-5 w-5 mr-2" />
                   Get Mentorship
                 </Button>
               </div>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
       <Footer />
     </div>

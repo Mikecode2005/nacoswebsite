@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import LeadershipSection from "@/components/LeadershipSection";
+import AdCarousel from "@/components/AdCarousel";
 import DepartmentSection from "@/components/DepartmentSection";
 import EventsCarousel from "@/components/EventsCarousel";
 import GalleryCarousel from "@/components/GalleryCarousel";
@@ -19,6 +20,9 @@ const Index = () => {
       
       {/* Leadership Section */}
       <LeadershipSection />
+      
+      {/* Advertisement Carousel */}
+      <AdCarousel />
       
       {/* Department Section */}
       <DepartmentSection />

@@ -144,6 +144,48 @@ export type Database = {
         }
         Relationships: []
       }
+      ad_carousel: {
+        Row: {
+          id: string
+          title: string
+          subtitle: string | null
+          image_id: string | null
+          image_url: string | null
+          button_text: string | null
+          button_link: string | null
+          display_order: number
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          subtitle?: string | null
+          image_id?: string | null
+          image_url?: string | null
+          button_text?: string | null
+          button_link?: string | null
+          display_order?: number
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          subtitle?: string | null
+          image_id?: string | null
+          image_url?: string | null
+          button_text?: string | null
+          button_link?: string | null
+          display_order?: number
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
