@@ -61,29 +61,32 @@ const AdCarousel = () => {
     setCurrentIndex((prev) => (prev - 1 + ads.length) % ads.length);
   }, [ads.length]);
 
-  // Extract actual URL from link (handles all localhost redirect patterns)
-  const getActualUrl = (url: string): string => {
-    if (!url) return url;
+  // Process button link - extract actual URL from localhost redirects
+  const getButtonLink = (url: string | null): { href: string; isExternal: boolean } => {
+    if (!url) return { href: '#', isExternal: false };
     
-    // Handle localhost:PORT/www.domain.com pattern - extract the domain part
-    // e.g., http://localhost:8080/www.slatelabs.io -> https://www.slatelabs.io
-    const localhostMatch = url.match(/localhost:\d+\/([^\s]+)/);
+    // If contains localhost:PORT/www.domain.com pattern - extract the domain
+    // e.g., "localhost:8080/www.slatelabs.io" -> "https://www.slatelabs.io"
+    const localhostMatch = url.match(/localhost:\d+\/(.+)/i);
     if (localhostMatch) {
-      return 'https://' + localhostMatch[1];
+      return { href: 'https://' + localhostMatch[1], isExternal: true };
     }
     
-    // Handle any localhost:PORT without www (e.g., localhost:8080/slatelabs.io)
-    const localhostNoWwwMatch = url.match(/localhost:\d+\/([a-zA-Z0-9][-a-zA-Z0-9]*\.[a-zA-Z]{2,}[^\s]*)/i);
-    if (localhostNoWwwMatch) {
-      return 'https://' + localhostNoWwwMatch[1];
+    // If already a full HTTP URL - use as is
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return { href: url, isExternal: true };
     }
     
-    // Return as-is for normal URLs
-    return url;
+    // If starts with www. assume https
+    if (url.startsWith('www.')) {
+      return { href: 'https://' + url, isExternal: true };
+    }
+    
+    // Otherwise treat as internal route
+    return { href: url, isExternal: false };
   };
 
   if (loading) {
-
     return (
       <div className="px-4 sm:px-6 lg:px-8 py-6">
         <div className="relative h-[350px] bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 rounded-2xl flex items-center justify-center">
@@ -109,6 +112,7 @@ const AdCarousel = () => {
   }
 
   const currentAd = ads[currentIndex];
+  const { href: buttonHref, isExternal } = getButtonLink(currentAd.button_link);
 
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-6">
@@ -200,9 +204,9 @@ const AdCarousel = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                   >
-                    {currentAd.button_link.startsWith('http') ? (
+                    {isExternal ? (
                       <a
-                        href={getActualUrl(currentAd.button_link)}
+                        href={buttonHref}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center px-6 py-5 bg-accent hover:bg-accent/90 text-primary font-rajdhani font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
@@ -216,7 +220,7 @@ const AdCarousel = () => {
                         size="sm"
                         className="bg-accent hover:bg-accent/90 text-primary font-rajdhani font-semibold px-6 py-5 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
                       >
-                        <Link to={currentAd.button_link}>
+                        <Link to={buttonHref}>
                           {currentAd.button_text}
                           <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
